@@ -1,0 +1,147 @@
+/* ============================================================
+   ملف الترجمة — العربية
+   انسخ إلى: ar.lproj/Localizable.strings
+   ملاحظة: العربية تُكتب من اليمين إلى اليسار (RTL) —
+   يقوم iOS بعكس الواجهة تلقائيًا عند اختيار هذه اللغة.
+   ============================================================ */
+
+/* — الأقسام (علامات التبويب) — */
+"section.france"        = "فرنسا";
+"section.france.sub"    = "الدوري الفرنسي → ناسيونال 2";
+"section.foreign"       = "الخارج";
+"section.foreign.sub"   = "الدوريات الكبرى";
+"section.europe"        = "أوروبا";
+"section.europe.sub"    = "بطولات الأندية الأوروبية";
+"section.nations"       = "المنتخبات";
+"section.nations.sub"   = "المنتخبات الوطنية";
+
+/* — علامات التبويب والفرعية — */
+"tab.live"       = "مباشر";
+"tab.results"    = "النتائج";
+"tab.standings"  = "الترتيب";
+"tab.scorers"    = "الهدافون";
+"tab.rounds"     = "الجولات";
+
+/* — واجهة القسم — */
+"hub.available"  = "متاح";
+"hub.comingSoon" = "قريبًا";
+"hub.empty"      = "لا توجد بطولات في هذا القسم بعد.";
+"badge.soon"     = "قريبًا";
+
+/* — الترتيب (عناوين الأعمدة) — */
+"col.team"          = "الفريق";
+"col.player"        = "اللاعب";
+"col.matchesShort"  = "لعب";
+"col.assistsShort"  = "ت";
+"col.goalsShort"    = "أهداف";
+
+/* — الحالات — */
+"loading"            = "جارٍ التحميل…";
+"empty.noMatch"      = "لم يتم العثور على مباريات";
+"empty.noStandings"  = "الترتيب غير متاح";
+"empty.noScorers"    = "قائمة الهدافين غير متاحة";
+"filter.all"         = "الكل";
+
+/* — الإجراءات — */
+"action.refresh" = "تحديث";
+"action.retry"   = "إعادة المحاولة";
+
+/* — البحث عن فريق — */
+"search.title"        = "بحث";
+"search.placeholder"  = "ابحث عن فريق";
+"search.prompt"       = "اكتب 3 أحرف على الأقل للبحث عن فريق.";
+"search.noResult"     = "لم يتم العثور على أي فريق";
+"search.nationalTeam" = "منتخب وطني";
+"search.upcoming"     = "القادمة";
+"search.recent"       = "المباريات الأخيرة";
+
+/* — شاشة المباشر — */
+"live.title"        = "🔴 مباشر";
+"live.searching"    = "جارٍ البحث عن المباريات المباشرة…";
+"live.emptyTitle"   = "لا توجد مباريات مباشرة";
+"live.emptyBody"    = "ستظهر المباريات الجارية\nهنا تلقائيًا.";
+"live.updatedSecs"  = "منذ %d ثانية";
+"live.updatedMins"  = "منذ %d دقيقة";
+
+/* — صفحة تفاصيل المباراة — */
+"match.title"       = "تفاصيل المباراة";
+"match.summary"     = "الملخص";
+"match.lineups"     = "التشكيلات";
+"match.stats"       = "الإحصائيات";
+"match.noEvents"    = "لا توجد أحداث لهذه المباراة";
+"match.noLineups"   = "التشكيلات غير متاحة";
+"match.noStats"     = "الإحصائيات غير متاحة";
+"match.substitutes" = "البدلاء";
+
+/* — حالات المباراة — */
+"status.finished"   = "انتهت";
+"status.firstHalf"  = "الشوط الأول";
+"status.halftime"   = "الاستراحة";
+"status.secondHalf" = "الشوط الثاني";
+"status.extraTime"  = "وقت إضافي";
+"status.penalties"  = "ركلات الترجيح";
+"status.upcoming"   = "قادمة";
+"status.postponed"  = "مؤجلة";
+"status.cancelled"  = "ملغاة";
+
+/* ============================================================
+   أسماء ووصف البطولات
+   ============================================================ */
+
+/* فرنسا (تسمية 2026-27) */
+"comp.ligue1"           = "الدوري الفرنسي";
+"comp.ligue1.sub"       = "الدرجة الأولى الفرنسية";
+"comp.ligue2"           = "الدوري الفرنسي الثاني";
+"comp.ligue2.sub"       = "الدرجة الثانية الفرنسية";
+"comp.ligue3"           = "الدوري الفرنسي الثالث";
+"comp.ligue3.sub"       = "الدرجة الثالثة (ناسيونال سابقًا)، احترافية منذ 2026-27";
+"comp.national1"        = "ناسيونال 1";
+"comp.national1.sub"    = "المستوى الرابع · 3 مجموعات من 16";
+"comp.national2"        = "ناسيونال 2";
+"comp.national2.sub"    = "المستوى الخامس · 8 مجموعات من 14";
+"comp.coupeFrance"      = "كأس فرنسا";
+"comp.coupeFrance.sub"  = "جميع الأندية، هواة ومحترفون";
+
+/* الخارج */
+"comp.premierLeague"    = "الدوري الإنجليزي الممتاز";
+"comp.premierLeague.sub"= "إنجلترا · الدرجة الأولى";
+"comp.laLiga"           = "الليغا";
+"comp.laLiga.sub"       = "إسبانيا · الدرجة الأولى";
+"comp.serieA"           = "الدوري الإيطالي";
+"comp.serieA.sub"       = "إيطاليا · الدرجة الأولى";
+"comp.bundesliga"       = "البوندسليغا";
+"comp.bundesliga.sub"   = "ألمانيا · الدرجة الأولى";
+"comp.primeiraLiga"     = "الدوري البرتغالي";
+"comp.primeiraLiga.sub" = "البرتغال · الدرجة الأولى";
+"comp.eredivisie"       = "الدوري الهولندي";
+"comp.eredivisie.sub"   = "هولندا · الدرجة الأولى";
+"comp.swissSuperLeague"     = "الدوري السويسري الممتاز";
+"comp.swissSuperLeague.sub" = "سويسرا · الدرجة الأولى";
+"comp.mls"                  = "الدوري الأمريكي";
+"comp.mls.sub"              = "الولايات المتحدة / كندا · الدرجة الأولى";
+"comp.brasileirao"          = "الدوري البرازيلي";
+"comp.brasileirao.sub"      = "البرازيل · الدرجة الأولى";
+"comp.ligaMX"               = "الدوري المكسيكي";
+"comp.ligaMX.sub"           = "المكسيك · الدرجة الأولى";
+"comp.ligaArgentina"        = "الدوري الأرجنتيني";
+"comp.ligaArgentina.sub"    = "الأرجنتين · الدرجة الأولى";
+"comp.j1League"             = "الدوري الياباني";
+"comp.j1League.sub"         = "اليابان · الدرجة الأولى";
+"comp.saudiProLeague"       = "دوري روشن السعودي";
+"comp.saudiProLeague.sub"   = "السعودية · الدرجة الأولى";
+
+/* أوروبا */
+"comp.ucl"       = "دوري أبطال أوروبا";
+"comp.ucl.sub"   = "دوري أبطال أوروبا UEFA";
+"comp.uel"       = "الدوري الأوروبي";
+"comp.uel.sub"   = "الدوري الأوروبي UEFA";
+"comp.uecl"      = "دوري المؤتمر الأوروبي";
+"comp.uecl.sub"  = "دوري المؤتمر الأوروبي UEFA";
+
+/* المنتخبات */
+"comp.nationsLeague"     = "دوري الأمم";
+"comp.nationsLeague.sub" = "دوري الأمم الأوروبية UEFA";
+"comp.euro"              = "بطولة أوروبا";
+"comp.euro.sub"          = "بطولة أمم أوروبا UEFA";
+"comp.worldCup"          = "كأس العالم";
+"comp.worldCup.sub"      = "كأس العالم FIFA";

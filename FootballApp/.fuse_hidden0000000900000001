@@ -1,0 +1,471 @@
+import SwiftUI
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STATS — onglet regroupant plusieurs classements dérivés de données que l'app
+// récupère déjà (aucun appel API supplémentaire) :
+//   • Buteurs / Passeurs / Combo → players/topscorers (fetchTopScorers)
+//   • Meilleures attaques        → standings.all.goals.for
+//   • Meilleures défenses        → standings.all.goals.against
+//   • Séries en cours            → standings.form ("WWDLW")
+//   • Classement à domicile      → standings.home
+//   • Classement à l'extérieur   → standings.away
+//
+// Un menu déroulant en haut sélectionne la statistique affichée. Les tailles de
+// police sont calquées sur ScorerRow / ScorersHeaderView (onglet Buteurs) pour
+// une cohérence visuelle stricte.
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum StatKind: Int, CaseIterable, Identifiable {
+    case scorers, assists, combo, bestAttack, bestDefense, streaks, home, away
+    var id: Int { rawValue }
+
+    var titleKey: String {
+        switch self {
+        case .scorers:     return "stats.scorers"
+        case .assists:     return "stats.assists"
+        case .combo:       return "stats.combo"
+        case .bestAttack:  return "stats.bestAttack"
+        case .bestDefense: return "stats.bestDefense"
+        case .streaks:     return "stats.streaks"
+        case .home:        return "stats.home"
+        case .away:        return "stats.away"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .scorers:     return "soccerball"
+        case .assists:     return "hand.point.up.left.fill"
+        case .combo:       return "sparkles"
+        case .bestAttack:  return "flame.fill"
+        case .bestDefense: return "shield.lefthalf.filled"
+        case .streaks:     return "chart.line.uptrend.xyaxis"
+        case .home:        return "house.fill"
+        case .away:        return "airplane"
+        }
+    }
+
+    /// Vrai si la stat provient des buteurs (players), sinon du classement.
+    var isPlayerStat: Bool { self == .scorers || self == .assists || self == .combo }
+}
+
+struct CompetitionStatsView: View {
+    let competition: Competition
+    var groupApiId: Int? = nil
+
+    @State private var kind: StatKind = .scorers
+    // Données joueurs (buteurs/passeurs/combo) et classement (le reste).
+    @State private var players: [AFPlayerResponse] = []
+    @State private var standings: [AFStandingEntry] = []
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Sélecteur de statistique (menu déroulant compact).
+            Menu {
+                ForEach(StatKind.allCases) { k in
+                    Button {
+                        kind = k
+                    } label: {
+                        Label(L(k.titleKey), systemImage: k.icon)
+                    }
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: kind.icon)
+                    Text(L(kind.titleKey)).fontWeight(.semibold)
+                    Image(systemName: "chevron.down").font(.caption2)
+                    Spacer()
+                }
+                .font(.subheadline)
+                .foregroundColor(competition.color)
+                .padding(.horizontal, 16).padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
+                .background(Color(.secondarySystemBackground))
+            }
+
+            Divider()
+
+            Group {
+                if isLoading {
+                    ProgressView(L("loading")).frame(maxHeight: .infinity)
+                } else if let err = errorMessage {
+                    ErrorView(message: err) { Task { await load() } }
+                } else {
+                    content
+                }
+            }
+        }
+        .task { await load() }
+        .onChange(of: kind) { _, _ in Task { await load() } }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch kind {
+        case .scorers:     playersList(mode: .goals)
+        case .assists:     playersList(mode: .assists)
+        case .combo:       playersList(mode: .combo)
+        case .bestAttack:  teamGoalsList(attack: true)
+        case .bestDefense: teamGoalsList(attack: false)
+        case .streaks:     streaksList
+        case .home:        homeAwayRankingList(home: true)
+        case .away:        homeAwayRankingList(home: false)
+        }
+    }
+
+    // MARK: Buteurs / Passeurs / Combo
+
+    enum PlayerMode { case goals, assists, combo }
+
+    private func sortedPlayers(mode: PlayerMode) -> [AFPlayerResponse] {
+        switch mode {
+        case .goals:   return players.sorted { $0.goals > $1.goals }
+        case .assists: return players.sorted { $0.assists > $1.assists }
+        case .combo:   return players.sorted { ($0.goals + $0.assists) > ($1.goals + $1.assists) }
+        }
+    }
+
+    @ViewBuilder
+    private func playersList(mode: PlayerMode) -> some View {
+        if players.isEmpty {
+            EmptyStateView(icon: "soccerball", text: L("empty.noScorers"))
+        } else {
+            let sorted: [AFPlayerResponse] = sortedPlayers(mode: mode)
+            VStack(spacing: 0) {
+                // En-tête calqué sur ScorersHeaderView ; on met en avant la
+                // colonne pertinente (buts, passes, ou total combiné).
+                StatsPlayerHeader(mode: mode)
+                List(Array(sorted.enumerated()), id: \.element.id) { index, player in
+                    StatsPlayerRow(rank: index + 1, player: player, mode: mode, competition: competition)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                }
+                .listStyle(.plain)
+                .refreshable { await load() }
+            }
+        }
+    }
+
+    // MARK: Meilleures attaques / défenses
+
+    @ViewBuilder
+    private func teamGoalsList(attack: Bool) -> some View {
+        if standings.isEmpty {
+            EmptyStateView(icon: "chart.bar", text: L("empty.noStandings"))
+        } else {
+            // Attaque = buts marqués (desc) ; défense = buts encaissés (asc).
+            let ranked: [AFStandingEntry] = attack
+                ? standings.sorted { $0.all.goals.for > $1.all.goals.for }
+                : standings.sorted { $0.all.goals.against < $1.all.goals.against }
+            VStack(spacing: 0) {
+                // En-tête : # | Équipe | J | (buts)
+                HStack {
+                    Text("#").frame(width: 26, alignment: .center)
+                    Text(L("col.team")).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(L("col.matchesShort")).frame(width: 30, alignment: .center)
+                    Text(L("col.goalsShort")).frame(width: 34, alignment: .center).fontWeight(.bold)
+                }
+                .font(.caption2).foregroundColor(.secondary)
+                .padding(.horizontal, 12).padding(.vertical, 5)
+                .background(Color(.secondarySystemBackground))
+
+                List(Array(ranked.enumerated()), id: \.element.id) { index, e in
+                    let rank = index + 1
+                    HStack {
+                        StatsRankNumber(rank: rank)
+                        TeamLogoView(urlString: e.team.logo, name: e.team.name, size: 18)
+                        Text(e.team.name)
+                            .font(.caption).fontWeight(rank <= 3 ? .semibold : .regular)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(e.all.played)")
+                            .font(.caption).foregroundColor(.secondary)
+                            .frame(width: 30, alignment: .center)
+                        Text("\(attack ? e.all.goals.for : e.all.goals.against)")
+                            .font(.caption).fontWeight(.bold)
+                            .foregroundColor(competition.color)
+                            .frame(width: 34, alignment: .center)
+                    }
+                    .padding(.vertical, 4)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                }
+                .listStyle(.plain)
+                .refreshable { await load() }
+            }
+        }
+    }
+
+    // MARK: Séries en cours (forme)
+
+    @ViewBuilder
+    private var streaksList: some View {
+        if standings.isEmpty {
+            EmptyStateView(icon: "chart.line.uptrend.xyaxis", text: L("empty.noStandings"))
+        } else {
+            // Tri par nombre de victoires dans les 5 derniers matchs (forme).
+            let ranked = standings.sorted { winCount($0.form) > winCount($1.form) }
+            VStack(spacing: 0) {
+                HStack {
+                    Text("#").frame(width: 26, alignment: .center)
+                    Text(L("col.team")).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(L("stats.streaks")).frame(width: 110, alignment: .trailing)
+                }
+                .font(.caption2).foregroundColor(.secondary)
+                .padding(.horizontal, 12).padding(.vertical, 5)
+                .background(Color(.secondarySystemBackground))
+
+                List(Array(ranked.enumerated()), id: \.element.id) { index, e in
+                    let rank = index + 1
+                    HStack {
+                        StatsRankNumber(rank: rank)
+                        TeamLogoView(urlString: e.team.logo, name: e.team.name, size: 18)
+                        Text(e.team.name)
+                            .font(.caption).fontWeight(rank <= 3 ? .semibold : .regular)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        FormBadges(form: e.form)
+                    }
+                    .padding(.vertical, 4)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                }
+                .listStyle(.plain)
+                .refreshable { await load() }
+            }
+        }
+    }
+
+    private func winCount(_ form: String?) -> Int {
+        (form ?? "").filter { $0 == "W" }.count
+    }
+
+    // MARK: Classement à domicile / à l'extérieur (2 rubriques distinctes)
+
+    @ViewBuilder
+    private func homeAwayRankingList(home: Bool) -> some View {
+        if standings.isEmpty {
+            EmptyStateView(icon: home ? "house" : "airplane", text: L("empty.noStandings"))
+        } else {
+            // Tri par points du bloc concerné (V×3 + N), puis diff. de buts.
+            let ranked = standings.sorted { a, b in
+                let ba = home ? a.home : a.away
+                let bb = home ? b.home : b.away
+                let pa = ba.win * 3 + ba.draw
+                let pb = bb.win * 3 + bb.draw
+                if pa != pb { return pa > pb }
+                return (ba.goals.for - ba.goals.against) > (bb.goals.for - bb.goals.against)
+            }
+            VStack(spacing: 0) {
+                // En-tête : # | Équipe | J V N D | Pts
+                HStack {
+                    Text("#").frame(width: 26, alignment: .center)
+                    Text(L("col.team")).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(L("col.matchesShort")).frame(width: 26, alignment: .center)
+                    Text("V").frame(width: 22, alignment: .center)
+                    Text("N").frame(width: 22, alignment: .center)
+                    Text("D").frame(width: 22, alignment: .center)
+                    Text("Pts").frame(width: 30, alignment: .center).fontWeight(.bold)
+                }
+                .font(.caption2).foregroundColor(.secondary)
+                .padding(.horizontal, 12).padding(.vertical, 5)
+                .background(Color(.secondarySystemBackground))
+
+                List(Array(ranked.enumerated()), id: \.element.id) { index, e in
+                    let rank = index + 1
+                    let b = home ? e.home : e.away
+                    HStack {
+                        StatsRankNumber(rank: rank)
+                        TeamLogoView(urlString: e.team.logo, name: e.team.name, size: 18)
+                        Text(e.team.name)
+                            .font(.caption).fontWeight(rank <= 3 ? .semibold : .regular)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(b.played)").font(.caption).foregroundColor(.secondary)
+                            .frame(width: 26, alignment: .center)
+                        Text("\(b.win)").font(.caption).frame(width: 22, alignment: .center)
+                        Text("\(b.draw)").font(.caption).frame(width: 22, alignment: .center)
+                        Text("\(b.lose)").font(.caption).frame(width: 22, alignment: .center)
+                        Text("\(b.win * 3 + b.draw)")
+                            .font(.caption).fontWeight(.bold)
+                            .foregroundColor(competition.color)
+                            .frame(width: 30, alignment: .center)
+                    }
+                    .padding(.vertical, 4)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                }
+                .listStyle(.plain)
+                .refreshable { await load() }
+            }
+        }
+    }
+
+    // MARK: Chargement
+
+    func load() async {
+        isLoading = true; errorMessage = nil
+        do {
+            if kind.isPlayerStat {
+                if let gid = groupApiId {
+                    players = try await FootballAPIService.shared.fetchTopScorers(competition: competition, groupApiId: gid)
+                } else {
+                    players = try await FootballAPIService.shared.fetchTopScorers(competition: competition)
+                }
+            } else {
+                if let gid = groupApiId {
+                    // Surcharge par poule : renvoie déjà une liste plate.
+                    standings = try await FootballAPIService.shared.fetchStandings(competition: competition, groupApiId: gid)
+                } else {
+                    // Surcharge agrégée : tableau de groupes → on aplatit.
+                    let groups = try await FootballAPIService.shared.fetchStandings(competition: competition)
+                    standings = groups.flatMap { $0 }
+                }
+            }
+        } catch { errorMessage = error.localizedDescription }
+        isLoading = false
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Lignes/entêtes joueurs — mêmes tailles de police que ScorerRow (onglet Buteurs)
+// ─────────────────────────────────────────────────────────────────────────────
+
+private struct StatsPlayerHeader: View {
+    let mode: CompetitionStatsView.PlayerMode
+    var body: some View {
+        HStack {
+            Text("#").frame(width: 26, alignment: .center)
+            Text(L("col.player")).frame(maxWidth: .infinity, alignment: .leading)
+            // La colonne « matchs joués » est masquée en mode combo (le total
+            // renvoyé par l'API pour ce classement n'est pas fiable).
+            if mode != .combo {
+                Text(L("col.matchesShort")).frame(width: 30, alignment: .center)
+            }
+            Text(L("col.assistsShort"))
+                .frame(width: 30, alignment: .center)
+                .fontWeight(mode == .assists ? .bold : .regular)
+            Text(L("col.goalsShort"))
+                .frame(width: 34, alignment: .center)
+                .fontWeight(mode == .goals ? .bold : .regular)
+            if mode == .combo {
+                Text(L("stats.comboShort")).frame(width: 34, alignment: .center).fontWeight(.bold)
+            }
+        }
+        .font(.caption2).foregroundColor(.secondary)
+        .padding(.horizontal, 12).padding(.vertical, 5)
+        .background(Color(.secondarySystemBackground))
+    }
+}
+
+private struct StatsPlayerRow: View {
+    let rank: Int
+    let player: AFPlayerResponse
+    let mode: CompetitionStatsView.PlayerMode
+    let competition: Competition
+
+    private var rankColor: Color? {
+        switch rank {
+        case 1: return .yellow
+        case 2: return Color(.systemGray)
+        case 3: return .orange
+        default: return nil
+        }
+    }
+
+    var body: some View {
+        HStack {
+            ZStack {
+                if let c = rankColor { Circle().fill(c.opacity(0.20)).frame(width: 20, height: 20) }
+                Text("\(rank)")
+                    .font(.caption).fontWeight(rank <= 3 ? .bold : .regular)
+                    .foregroundColor(rankColor ?? .secondary)
+            }
+            .frame(width: 26)
+
+            TeamLogoView(urlString: player.statistics.first?.team.logo,
+                         name: player.teamName, size: 18)
+
+            VStack(alignment: .leading, spacing: 1) {
+                Text(player.fullName)
+                    .font(.caption).fontWeight(rank <= 3 ? .semibold : .regular)
+                    .lineLimit(1)
+                Text(player.teamName)
+                    .font(.caption2).foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            // Matchs joués : masqué en mode combo (voir StatsPlayerHeader).
+            if mode != .combo {
+                Text("\(player.appearances)")
+                    .font(.caption).foregroundColor(.secondary)
+                    .frame(width: 30, alignment: .center)
+            }
+            // Passes : mis en avant (couleur compétition) en mode passeurs.
+            Text("\(player.assists)")
+                .font(.caption)
+                .fontWeight(mode == .assists ? .bold : .regular)
+                .foregroundColor(mode == .assists ? competition.color : .secondary)
+                .frame(width: 30, alignment: .center)
+            // Buts : mis en avant en mode buteurs.
+            Text("\(player.goals)")
+                .font(.caption)
+                .fontWeight(mode == .goals ? .bold : .regular)
+                .foregroundColor(mode == .goals ? competition.color : .primary)
+                .frame(width: 34, alignment: .center)
+            // Colonne total combiné (buts + passes) uniquement en mode combo.
+            if mode == .combo {
+                Text("\(player.goals + player.assists)")
+                    .font(.caption).fontWeight(.bold)
+                    .foregroundColor(competition.color)
+                    .frame(width: 34, alignment: .center)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+// Numéro de rang compact (pastille or/argent/bronze pour le podium),
+// calqué sur le style du rang de ScorerRow.
+struct StatsRankNumber: View {
+    let rank: Int
+    private var color: Color? {
+        switch rank {
+        case 1: return .yellow
+        case 2: return Color(.systemGray)
+        case 3: return .orange
+        default: return nil
+        }
+    }
+    var body: some View {
+        ZStack {
+            if let c = color { Circle().fill(c.opacity(0.20)).frame(width: 20, height: 20) }
+            Text("\(rank)")
+                .font(.caption).fontWeight(rank <= 3 ? .bold : .regular)
+                .foregroundColor(color ?? .secondary)
+        }
+        .frame(width: 26)
+    }
+}
+
+// Pastilles de forme (5 derniers matchs) : V vert / N gris / D rouge.
+struct FormBadges: View {
+    let form: String?
+    var body: some View {
+        HStack(spacing: 3) {
+            ForEach(Array((form ?? "").suffix(5).enumerated()), id: \.offset) { _, ch in
+                Text(letter(ch))
+                    .font(.caption2).fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(width: 18, height: 18)
+                    .background(color(ch))
+                    .clipShape(Circle())
+            }
+        }
+    }
+    private func color(_ c: Character) -> Color {
+        switch c { case "W": return .green; case "D": return .gray; case "L": return .red; default: return .gray }
+    }
+    private func letter(_ c: Character) -> String {
+        switch c { case "W": return "V"; case "D": return "N"; case "L": return "D"; default: return "-" }
+    }
+}

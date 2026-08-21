@@ -1,0 +1,145 @@
+/* ============================================================
+   翻訳ファイル — 日本語
+   コピー先: ja.lproj/Localizable.strings
+   ============================================================ */
+
+/* — セクション（タブ）— */
+"section.france"        = "フランス";
+"section.france.sub"    = "リーグ・アン → ナシオナル2";
+"section.foreign"       = "海外";
+"section.foreign.sub"   = "主要リーグ";
+"section.europe"        = "ヨーロッパ";
+"section.europe.sub"    = "欧州クラブ大会";
+"section.nations"       = "代表";
+"section.nations.sub"   = "各国代表";
+
+/* — タブ＆サブタブ — */
+"tab.live"       = "ライブ";
+"tab.results"    = "結果";
+"tab.standings"  = "順位表";
+"tab.scorers"    = "得点ランキング";
+"tab.rounds"     = "節";
+
+/* — セクションハブ — */
+"hub.available"  = "利用可能";
+"hub.comingSoon" = "近日公開";
+"hub.empty"      = "このセクションにはまだ大会がありません。";
+"badge.soon"     = "近日";
+
+/* — 順位表（列見出し）— */
+"col.team"          = "チーム";
+"col.player"        = "選手";
+"col.matchesShort"  = "試";
+"col.assistsShort"  = "A";
+"col.goalsShort"    = "得点";
+
+/* — 状態 — */
+"loading"            = "読み込み中…";
+"empty.noMatch"      = "試合が見つかりません";
+"empty.noStandings"  = "順位表は利用できません";
+"empty.noScorers"    = "得点ランキングは利用できません";
+"filter.all"         = "すべて";
+
+/* — アクション — */
+"action.refresh" = "更新";
+"action.retry"   = "再試行";
+
+/* — チーム検索 — */
+"search.title"        = "検索";
+"search.placeholder"  = "チームを検索";
+"search.prompt"       = "チームを検索するには3文字以上入力してください。";
+"search.noResult"     = "チームが見つかりません";
+"search.nationalTeam" = "代表チーム";
+"search.upcoming"     = "今後の試合";
+"search.recent"       = "最近の試合";
+
+/* — ライブ画面 — */
+"live.title"        = "🔴 ライブ";
+"live.searching"    = "ライブ中の試合を検索中…";
+"live.emptyTitle"   = "ライブ中の試合はありません";
+"live.emptyBody"    = "進行中の試合は\nここに自動的に表示されます。";
+"live.updatedSecs"  = "%d秒前";
+"live.updatedMins"  = "%d分前";
+
+/* — 試合詳細ページ — */
+"match.title"       = "試合詳細";
+"match.summary"     = "概要";
+"match.lineups"     = "スターティングメンバー";
+"match.stats"       = "スタッツ";
+"match.noEvents"    = "この試合のイベントはありません";
+"match.noLineups"   = "メンバーは利用できません";
+"match.noStats"     = "スタッツは利用できません";
+"match.substitutes" = "控え選手";
+
+/* — 試合の状態 — */
+"status.finished"   = "試合終了";
+"status.firstHalf"  = "前半";
+"status.halftime"   = "ハーフタイム";
+"status.secondHalf" = "後半";
+"status.extraTime"  = "延長";
+"status.penalties"  = "PK戦";
+"status.upcoming"   = "開催予定";
+"status.postponed"  = "延期";
+"status.cancelled"  = "中止";
+
+/* ============================================================
+   大会名＆説明
+   ============================================================ */
+
+/* フランス（2026-27 の名称）*/
+"comp.ligue1"           = "リーグ・アン";
+"comp.ligue1.sub"       = "フランス1部";
+"comp.ligue2"           = "リーグ・ドゥ";
+"comp.ligue2.sub"       = "フランス2部";
+"comp.ligue3"           = "リーグ・トロワ";
+"comp.ligue3.sub"       = "3部（旧ナシオナル）、2026-27よりプロ化";
+"comp.national1"        = "ナシオナル1";
+"comp.national1.sub"    = "4部・16チーム3グループ";
+"comp.national2"        = "ナシオナル2";
+"comp.national2.sub"    = "5部・14チーム8グループ";
+"comp.coupeFrance"      = "クープ・ド・フランス";
+"comp.coupeFrance.sub"  = "アマチュア・プロ全クラブ";
+
+/* 海外 */
+"comp.premierLeague"    = "プレミアリーグ";
+"comp.premierLeague.sub"= "イングランド・1部";
+"comp.laLiga"           = "ラ・リーガ";
+"comp.laLiga.sub"       = "スペイン・1部";
+"comp.serieA"           = "セリエA";
+"comp.serieA.sub"       = "イタリア・1部";
+"comp.bundesliga"       = "ブンデスリーガ";
+"comp.bundesliga.sub"   = "ドイツ・1部";
+"comp.primeiraLiga"     = "プリメイラ・リーガ";
+"comp.primeiraLiga.sub" = "ポルトガル・1部";
+"comp.eredivisie"       = "エールディヴィジ";
+"comp.eredivisie.sub"   = "オランダ・1部";
+"comp.swissSuperLeague"     = "スーパーリーグ";
+"comp.swissSuperLeague.sub" = "スイス・1部";
+"comp.mls"                  = "MLS";
+"comp.mls.sub"              = "アメリカ／カナダ・1部";
+"comp.brasileirao"          = "ブラジル全国選手権";
+"comp.brasileirao.sub"      = "ブラジル・セリエA";
+"comp.ligaMX"               = "リーガMX";
+"comp.ligaMX.sub"           = "メキシコ・1部";
+"comp.ligaArgentina"        = "リーガ・プロフェシオナル";
+"comp.ligaArgentina.sub"    = "アルゼンチン・1部";
+"comp.j1League"             = "J1リーグ";
+"comp.j1League.sub"         = "日本・1部";
+"comp.saudiProLeague"       = "サウジ・プロリーグ";
+"comp.saudiProLeague.sub"   = "サウジアラビア・1部";
+
+/* ヨーロッパ */
+"comp.ucl"       = "チャンピオンズリーグ";
+"comp.ucl.sub"   = "UEFAチャンピオンズリーグ";
+"comp.uel"       = "ヨーロッパリーグ";
+"comp.uel.sub"   = "UEFAヨーロッパリーグ";
+"comp.uecl"      = "カンファレンスリーグ";
+"comp.uecl.sub"  = "UEFAヨーロッパカンファレンスリーグ";
+
+/* 代表 */
+"comp.nationsLeague"     = "ネーションズリーグ";
+"comp.nationsLeague.sub" = "UEFAネーションズリーグ";
+"comp.euro"              = "ユーロ";
+"comp.euro.sub"          = "UEFA欧州選手権";
+"comp.worldCup"          = "ワールドカップ";
+"comp.worldCup.sub"      = "FIFAワールドカップ";

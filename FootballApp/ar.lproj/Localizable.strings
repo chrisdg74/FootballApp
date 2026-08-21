@@ -1,0 +1,810 @@
+/* ============================================================
+   ملف الترجمة — العربية
+   انسخ إلى: ar.lproj/Localizable.strings
+   ملاحظة: العربية تُكتب من اليمين إلى اليسار (RTL) —
+   يقوم iOS بعكس الواجهة تلقائيًا عند اختيار هذه اللغة.
+   ============================================================ */
+
+/* — الأقسام (علامات التبويب) — */
+"competitions.title"    = "المسابقات";
+"seg.championships"     = "الدوريات";
+"seg.europeanCups"      = "الكؤوس الأوروبية";
+"seg.nations"           = "المنتخبات";
+"seg.nations.full"      = "المنتخبات الوطنية";
+"seg.friendlies"        = "مباريات ودية";
+"seg.cups"              = "الكؤوس";
+"banner.nations.sub"    = "المنتخبات الوطنية للكرة";
+"zone.france.sub"       = "الدوري الفرنسي → ناسيونال 2";
+"zone.europe.sub"       = "الدوريات الكبرى";
+"zone.america.sub"      = "دوريات أمريكا";
+"zone.asia.sub"         = "دوريات آسيا";
+"zone.middleEast.sub"   = "دوريات الشرق الأوسط";
+"zone.world"            = "العالم";
+"zone.world.sub"        = "أمريكا وآسيا والشرق الأوسط";
+"section.france"        = "فرنسا";
+"section.france.sub"    = "الدوري الفرنسي → ناسيونال 2";
+"section.foreign"       = "دولي";
+"section.foreign.sub"   = "الدوريات الكبرى";
+"continent.europe"      = "أوروبا";
+"continent.america"     = "أمريكا";
+"continent.asia"        = "آسيا";
+"continent.middleEast"  = "الشرق الأوسط";
+"section.europe"        = "أوروبا";
+"section.europe.sub"    = "بطولات الأندية الأوروبية";
+"section.nations"       = "المنتخبات";
+"section.nations.sub"   = "المنتخبات الوطنية";
+
+/* — علامات التبويب والفرعية — */
+"tab.live"       = "مباشر";
+"tab.results"    = "النتائج";
+"tab.standings"  = "الترتيب";
+"tab.scorers"    = "الهدافون";
+"tab.stats"      = "إحصائيات";
+"tab.rounds"     = "الجولات";
+
+/* — القوائم الفرعية لعلامة تبويب الإحصائيات — */
+"stats.scorers"     = "الهدافون";
+"stats.notStarted"  = "لم يبدأ الموسم بعد";
+"stats.assists"     = "صانعو الأهداف";
+"stats.combo"       = "أهداف + تمريرات حاسمة";
+"stats.comboShort"  = "هـ+ت";
+"stats.bestAttack"  = "أفضل خطوط الهجوم";
+"stats.bestDefense" = "أفضل خطوط الدفاع";
+"stats.streaks"     = "الأداء الحالي";
+"stats.home"        = "ترتيب على أرضه";
+"stats.away"        = "ترتيب خارج أرضه";
+"stats.fairPlay"    = "اللعب النظيف";
+"col.pointsShort"   = "نقاط";
+"empty.noFairPlay"  = "لا تتوفر بيانات البطاقات";
+"fairPlay.note"     = "الاحتساب: بطاقة صفراء = نقطة، حمراء = 3 نقاط. الفرق الأكثر روحًا رياضية (أقل النقاط) في الصدارة.";
+"fairPlay.euroPartial" = "الكؤوس الأوروبية: تُحتسب البطاقات في مرحلة الدوري / المجموعات فقط.";
+
+/* — مواجهات الذهاب والإياب (الكؤوس الأوروبية) — */
+"tie.aggregate"     = "المجموع";
+
+/* — واجهة القسم — */
+"hub.available"  = "متاح";
+"hub.comingSoon" = "قريبًا";
+"hub.empty"      = "لا توجد بطولات في هذا القسم بعد.";
+"badge.soon"     = "قريبًا";
+
+/* — الترتيب (عناوين الأعمدة) — */
+"col.team"          = "الفريق";
+"standings.group"   = "المجموعة";
+"phase.select"       = "اختر مرحلة";
+"phase.groups"       = "دور المجموعات";
+"phase.qualifiers" = "التصفيات";
+
+"phase.pastEdition" = "النسخة الأخيرة";
+"phase.pastEdition.dates" = "منافسة أُقيمت من %1$@ إلى %2$@.";
+"conf.europe" = "أوروبا";
+"conf.southAmerica" = "أمريكا الجنوبية";
+"conf.africa" = "أفريقيا";
+"conf.asia" = "آسيا";
+"conf.concacaf" = "الكونكاكاف";
+"conf.oceania" = "أوقيانوسيا";
+"phase.playoff"      = "الملحق";
+"phase.accessPlayoff" = "ملحق التأهل";
+"phase.qualif3"      = "الدور التمهيدي الثالث";
+"phase.qualif2"      = "الدور التمهيدي الثاني";
+"phase.qualif1"      = "الدور التمهيدي الأول";
+"phase.leg1"         = "مباراة الذهاب";
+"phase.leg2"         = "مباراة الإياب";
+"phase.leg1Short"    = "ذهاب";
+"phase.leg2Short"    = "إياب";
+"phase.explain.knockoutPlayoff" = "الملحق: تتواجه الفرق من المركز التاسع إلى الرابع والعشرين في مرحلة الدوري ذهابًا وإيابًا للوصول إلى دور الستة عشر.";
+"phase.explain.accessPlayoff" = "ملحق التأهل: آخر دور بنظام الذهاب والإياب للتأهل إلى مرحلة الدوري.";
+"phase.explain.qualifying" = "دور تمهيدي يُلعب ذهابًا وإيابًا؛ يتأهل الفائز إلى الدور التالي.";
+"phase.explain.twoLegged" = "مواجهة من مباراتي ذهاب وإياب؛ يتأهل الفائز بمجموع المباراتين.";
+"phase.round32"      = "دور الـ32";
+"phase.round16"      = "دور الـ16";
+"phase.quarter"      = "ربع النهائي";
+"phase.semi"         = "نصف النهائي";
+"phase.thirdPlace"   = "المركز الثالث";
+"phase.final"        = "النهائي";
+"col.player"        = "اللاعب";
+"col.matchesShort"  = "لعب";
+"col.assistsShort"  = "ت";
+"col.goalsShort"    = "أهداف";
+
+/* — الحالات — */
+"loading"            = "جارٍ التحميل…";
+"empty.noMatch"      = "لم يتم العثور على مباريات";
+"matches.upcomingRound" = "الجولة القادمة";
+"empty.noStandings"  = "الترتيب غير متاح";
+"empty.noScorers"    = "قائمة الهدافين غير متاحة";
+"filter.all"         = "الكل";
+
+/* — الإجراءات — */
+"action.refresh" = "تحديث";
+"action.retry"   = "إعادة المحاولة";
+
+/* — البحث عن فريق — */
+"search.title"        = "بحث";
+"search.placeholder"  = "ناد أو لاعب أو منتخب أو مسابقة";
+"search.prompt"       = "اكتب 3 أحرف على الأقل للبحث عن ناد أو لاعب أو منتخب وطني.";
+"search.noResult"     = "لا توجد نتائج";
+"search.section.teams"   = "الفرق";
+"search.section.players" = "اللاعبون";
+"search.nationalTeam" = "منتخب وطني";
+"search.upcoming"     = "القادمة";
+"search.recent"       = "المباريات الأخيرة";
+
+/* — المفضلة — */
+"favorites.title"  = "المفضلة";
+"favorites.empty"  = "لا توجد فرق مفضلة بعد. اضغط على ⭐ لإضافة فريق.";
+"favorites.add"    = "إضافة إلى المفضلة";
+"favorites.remove" = "إزالة من المفضلة";
+"favorites.clubs"   = "الأندية";
+"favorites.players" = "اللاعبون";
+"favorites.nations" = "المنتخبات";
+"favorites.competitions" = "المسابقات";
+"favorites.comps.leagues" = "الدوريات";
+"favorites.comps.cups" = "الكؤوس";
+"favorites.comps.nations" = "المنتخبات";
+"favorites.clubs.empty"   = "لا توجد أندية مفضلة. اضغط ⭐ على نادٍ لإضافته.";
+"favorites.players.empty" = "لا يوجد لاعبون متابَعون. اضغط ⭐ على لاعب لإضافته.";
+"favorites.nations.empty" = "لا توجد منتخبات مفضلة. اضغط ⭐ على منتخب لإضافته.";
+"player.follow"     = "متابعة هذا اللاعب";
+"player.unfollow"   = "إلغاء المتابعة";
+"settings.title"    = "الإعدادات";
+"settings.language" = "اللغة";
+"settings.language.system" = "لغة النظام";
+"settings.language.note" = "تُطبّق اللغة فوراً. أعد تشغيل التطبيق للتبديل الكامل (تنسيقات تاريخ النظام).";
+"settings.api" = "تشخيص واجهة API";
+"settings.api.remaining" = "الحصة اليومية المتبقية";
+"settings.api.session" = "طلبات هذه الجلسة";
+"settings.api.note" = "الحصة اليومية كما يوفّرها خادم API-Football (تُعاد كل ليلة). الطلبات المخدومة من الذاكرة المؤقتة لا تُحتسب.";
+"common.done"       = "تم";
+
+/* — لعبة الفانتازي — */
+"fantasy.title"         = "فريقي";
+"fantasy.points"        = "النقاط";
+"fantasy.budgetLeft"    = "الميزانية المتبقية";
+"fantasy.squadCount"    = "اللاعبون";
+"fantasy.addPlayer"     = "إضافة لاعب";
+"fantasy.editSquad"     = "تعديل الفريق";
+"fantasy.emptyHint"     = "كوّن فريقًا من 5 لاعبين ضمن ميزانيتك. يكسب لاعبوك النقاط حسب أدائهم الحقيقي: هدف ×5، تمريرة حاسمة ×3، مباراة ×1.";
+"fantasy.choosePlayers" = "اختر اللاعبين";
+"fantasy.searchPlayer"  = "ابحث عن لاعب أو نادٍ";
+"fantasy.ptsShort"      = "نقطة";
+"fantasy.creditsShort"  = "رصيد";
+"fantasy.done"          = "تم";
+"fantasy.noPlayers"    = "لا يوجد لاعبون متاحون بعد. ستظهر بيانات الدوري الفرنسي عند بدء الموسم.";
+"pos.goalkeeper"        = "حراس المرمى";
+"pos.defender"          = "المدافعون";
+"pos.midfielder"        = "لاعبو الوسط";
+"pos.attacker"          = "المهاجمون";
+"pos.unknown"           = "أخرى";
+
+/* — شاشة المباشر — */
+"live.title"        = "🔴 مباشر";
+"live.searching"    = "جارٍ البحث عن المباريات المباشرة…";
+"live.emptyTitle"   = "لا توجد مباريات مباشرة";
+"live.emptyBody"    = "ستظهر المباريات الجارية\nهنا تلقائيًا.";
+"upcoming.title"      = "القادمة";
+"upcoming.emptyTitle" = "لا توجد مباريات قادمة";
+"upcoming.emptyBody"  = "ستظهر هنا مباريات\nالأيام الـ5 القادمة.";
+"day.today"           = "اليوم";
+"day.tomorrow"        = "غدًا";
+"live.updatedSecs"  = "منذ %d ثانية";
+"live.updatedMins"  = "منذ %d دقيقة";
+
+/* الشاشة الرئيسية (علامة تبويب المباشر المحسّنة) */
+"home.greeting.morning"   = "صباح الخير 👋";
+"home.greeting.afternoon" = "مساء الخير 👋";
+"home.greeting.evening"   = "مساء الخير 👋";
+"home.summary.total"      = "%d مباراة اليوم";
+"home.summary.live"       = "%d مباراة اليوم · %d مباشر";
+"home.ai.title"           = "اسأل أي شيء عن كرة القدم";
+"home.ai.subtitle"        = "النتائج، الترتيب، اللاعبون… اسأل المساعد";
+"home.ai.prefill"         = "ما هي المباريات المهمة اليوم؟";
+"home.next.title" = "المباريات القادمة لفرقي المفضلة";
+"home.live.title" = "مباشر الآن";
+"status.halftime.short" = "الشوط";
+"status.penalties.short" = "ركلات";
+"hub.prompt.champ" = "اختر دوريًا لعرض كل البيانات";
+"hub.prompt.cups" = "اختر كأسًا لعرض كل البيانات";
+"hub.prompt.nations" = "اختر بطولة لعرض كل البيانات";
+"home.next.clubs" = "الأندية";
+"home.next.players" = "اللاعبون";
+"home.next.clubs.empty" = "لا مباريات قادمة لأنديتك المفضلة.";
+"home.next.none" = "لا مباريات قادمة لهذا المفضّل.";
+"home.next.players.empty" = "لا مباريات قادمة للاعبين الذين تتابعهم.";
+"home.next.nations"       = "المنتخبات";
+"home.next.nations.empty" = "لا مباريات قادمة لمنتخباتك المفضلة.";
+"home.next.countdownDays" = "%d ي · %d س %d د";
+"home.next.kickoffNow" = "صافرة البداية وشيكة";
+"home.next.vs" = "ضد";
+
+/* — شريط التواريخ + حالات المباشر — */
+"day.todayShort"       = "اليوم";
+"day.yesterdayShort"   = "أمس";
+"day.tomorrowShort"    = "غدًا";
+"live.noFollowTitle"   = "لا توجد مسابقات متابَعة";
+"live.noFollowBody"    = "المس النجمة على مسابقة\nلمتابعتها هنا.";
+"live.noMatchDayTitle" = "لا مباريات في هذا اليوم";
+"live.noMatchDayBody"  = "اختر يومًا آخر من\nشريط التواريخ أعلاه.";
+"live.showAll" = "عرض الكل";
+"live.showAll.note" = "يحمّل أيضًا المسابقات التي لا تتابعها (طلبات API أكثر).";
+"live.noFollowedTitle" = "لا شيء في مفضّلاتك اليوم";
+"live.noFollowedBody" = "لا مباريات من المسابقات التي تتابعها اليوم. يمكنك مع ذلك عرض مباريات الدوريات الأخرى.";
+"live.noMatchAnywhereTitle" = "لا مباراة لمشاهدتها اليوم";
+"live.noMatchAnywhereBody" = "لا توجد مباريات مجدولة في هذا اليوم. عد لاحقًا أو اختر يومًا آخر.";
+"live.showOtherLeagues" = "عرض الدوريات الأخرى";
+"live.followHint" = "تُعرض جميع المسابقات. لعرض ما يهمّك فقط، حدّدها من المفضلة ← المسابقات.";
+"status.liveShort"     = "مباشر";
+"status.halftimeShort" = "الشوط";
+"status.finishedShort" = "انتهت";
+"follow.add"           = "متابعة";
+"follow.remove"        = "إلغاء المتابعة";
+
+/* — صفحة تفاصيل المباراة — */
+"match.title"       = "تفاصيل المباراة";
+"match.summary"     = "الملخص";
+"match.lineups"     = "التشكيلات";
+"match.stats"       = "الإحصائيات";
+"match.noEvents"    = "لا توجد أحداث لهذه المباراة";
+"match.noLineups"   = "التشكيلات غير متاحة";
+"match.noStats"     = "الإحصائيات غير متاحة";
+"match.substitutes" = "البدلاء";
+"match.startingXI"  = "التشكيلة الأساسية";
+"match.info"        = "معلومات المباراة";
+"match.sec.goals" = "الأهداف";
+"match.sec.cards" = "البطاقات";
+"match.sec.subs"  = "التبديلات";
+"goal.penalty"    = "(ركلة جزاء)";
+"goal.ownGoal"    = "(هدف عكسي)";
+"match.referee"   = "الحكم:";
+
+/* — أنواع إحصائيات المباراة — */
+"stat.possession"     = "الاستحواذ";
+"stat.xg"             = "الأهداف المتوقعة (xG)";
+"stat.shotsTotal"     = "إجمالي التسديدات";
+"stat.shotsOn"        = "تسديدات على المرمى";
+"stat.shotsOff"       = "تسديدات خارج المرمى";
+"stat.shotsBlocked"   = "تسديدات مصدودة";
+"stat.shotsInside"    = "تسديدات داخل المنطقة";
+"stat.shotsOutside"   = "تسديدات خارج المنطقة";
+"stat.saves"          = "تصديات الحارس";
+"stat.passesTotal"    = "إجمالي التمريرات";
+"stat.passesAccurate" = "تمريرات ناجحة";
+"stat.passesPct"      = "نسبة نجاح التمرير";
+"stat.fouls"          = "الأخطاء";
+"stat.corners"        = "الركنيات";
+"stat.offsides"       = "التسلل";
+"stat.yellow"         = "بطاقات صفراء";
+"stat.red"            = "بطاقات حمراء";
+
+/* — حالات المباراة — */
+"status.finished"   = "انتهت";
+"status.firstHalf"  = "الشوط الأول";
+"status.halftime"   = "الاستراحة";
+"status.secondHalf" = "الشوط الثاني";
+"status.extraTime"  = "وقت إضافي";
+"status.penalties"  = "ركلات الترجيح";
+"status.upcoming"   = "قادمة";
+"status.postponed"  = "مؤجلة";
+"status.cancelled"  = "ملغاة";
+
+/* ============================================================
+   أسماء ووصف البطولات
+   ============================================================ */
+
+/* فرنسا (تسمية 2026-27) */
+"comp.ligue1"           = "الدوري الفرنسي";
+"comp.ligue1.sub"       = "الدرجة الأولى الفرنسية";
+"comp.ligue2"           = "الدوري الفرنسي الثاني";
+"comp.ligue2.sub"       = "الدرجة الثانية الفرنسية";
+"comp.ligue3"           = "الدوري الفرنسي الثالث";
+"comp.ligue3.sub"       = "الدرجة الثالثة (ناسيونال سابقًا)، احترافية منذ 2026-27";
+"comp.national1"        = "ناسيونال 1";
+"comp.national1.sub"    = "المستوى الرابع · 3 مجموعات من 16";
+"comp.national2"        = "ناسيونال 2";
+"comp.national2.sub"    = "المستوى الخامس · 8 مجموعات من 14";
+"comp.tropheeChampions"     = "درع الأبطال";
+"comp.tropheeChampions.sub" = "بطل الدوري ضد الفائز بالكأس";
+"comp.coupeFrance"      = "كأس فرنسا";
+"comp.coupeFrance.sub"  = "جميع الأندية، هواة ومحترفون";
+"comp.feminine"         = "Arkema Première Ligue";
+"comp.feminine.sub"     = "الدرجة الأولى للسيدات في فرنسا";
+
+/* الخارج */
+"comp.premierLeague"    = "الدوري الإنجليزي الممتاز";
+"comp.premierLeague.sub"= "إنجلترا · الدرجة الأولى";
+"comp.laLiga"           = "الليغا";
+"comp.laLiga.sub"       = "إسبانيا · الدرجة الأولى";
+"comp.serieA"           = "الدوري الإيطالي";
+"comp.serieA.sub"       = "إيطاليا · الدرجة الأولى";
+"comp.bundesliga"       = "البوندسليغا";
+"comp.bundesliga.sub"   = "ألمانيا · الدرجة الأولى";
+"comp.primeiraLiga"     = "الدوري البرتغالي";
+"comp.primeiraLiga.sub" = "البرتغال · الدرجة الأولى";
+"comp.eredivisie"       = "الدوري الهولندي";
+"comp.eredivisie.sub"   = "هولندا · الدرجة الأولى";
+"comp.superLig"         = "السوبر ليغ";
+"comp.superLig.sub"     = "تركيا · الدرجة الأولى";
+"comp.swissSuperLeague"     = "الدوري السويسري الممتاز";
+"comp.swissSuperLeague.sub" = "سويسرا · الدرجة الأولى";
+"comp.mls"                  = "الدوري الأمريكي";
+"comp.mls.sub"              = "الولايات المتحدة / كندا · الدرجة الأولى";
+"comp.brasileirao"          = "الدوري البرازيلي";
+"comp.brasileirao.sub"      = "البرازيل · الدرجة الأولى";
+"comp.ligaMX"               = "الدوري المكسيكي";
+"comp.ligaMX.sub"           = "المكسيك · الدرجة الأولى";
+"comp.ligaArgentina"        = "الدوري الأرجنتيني";
+"comp.ligaArgentina.sub"    = "الأرجنتين · الدرجة الأولى";
+"comp.j1League"             = "الدوري الياباني";
+"comp.j1League.sub"         = "اليابان · الدرجة الأولى";
+"comp.saudiProLeague"       = "دوري روشن السعودي";
+"comp.saudiProLeague.sub"   = "السعودية · الدرجة الأولى";
+
+/* أوروبا */
+"comp.ucl"       = "دوري أبطال أوروبا";
+"comp.ucl.sub"   = "دوري أبطال أوروبا UEFA";
+"comp.uel"       = "الدوري الأوروبي";
+"comp.uel.sub"   = "الدوري الأوروبي UEFA";
+"comp.uecl"      = "دوري المؤتمر الأوروبي";
+"comp.uecl.sub"  = "دوري المؤتمر الأوروبي UEFA";
+"comp.uefaSuperCup"     = "كأس السوبر الأوروبي";
+"comp.uefaSuperCup.sub" = "UEFA Super Cup";
+
+/* — تبويب الكؤوس: العائلات + البلدان — */
+"cup.national" = "محلية";
+"cup.europe"   = "أوروبا";
+"cup.world"    = "العالم";
+"country.england"     = "إنجلترا";
+"country.spain"       = "إسبانيا";
+"country.italy"       = "إيطاليا";
+"country.germany"     = "ألمانيا";
+"country.portugal"    = "البرتغال";
+"country.switzerland" = "سويسرا";
+
+/* — الكؤوس المحلية للدول — */
+"comp.faCup"                = "كأس الاتحاد الإنجليزي";
+"comp.faCup.sub"            = "FA Cup";
+"comp.carabaoCup"           = "كأس الرابطة الإنجليزية";
+"comp.carabaoCup.sub"       = "Carabao Cup";
+"comp.communityShield"      = "درع المجتمع";
+"comp.communityShield.sub"  = "Community Shield";
+"comp.copaDelRey"           = "كأس ملك إسبانيا";
+"comp.copaDelRey.sub"       = "Copa del Rey";
+"comp.supercopaEspana"      = "كأس السوبر الإسباني";
+"comp.supercopaEspana.sub"  = "Supercopa de España";
+"comp.coppaItalia"          = "كأس إيطاليا";
+"comp.coppaItalia.sub"      = "Coppa Italia";
+"comp.supercoppaItaliana"     = "كأس السوبر الإيطالي";
+"comp.supercoppaItaliana.sub" = "Supercoppa Italiana";
+"comp.dfbPokal"             = "كأس ألمانيا";
+"comp.dfbPokal.sub"         = "DFB-Pokal";
+"comp.dflSupercup"          = "كأس السوبر الألماني";
+"comp.dflSupercup.sub"      = "DFL-Supercup";
+"comp.tacaPortugal"         = "كأس البرتغال";
+"comp.tacaPortugal.sub"     = "Taça de Portugal";
+"comp.supertacaPortugal"    = "كأس السوبر البرتغالي";
+"comp.supertacaPortugal.sub" = "Supertaça";
+"comp.schweizerCup"         = "كأس سويسرا";
+"comp.schweizerCup.sub"     = "Schweizer Cup";
+
+/* — الكؤوس العالمية / القارية (الأندية) — */
+"comp.libertadores"           = "كأس ليبرتادوريس";
+"comp.libertadores.sub"       = "CONMEBOL Libertadores";
+"comp.sudamericana"           = "كأس سودأمريكانا";
+"comp.sudamericana.sub"       = "CONMEBOL Sudamericana";
+"comp.clubWorldCup"           = "كأس العالم للأندية";
+"comp.clubWorldCup.sub"       = "FIFA Club World Cup";
+"comp.cafChampionsLeague"     = "دوري أبطال أفريقيا";
+"comp.cafChampionsLeague.sub" = "CAF Champions League";
+"comp.afcChampionsLeague"     = "دوري أبطال آسيا";
+"comp.afcChampionsLeague.sub" = "AFC Champions League Elite";
+
+/* المنتخبات */
+"comp.nationsLeague"     = "دوري الأمم";
+"comp.nationsLeague.sub" = "دوري الأمم الأوروبية UEFA";
+"comp.euro"              = "بطولة أوروبا";
+"comp.euro.sub"          = "بطولة أمم أوروبا UEFA";
+"comp.worldCup"          = "كأس العالم";
+"comp.worldCup.sub"      = "كأس العالم FIFA";
+
+/* — أسماء الفرق المترجمة (الكؤوس الأوروبية) — */
+"team.spartaPrague" = "سبارتا براغ";
+"team.slaviaPrague" = "سلافيا براغ";
+"team.viktoriaPlzen" = "فيكتوريا بلزن";
+"team.bayernMunich" = "بايرن ميونخ";
+"team.fcKoln" = "كولن";
+"team.rapidVienna" = "رابيد فيينا";
+"team.austriaVienna" = "أوستريا فيينا";
+"team.redStarBelgrade" = "النجم الأحمر بلغراد";
+"team.sportingLisbon" = "سبورتينغ لشبونة";
+"team.clubBruges" = "كلوب بروج";
+"team.olympiacos" = "أولمبياكوس";
+
+// ── Enjeux de classement (codes couleur) ──
+"phase.tab.phases"       = "الأدوار";
+"stake.legend"           = "دليل الألوان";
+"stake.champion"         = "البطل";
+"stake.championsLeague"  = "دوري الأبطال";
+"stake.championsLeagueQ" = "تصفيات دوري الأبطال";
+"stake.europaLeague"     = "الدوري الأوروبي";
+"stake.conferenceLeague" = "دوري المؤتمر";
+"stake.promotion"        = "الصعود المباشر";
+"stake.promotionPlayoff" = "ملحق الصعود";
+"stake.championshipRound"= "مجموعة اللقب";
+"stake.relegationRound"  = "مجموعة البقاء";
+"stake.relegationPlayoff"= "ملحق الهبوط";
+"stake.relegation"       = "الهبوط";
+
+// ── مساعد الذكاء الاصطناعي ─────────────────────────────────────────────────
+"assistant.title"                = "المساعد";
+"assistant.close"                = "إغلاق";
+"assistant.error"                = "عذرًا، حدث خطأ. يُرجى المحاولة مرة أخرى بعد قليل.";
+"assistant.placeholder"          = "اطرح سؤالك…";
+"assistant.greeting"             = "مرحبًا! أنا مساعدك لكرة القدم.";
+"assistant.greetingHint"         = "اطرح سؤالك بلغة طبيعية، مثلاً: «متى يلعب مرسيليا؟»";
+"assistant.loadingMatch"         = "جارٍ تحميل المباراة…";
+"assistant.loadingTeam"          = "جارٍ تحميل الفريق…";
+"assistant.seeFullTable"         = "عرض الجدول الكامل";
+"assistant.standingUnavailable" = "الترتيب غير متاح حاليًا";
+"assistant.clubScorers.title" = "هدافو النادي";
+"assistant.clubScorers.empty" = "لا يوجد هدافون لهذا النادي بعد.";
+// ملف الفريق / اللاعب
+"team.founded" = "تأسس عام";
+"team.coach" = "المدرب";
+"team.seats" = "مقعد";
+"team.nextMatch" = "المباراة القادمة";
+"team.nextMatchVenue" = "ملعب المباراة القادمة:";
+"team.seasonSummary" = "حصيلة الموسم";
+"team.played" = "المباريات المُلعوبة";
+"team.record" = "الحصيلة";
+"team.winsShort" = "ف";
+"team.drawsShort" = "ت";
+"team.lossesShort" = "خ";
+"team.goalsForAgainst" = "الأهداف (له : عليه)";
+"team.cleanSheets" = "شباك نظيفة";
+"team.winStreak" = "أطول سلسلة انتصارات";
+"team.avgGoals" = "الأهداف المسجلة / مباراة";
+"team.avgGoalsAgainst" = "الأهداف المستقبَلة / مباراة";
+"team.identity" = "الهوية";
+"team.squad" = "التشكيلة";
+"team.matches" = "المباريات";
+"team.matches.played" = "المنتهية";
+"team.matches.upcoming" = "القادمة";
+"matchtype.friendly" = "ودية";
+"matchtype.league" = "الدوري";
+"matchtype.cup" = "كأس";
+"matchtype.europe" = "كأس أوروبية";
+"match.homeShort" = "ذهاب";
+"match.awayShort" = "إياب";
+"squad.goalkeepers" = "حراس المرمى";
+"squad.defenders" = "المدافعون";
+"squad.midfielders" = "لاعبو الوسط";
+"squad.attackers" = "المهاجمون";
+"squad.others" = "آخرون";
+"player.yearsShort" = "سنة";
+"player.seasonStats" = "إحصائيات الموسم";
+"player.appearances" = "المباريات";
+"player.goals" = "الأهداف";
+"player.assists" = "التمريرات الحاسمة";
+"player.yellowCards" = "صفراء";
+"player.redCards" = "حمراء";
+"player.starts" = "مباريات أساسية";
+"player.minutes" = "الدقائق";
+"player.rating" = "متوسط التقييم";
+"player.currentSeasonStats" = "إحصائيات الموسم الحالي";
+"player.noSeasonMatch" = "لا توجد مباريات هذا الموسم حتى الآن.";
+"player.unavailable" = "ملف اللاعب غير متاح حاليًا.";
+"player.noStats" = "لا توجد إحصائيات متاحة لهذا اللاعب.";
+"player.nationality" = "الجنسية";
+"player.position" = "المركز";
+"player.age" = "العمر";
+"player.nationalTeamSeason" = "مع المنتخب (الموسم)";
+"player.selections" = "مباريات دولية";
+"player.nationalGoals" = "أهداف دولية";
+"player.nationalTeam" = "المنتخب الوطني";
+"player.selection" = "المنتخب";
+"player.byCompetition" = "المباريات حسب المسابقة";
+"player.tab.identity" = "الملف";
+"player.tab.seasonStats" = "إحصائيات الموسم";
+"player.cat.all" = "الإجمالي";
+"player.cat.cups" = "الكؤوس";
+"player.noCupYet" = "لا مباريات كأس هذا الموسم";
+"player.noSelectionYet" = "لا مباريات مع المنتخب هذا الموسم";
+"player.comp.friendly" = "ودية";
+"player.comp.league" = "الدوري";
+"player.comp.nationalCup" = "كأس وطنية";
+"player.comp.europeanCup" = "كأس أوروبية";
+"player.comp.nations" = "المنتخب";
+"player.career" = "المسيرة";
+"player.capsCareer" = "مباريات دولية (المسيرة)";
+"player.currentClub" = "النادي الحالي";
+"player.since" = "منذ";
+"player.previousClubs" = "الأندية السابقة";
+"player.awards" = "الجوائز";
+"player.majorCompetitions" = "البطولات الكبرى";
+"player.physical" = "الملف البدني";
+"player.height" = "الطول";
+"player.weight" = "الوزن";
+"player.birth" = "الميلاد";
+"player.birthPlace" = "مكان الميلاد";
+"player.viewTransfermarkt" = "عرض على Transfermarkt";
+"assistant.suggestion.fixtures"  = "المباريات القادمة لمرسيليا";
+"assistant.suggestion.standings" = "ترتيب الدرجة الثانية";
+"assistant.suggestion.scorers"   = "هداف الدرجة الثانية";
+"assistant.suggestion.today"     = "ما مباريات اليوم؟";
+
+// ── مساعد الذكاء الاصطناعي — الأخطاء والإجراءات ────────────────────────────
+"assistant.error.offline"     = "لا يوجد اتصال بالإنترنت. تحقّق من شبكتك ثم أعد المحاولة.";
+"assistant.error.timeout"     = "يستغرق المساعد وقتًا طويلًا للرد. أعد المحاولة بعد قليل.";
+"assistant.error.unreachable" = "تعذّر الوصول إلى المساعد الآن. أعد المحاولة قريبًا.";
+"assistant.error.server"      = "واجه المساعد مشكلة. أعد المحاولة بعد قليل.";
+"assistant.retry"             = "إعادة المحاولة";
+"assistant.clear"             = "مسح المحادثة";
+
+/* — Postes (singulier) + groupes Live — */
+"pos.one.goalkeeper" = "حارس مرمى";
+"pos.one.defender"   = "مدافع";
+"pos.one.midfielder" = "لاعب وسط";
+"pos.one.attacker"   = "مهاجم";
+"live.favorites"     = "المفضلة";
+"live.group.france"  = "فرنسا";
+"live.group.europe"  = "أوروبا";
+"live.group.world"   = "العالم";
+"live.group.europeCup" = "كأس أوروبية";
+"live.group.selections" = "المنتخبات";
+
+/* Nations zones + coupes internationales + nouvelles sélections (2026-08-17) */
+"cup.international" = "دولية";
+"nation.europe" = "أوروبا";
+"nation.world" = "العالم";
+"nation.international" = "دولي";
+"comp.goldCup" = "الكأس الذهبية";
+"comp.goldCup.sub" = "بطولة كونكاكاف للمنتخبات";
+"comp.copaAmerica" = "كوبا أمريكا";
+"comp.copaAmerica.sub" = "بطولة أمريكا الجنوبية للمنتخبات";
+"comp.afcon" = "كأس أفريقيا";
+"comp.afcon.sub" = "كأس الأمم الأفريقية";
+"comp.asianCup" = "كأس آسيا";
+"comp.asianCup.sub" = "بطولة الاتحاد الآسيوي للمنتخبات";
+"comp.intercontinental" = "الكأس القارية";
+"comp.intercontinental.sub" = "لقب العالم للأندية FIFA";
+
+/* --- Accueil + Bibliothèque + Notes (points 7/8/9) --- */
+"home.title" = "الرئيسية";
+"home.subtitle" = "المباريات القادمة لمفضلاتك";
+"home.hello" = "مرحبًا 👋";
+"home.helloName" = "مرحبًا %@ 👋";
+"home.upcoming" = "المباريات القادمة";
+"home.noFavorites.title" = "لا توجد مفضلات";
+"home.noFavorites.text" = "أضِف أندية أو لاعبين إلى المفضلة لرؤية مبارياتهم القادمة هنا.";
+"home.noUpcoming.title" = "لا توجد مباريات قادمة";
+"home.noUpcoming.text" = "لا توجد مباريات مجدولة لمفضلاتك حاليًا.";
+"library.title" = "المفضلة";
+"library.empty" = "ابحث عن أندية ولاعبين ثم أضِفهم إلى المفضلة.";
+"settings.name" = "اسمك الأول";
+"settings.name.placeholder" = "الاسم";
+"settings.name.note" = "يُستخدم فقط للترحيب بك. لا يتم إرسال أي شيء عبر الإنترنت.";
+"stats.ratings" = "المعدلات";
+"col.ratingShort" = "المعدل";
+"empty.noRatings" = "لا توجد معدلات متاحة لهذه المسابقة.";
+
+
+/* ---- Selections nationales (API anglais -> langue app) ---- */
+"team.nat.france" = "فرنسا";
+"team.nat.england" = "إنجلترا";
+"team.nat.scotland" = "اسكتلندا";
+"team.nat.wales" = "ويلز";
+"team.nat.northernIreland" = "أيرلندا الشمالية";
+"team.nat.republicOfIreland" = "جمهورية أيرلندا";
+"team.nat.germany" = "ألمانيا";
+"team.nat.italy" = "إيطاليا";
+"team.nat.spain" = "إسبانيا";
+"team.nat.portugal" = "البرتغال";
+"team.nat.netherlands" = "هولندا";
+"team.nat.belgium" = "بلجيكا";
+"team.nat.croatia" = "كرواتيا";
+"team.nat.switzerland" = "سويسرا";
+"team.nat.austria" = "النمسا";
+"team.nat.poland" = "بولندا";
+"team.nat.denmark" = "الدنمارك";
+"team.nat.sweden" = "السويد";
+"team.nat.norway" = "النرويج";
+"team.nat.finland" = "فنلندا";
+"team.nat.iceland" = "آيسلندا";
+"team.nat.czechRepublic" = "التشيك";
+"team.nat.slovakia" = "سلوفاكيا";
+"team.nat.hungary" = "المجر";
+"team.nat.romania" = "رومانيا";
+"team.nat.serbia" = "صربيا";
+"team.nat.ukraine" = "أوكرانيا";
+"team.nat.russia" = "روسيا";
+"team.nat.greece" = "اليونان";
+"team.nat.turkey" = "تركيا";
+"team.nat.bosniaHerzegovina" = "البوسنة والهرسك";
+"team.nat.slovenia" = "سلوفينيا";
+"team.nat.bulgaria" = "بلغاريا";
+"team.nat.albania" = "ألبانيا";
+"team.nat.northMacedonia" = "مقدونيا الشمالية";
+"team.nat.montenegro" = "الجبل الأسود";
+"team.nat.kosovo" = "كوسوفو";
+"team.nat.georgia" = "جورجيا";
+"team.nat.armenia" = "أرمينيا";
+"team.nat.azerbaijan" = "أذربيجان";
+"team.nat.israel" = "إسرائيل";
+"team.nat.belarus" = "بيلاروسيا";
+"team.nat.moldova" = "مولدوفا";
+"team.nat.lithuania" = "ليتوانيا";
+"team.nat.latvia" = "لاتفيا";
+"team.nat.estonia" = "إستونيا";
+"team.nat.luxembourg" = "لوكسمبورغ";
+"team.nat.cyprus" = "قبرص";
+"team.nat.malta" = "مالطا";
+"team.nat.faroeIslands" = "جزر فارو";
+"team.nat.kazakhstan" = "كازاخستان";
+"team.nat.andorra" = "أندورا";
+"team.nat.sanMarino" = "سان مارينو";
+"team.nat.liechtenstein" = "ليختنشتاين";
+"team.nat.gibraltar" = "جبل طارق";
+"team.nat.brazil" = "البرازيل";
+"team.nat.argentina" = "الأرجنتين";
+"team.nat.uruguay" = "الأوروغواي";
+"team.nat.colombia" = "كولومبيا";
+"team.nat.chile" = "تشيلي";
+"team.nat.peru" = "بيرو";
+"team.nat.ecuador" = "الإكوادور";
+"team.nat.paraguay" = "باراغواي";
+"team.nat.bolivia" = "بوليفيا";
+"team.nat.venezuela" = "فنزويلا";
+"team.nat.usa" = "الولايات المتحدة";
+"team.nat.mexico" = "المكسيك";
+"team.nat.canada" = "كندا";
+"team.nat.costaRica" = "كوستاريكا";
+"team.nat.panama" = "بنما";
+"team.nat.honduras" = "هندوراس";
+"team.nat.jamaica" = "جامايكا";
+"team.nat.elSalvador" = "السلفادور";
+"team.nat.guatemala" = "غواتيمالا";
+"team.nat.haiti" = "هايتي";
+"team.nat.trinidadAndTobago" = "ترينيداد وتوباغو";
+"team.nat.curacao" = "كوراساو";
+"team.nat.morocco" = "المغرب";
+"team.nat.senegal" = "السنغال";
+"team.nat.egypt" = "مصر";
+"team.nat.tunisia" = "تونس";
+"team.nat.algeria" = "الجزائر";
+"team.nat.nigeria" = "نيجيريا";
+"team.nat.ghana" = "غانا";
+"team.nat.ivoryCoast" = "ساحل العاج";
+"team.nat.cameroon" = "الكاميرون";
+"team.nat.mali" = "مالي";
+"team.nat.burkinaFaso" = "بوركينا فاسو";
+"team.nat.southAfrica" = "جنوب أفريقيا";
+"team.nat.guinea" = "غينيا";
+"team.nat.drCongo" = "جمهورية الكونغو الديمقراطية";
+"team.nat.congo" = "الكونغو";
+"team.nat.capeVerde" = "الرأس الأخضر";
+"team.nat.gabon" = "الغابون";
+"team.nat.zambia" = "زامبيا";
+"team.nat.angola" = "أنغولا";
+"team.nat.equatorialGuinea" = "غينيا الاستوائية";
+"team.nat.uganda" = "أوغندا";
+"team.nat.kenya" = "كينيا";
+"team.nat.benin" = "بنين";
+"team.nat.mozambique" = "موزمبيق";
+"team.nat.madagascar" = "مدغشقر";
+"team.nat.zimbabwe" = "زيمبابوي";
+"team.nat.mauritania" = "موريتانيا";
+"team.nat.namibia" = "ناميبيا";
+"team.nat.togo" = "توغو";
+"team.nat.libya" = "ليبيا";
+"team.nat.sudan" = "السودان";
+"team.nat.sierraLeone" = "سيراليون";
+"team.nat.guineaBissau" = "غينيا بيساو";
+"team.nat.niger" = "النيجر";
+"team.nat.malawi" = "مالاوي";
+"team.nat.tanzania" = "تنزانيا";
+"team.nat.comoros" = "جزر القمر";
+"team.nat.rwanda" = "رواندا";
+"team.nat.ethiopia" = "إثيوبيا";
+"team.nat.burundi" = "بوروندي";
+"team.nat.japan" = "اليابان";
+"team.nat.southKorea" = "كوريا الجنوبية";
+"team.nat.northKorea" = "كوريا الشمالية";
+"team.nat.iran" = "إيران";
+"team.nat.saudiArabia" = "السعودية";
+"team.nat.australia" = "أستراليا";
+"team.nat.qatar" = "قطر";
+"team.nat.iraq" = "العراق";
+"team.nat.uae" = "الإمارات العربية المتحدة";
+"team.nat.china" = "الصين";
+"team.nat.uzbekistan" = "أوزبكستان";
+"team.nat.jordan" = "الأردن";
+"team.nat.oman" = "عُمان";
+"team.nat.bahrain" = "البحرين";
+"team.nat.kuwait" = "الكويت";
+"team.nat.syria" = "سوريا";
+"team.nat.lebanon" = "لبنان";
+"team.nat.palestine" = "فلسطين";
+"team.nat.india" = "الهند";
+"team.nat.vietnam" = "فيتنام";
+"team.nat.thailand" = "تايلاند";
+"team.nat.indonesia" = "إندونيسيا";
+"team.nat.malaysia" = "ماليزيا";
+"team.nat.philippines" = "الفلبين";
+"team.nat.singapore" = "سنغافورة";
+"team.nat.tajikistan" = "طاجيكستان";
+"team.nat.turkmenistan" = "تركمانستان";
+"team.nat.kyrgyzstan" = "قيرغيزستان";
+"team.nat.newZealand" = "نيوزيلندا";
+"team.nat.fiji" = "فيجي";
+"team.nat.newCaledonia" = "كاليدونيا الجديدة";
+"team.nat.tahiti" = "تاهيتي";
+"team.nat.solomonIslands" = "جزر سليمان";
+"team.nat.papuaNewGuinea" = "بابوا غينيا الجديدة";
+"team.nat.vanuatu" = "فانواتو";
+
+/* ---- Noms de competitions (API anglais -> langue app) ---- */
+"comp.api.nationsLeague" = "دوري الأمم الأوروبية";
+"comp.api.worldCupQualification" = "تصفيات كأس العالم";
+"comp.api.euroQualification" = "تصفيات كأس أوروبا";
+"comp.api.euroChampionship" = "كأس أوروبا";
+"comp.api.worldCup" = "كأس العالم";
+"comp.api.friendlies" = "مباريات ودية";
+"comp.api.championsLeague" = "دوري أبطال أوروبا";
+"comp.api.europaLeague" = "الدوري الأوروبي";
+"comp.api.conferenceLeague" = "دوري المؤتمر الأوروبي";
+"comp.api.superCup" = "كأس السوبر الأوروبي";
+"comp.api.copaAmerica" = "كوبا أمريكا";
+"comp.api.africaCupOfNations" = "كأس الأمم الأفريقية";
+"comp.api.asianCup" = "كأس آسيا";
+"comp.api.concacafNationsLeague" = "دوري أمم الكونكاكاف";
+"comp.api.concacafGoldCup" = "الكأس الذهبية للكونكاكاف";
+"comp.api.olympicsFootball" = "كرة القدم في الألعاب الأولمبية";
+"comp.api.finalissima" = "فيناليسيما";
+
+/* ── مسابقة الدوري الفرنسي (لعبة محلية) ────────────────────────────────── */
+"quiz.title" = "اختبار كرة القدم";
+"common.close" = "إغلاق";
+"quiz.play" = "العب";
+"quiz.playAgain" = "العب مجددًا";
+"quiz.nextQuestion" = "السؤال التالي";
+"quiz.seeResult" = "عرض النتيجة";
+"quiz.bestScore" = "أفضل نتيجة";
+"quiz.intro.title" = "مستعد للعب؟";
+"quiz.intro.subtitle" = "10 أسئلة اختيار من متعدد عن هذا الدوري.";
+"quiz.finished.title" = "انتهت اللعبة";
+"quiz.result.great" = "ممتاز! خبير حقيقي.";
+"quiz.result.good" = "ليس سيئًا! واصل هكذا.";
+"quiz.result.tryAgain" = "حاول مجددًا لتحسين نتيجتك.";
+"quiz.card.title" = "لعبة اليوم";
+"quiz.card.subtitle" = "5 اختبارات لكل دوري — اختبر معلوماتك";
+"quiz.q1.text" = "ما النادي الفرنسي الوحيد الذي فاز بدوري أبطال أوروبا؟";
+"quiz.q2.text" = "في أي ملعب يلعب باريس سان جيرمان مبارياته على أرضه؟";
+"quiz.q3.text" = "أي نادٍ يحمل الرقم القياسي في عدد ألقاب بطولة فرنسا؟";
+"quiz.q4.text" = "ما هو ملعب أولمبيك مرسيليا؟";
+"quiz.q5.text" = "أي نادٍ في الدوري الفرنسي يقع مقره في إمارة؟";
+"quiz.q6.text" = "من هو الهداف التاريخي لباريس سان جيرمان؟";
+"quiz.q7.text" = "في أي مدينة يلعب أولمبيك ليون؟";
+"quiz.q8.text" = "أي نادٍ توّج بطلًا لفرنسا عام 2021؟";
+"quiz.q9.text" = "أي نادٍ يُلقب بـ \"الدم والذهب\"؟";
+"quiz.q10.text" = "أي نادٍ يُلقب بـ \"الكناري\"؟";
+"quiz.q11.text" = "ما هو ملعب أولمبيك ليون؟";
+"quiz.q12.text" = "أي نادٍ يلعب في ملعب فيلودروم؟";
+"quiz.q13.text" = "ما هو ملعب نادي موناكو؟";
+"quiz.q14.text" = "أي نادٍ يلعب في ملعب روازون بارك؟";
+"quiz.q15.text" = "أي نادٍ فاز بـ 7 ألقاب متتالية لبطولة فرنسا (2002-2008)؟";
+"quiz.q16.text" = "ما هو ملعب نادي نيس؟";
+"quiz.q17.text" = "أي نادٍ يقع مقره في لُنس شمال فرنسا؟";
+"quiz.q18.text" = "أي مدرب درّب باريس سان جيرمان بين عامي 2011 و2013؟";
+"quiz.q19.text" = "في أي ملعب يلعب نادي لُنس؟";
+"quiz.q20.text" = "كم عدد ألقاب بطولة فرنسا التي فاز بها نادي سانت إتيان؟";
+
+// Quiz — choix du championnat (5 championnats)
+"quiz.pick.title" = "اختر دوريك";
+"quiz.pick.subtitle" = "5 اختبارات، 10 أسئلة عشوائية في كل لعبة.";
+"quiz.notPlayed" = "لم تلعب بعد";
+"quiz.changeLeague" = "تغيير الدوري";
+"quiz.league.ligue1" = "الدوري الفرنسي";
+"quiz.league.premierLeague" = "الدوري الإنجليزي";
+"quiz.league.liga" = "الدوري الإسباني";
+"quiz.league.bundesliga" = "الدوري الألماني";
+"quiz.league.serieA" = "الدوري الإيطالي";

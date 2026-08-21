@@ -1,0 +1,808 @@
+/* ============================================================
+   FICHIER DE TRADUCTION — FRANÇAIS
+   Copie : fr.lproj/Localizable.strings
+   ============================================================ */
+
+/* — Rubriques (onglets) — */
+"competitions.title"    = "Compétitions";
+"seg.championships"     = "Championnats";
+"seg.europeanCups"      = "Coupes d'Europe";
+"seg.nations"           = "Nations";
+"seg.nations.full"      = "Sélections nationales";
+"seg.friendlies"        = "Amicaux";
+"seg.cups"              = "Coupes";
+"banner.nations.sub"    = "Les grandes sélections";
+"zone.france.sub"       = "Ligue 1 → National 2";
+"zone.europe.sub"       = "Les grands championnats";
+"zone.america.sub"      = "Championnats d'Amérique";
+"zone.asia.sub"         = "Championnats d'Asie";
+"zone.middleEast.sub"   = "Championnats du Moyen-Orient";
+"zone.world"            = "Monde";
+"zone.world.sub"        = "Amérique, Asie & Moyen-Orient";
+"section.france"        = "France";
+"section.france.sub"    = "Ligue 1 → National 2";
+"section.foreign"       = "International";
+"section.foreign.sub"   = "Les grands championnats";
+"continent.europe"      = "Europe";
+"continent.america"     = "Amérique";
+"continent.asia"        = "Asie";
+"continent.middleEast"  = "Moyen-Orient";
+"section.europe"        = "Europe";
+"section.europe.sub"    = "Coupes d'Europe des clubs";
+"section.nations"       = "Nations";
+"section.nations.sub"   = "Sélections nationales";
+
+/* — Onglets & sous-onglets — */
+"tab.live"       = "En direct";
+"tab.results"    = "Résultats";
+"tab.standings"  = "Classement";
+"tab.scorers"    = "Buteurs";
+"tab.stats"      = "Stats";
+"tab.rounds"     = "Journées";
+
+/* — Sous-menus de l'onglet Stats — */
+"stats.scorers"     = "Buteurs";
+"stats.notStarted"  = "La saison n'a pas encore commencé";
+"stats.assists"     = "Passeurs";
+"stats.combo"       = "Buts + passes";
+"stats.comboShort"  = "B+P";
+"stats.bestAttack"  = "Meilleures attaques";
+"stats.bestDefense" = "Meilleures défenses";
+"stats.streaks"     = "Séries en cours";
+"stats.home"        = "Classement à domicile";
+"stats.away"        = "Classement à l'extérieur";
+"stats.fairPlay"    = "Fair-play";
+"col.pointsShort"   = "Pts";
+"empty.noFairPlay"  = "Aucune donnée de cartons disponible";
+"fairPlay.note"     = "Barème : carton jaune = 1 pt, carton rouge = 3 pts. Les équipes les plus fair-play (moins de points) sont en tête.";
+"fairPlay.euroPartial" = "Coupes d'Europe : les cartons ne sont comptés que sur la phase de ligue / de groupes.";
+
+/* — Confrontations aller-retour (coupes d'Europe) — */
+"tie.aggregate"     = "cumulé";
+
+/* — Hub d'une rubrique — */
+"hub.available"  = "Disponible";
+"hub.comingSoon" = "Bientôt disponible";
+"hub.empty"      = "Aucune compétition dans cette rubrique pour le moment.";
+"badge.soon"     = "Bientôt";
+
+/* — Classement (en-têtes de colonnes) — */
+"col.team"          = "Équipe";
+"standings.group"   = "Poule";
+"phase.select"       = "Sélectionnez une phase";
+"phase.groups"       = "Phase de groupes";
+"phase.qualifiers" = "Qualifications";
+
+"phase.pastEdition" = "Dernière édition";
+"phase.pastEdition.dates" = "Compétition disputée du %1$@ au %2$@.";
+"conf.europe" = "Europe";
+"conf.southAmerica" = "Amérique du Sud";
+"conf.africa" = "Afrique";
+"conf.asia" = "Asie";
+"conf.concacaf" = "CONCACAF";
+"conf.oceania" = "Océanie";
+"phase.playoff"      = "Barrages";
+"phase.accessPlayoff" = "Barrages d'accès";
+"phase.qualif3"      = "3e tour de qualif.";
+"phase.qualif2"      = "2e tour de qualif.";
+"phase.qualif1"      = "1er tour de qualif.";
+"phase.leg1"         = "Match aller";
+"phase.leg2"         = "Match retour";
+"phase.leg1Short"    = "Aller";
+"phase.leg2Short"    = "Retour";
+"phase.explain.knockoutPlayoff" = "Barrages : les équipes classées 9e à 24e de la phase de ligue s'affrontent en aller-retour pour rejoindre les 8es de finale.";
+"phase.explain.accessPlayoff" = "Barrages d'accès : dernier tour en aller-retour pour se qualifier pour la phase de ligue.";
+"phase.explain.qualifying" = "Tour préliminaire disputé en aller-retour ; le vainqueur avance au tour suivant.";
+"phase.explain.twoLegged" = "Tour disputé en aller-retour ; le vainqueur au score cumulé se qualifie.";
+"phase.round32"      = "16es de finale";
+"phase.round16"      = "8es de finale";
+"phase.quarter"      = "Quarts de finale";
+"phase.semi"         = "Demi-finales";
+"phase.thirdPlace"   = "3e place";
+"phase.final"        = "Finale";
+"col.player"        = "Joueur";
+"col.matchesShort"  = "MJ";
+"col.assistsShort"  = "PD";
+"col.goalsShort"    = "Buts";
+
+/* — États — */
+"loading"            = "Chargement…";
+"empty.noMatch"      = "Aucun match trouvé";
+"matches.upcomingRound" = "Prochaine journée";
+"empty.noStandings"  = "Classement indisponible";
+"empty.noScorers"    = "Classement des buteurs indisponible";
+"filter.all"         = "Tous";
+
+/* — Actions — */
+"action.refresh" = "Actualiser";
+"action.retry"   = "Réessayer";
+
+/* — Recherche d'équipe — */
+"search.title"        = "Recherche";
+"search.placeholder"  = "Club, joueur, sélection ou compétition";
+"search.prompt"       = "Tapez au moins 3 lettres pour rechercher un club, un joueur ou une sélection nationale.";
+"search.noResult"     = "Aucun résultat";
+"search.section.teams"   = "Équipes";
+"search.section.players" = "Joueurs";
+"search.nationalTeam" = "Sélection";
+"search.upcoming"     = "À venir";
+"search.recent"       = "Matchs récents";
+
+/* — Favoris — */
+"favorites.title"  = "Favoris";
+"favorites.empty"  = "Aucun favori pour l'instant. Touchez ⭐ sur une équipe pour l'ajouter.";
+"favorites.add"    = "Ajouter aux favoris";
+"favorites.remove" = "Retirer des favoris";
+"favorites.clubs"   = "Clubs";
+"favorites.players" = "Joueurs";
+"favorites.nations" = "Sélections";
+"favorites.competitions" = "Compétitions";
+"favorites.comps.leagues" = "Championnats";
+"favorites.comps.cups" = "Coupes";
+"favorites.comps.nations" = "Sélections";
+"favorites.clubs.empty"   = "Aucun club favori. Touchez ⭐ sur un club pour l'ajouter.";
+"favorites.players.empty" = "Aucun joueur suivi. Touchez ⭐ sur un joueur pour l'ajouter.";
+"favorites.nations.empty" = "Aucune sélection favorite. Touchez ⭐ sur une sélection nationale pour l'ajouter.";
+"player.follow"     = "Suivre ce joueur";
+"player.unfollow"   = "Ne plus suivre";
+"settings.title"    = "Réglages";
+"settings.language" = "Langue";
+"settings.language.system" = "Langue du système";
+"settings.language.note" = "La langue est appliquée immédiatement. Redémarrez l'app pour une bascule complète (formats de dates).";
+"settings.api" = "Diagnostic API";
+"settings.api.remaining" = "Quota quotidien restant";
+"settings.api.session" = "Requêtes de cette session";
+"settings.api.note" = "Quota quotidien fourni par le serveur API-Football (réinitialisé chaque nuit). Les requêtes servies par le cache ne sont pas comptées.";
+"common.done"       = "Terminé";
+
+/* — Jeu Fantasy — */
+"fantasy.title"         = "Mon équipe";
+"fantasy.points"        = "Points";
+"fantasy.budgetLeft"    = "Budget restant";
+"fantasy.squadCount"    = "Joueurs";
+"fantasy.addPlayer"     = "Ajouter un joueur";
+"fantasy.editSquad"     = "Modifier l'équipe";
+"fantasy.emptyHint"     = "Composez une équipe de 5 joueurs dans la limite de votre budget. Vos joueurs marquent des points selon leurs vraies performances : but ×5, passe ×3, match joué ×1.";
+"fantasy.choosePlayers" = "Choisir des joueurs";
+"fantasy.searchPlayer"  = "Rechercher un joueur ou un club";
+"fantasy.ptsShort"      = "pts";
+"fantasy.creditsShort"  = "cr";
+"fantasy.done"          = "OK";
+"fantasy.noPlayers"    = "Aucun joueur disponible pour le moment. Les données de la Ligue 1 apparaîtront quand la saison aura débuté.";
+"pos.goalkeeper"        = "Gardiens";
+"pos.defender"          = "Défenseurs";
+"pos.midfielder"        = "Milieux";
+"pos.attacker"          = "Attaquants";
+"pos.unknown"           = "Autres";
+
+/* — Écran En direct — */
+"live.title"        = "🔴 En direct";
+"live.searching"    = "Recherche de matchs en direct…";
+"live.emptyTitle"   = "Aucun match en direct";
+"live.emptyBody"    = "Les matchs en cours\napparaîtront ici automatiquement.";
+"upcoming.title"      = "À venir";
+"upcoming.emptyTitle" = "Aucun match à venir";
+"upcoming.emptyBody"  = "Les matchs des 5 prochains jours\napparaîtront ici.";
+"day.today"           = "Aujourd'hui";
+"day.tomorrow"        = "Demain";
+"live.updatedSecs"  = "il y a %ds";
+"live.updatedMins"  = "il y a %dmin";
+
+/* Page d'accueil (onglet Live enrichi) */
+"home.greeting.morning"   = "Bonjour 👋";
+"home.greeting.afternoon" = "Bon après-midi 👋";
+"home.greeting.evening"   = "Bonsoir 👋";
+"home.summary.total"      = "%d matchs aujourd'hui";
+"home.summary.live"       = "%d matchs aujourd'hui · %d en direct";
+"home.ai.title"           = "Pose une question sur le foot";
+"home.ai.subtitle"        = "Scores, classements, joueurs… demande à l'assistant";
+"home.ai.prefill"         = "Quels sont les matchs importants aujourd'hui ?";
+"home.next.title" = "Prochains matchs de mes favoris";
+"home.live.title" = "En direct";
+"status.halftime.short" = "MT";
+"status.penalties.short" = "TAB";
+"hub.prompt.champ" = "Choisis un championnat pour voir toutes les données";
+"hub.prompt.cups" = "Choisis une coupe pour voir toutes les données";
+"hub.prompt.nations" = "Choisis une compétition pour voir toutes les données";
+"home.next.clubs" = "Clubs";
+"home.next.players" = "Joueurs";
+"home.next.nations" = "Sélections";
+"home.next.clubs.empty" = "Aucun match à venir pour vos clubs favoris.";
+"home.next.none" = "Aucun match à venir pour ce favori.";
+"home.next.players.empty" = "Aucun match à venir pour vos joueurs suivis.";
+"home.next.nations.empty" = "Aucun match à venir pour vos sélections favorites.";
+"home.next.countdownDays" = "J-%d · %dh %dmin";
+"home.next.kickoffNow" = "Coup d'envoi imminent";
+"home.next.vs" = "vs";
+
+/* — Barre de dates + états Live — */
+"day.todayShort"       = "Auj.";
+"day.yesterdayShort"   = "Hier";
+"day.tomorrowShort"    = "Dem.";
+"live.noFollowTitle"   = "Aucune compétition suivie";
+"live.noFollowBody"    = "Touchez l'étoile d'une compétition\npour la suivre ici.";
+"live.noMatchDayTitle" = "Aucun match ce jour";
+"live.noMatchDayBody"  = "Choisissez un autre jour dans\nla barre de dates ci-dessus.";
+"live.showAll" = "Tout afficher";
+"live.showAll.note" = "Charge aussi les compétitions non suivies (plus de requêtes API).";
+"live.noFollowedTitle" = "Rien dans vos favoris aujourd'hui";
+"live.noFollowedBody" = "Aucun match de vos compétitions suivies ce jour. Vous pouvez tout de même afficher les matchs des autres championnats.";
+"live.noMatchAnywhereTitle" = "Pas de match à regarder aujourd'hui";
+"live.noMatchAnywhereBody" = "Aucune rencontre programmée ce jour. Revenez plus tard ou choisissez un autre jour.";
+"live.showOtherLeagues" = "Afficher les autres championnats";
+"live.followHint" = "Toutes les compétitions sont affichées. Pour ne voir que celles qui vous intéressent, sélectionnez-les dans Favoris → Compétitions.";
+"status.liveShort"     = "En direct";
+"status.halftimeShort" = "MT";
+"status.finishedShort" = "Terminé";
+"follow.add"           = "Suivre";
+"follow.remove"        = "Ne plus suivre";
+
+/* — Page détail d'un match — */
+"match.title"       = "Détail du match";
+"match.summary"     = "Résumé";
+"match.lineups"     = "Compos";
+"match.stats"       = "Statistiques";
+"match.noEvents"    = "Aucun événement pour ce match";
+"match.noLineups"   = "Compositions indisponibles";
+"match.noStats"     = "Statistiques indisponibles";
+"match.substitutes" = "Remplaçants";
+"match.startingXI"  = "Titulaires";
+"match.info"        = "Informations";
+"match.sec.goals" = "Buts";
+"match.sec.cards" = "Cartons";
+"match.sec.subs"  = "Remplacements";
+"goal.penalty"    = "(pén.)";
+"goal.ownGoal"    = "(csc)";
+"match.referee"   = "Arbitre :";
+
+/* — Types de statistiques de match — */
+"stat.possession"     = "Possession";
+"stat.xg"             = "Buts attendus (xG)";
+"stat.shotsTotal"     = "Tirs total";
+"stat.shotsOn"        = "Tirs cadrés";
+"stat.shotsOff"       = "Tirs non cadrés";
+"stat.shotsBlocked"   = "Tirs contrés";
+"stat.shotsInside"    = "Tirs dans la surface";
+"stat.shotsOutside"   = "Tirs hors surface";
+"stat.saves"          = "Arrêts du gardien";
+"stat.passesTotal"    = "Passes total";
+"stat.passesAccurate" = "Passes réussies";
+"stat.passesPct"      = "% de passes réussies";
+"stat.fouls"          = "Fautes";
+"stat.corners"        = "Corners";
+"stat.offsides"       = "Hors-jeu";
+"stat.yellow"         = "Cartons jaunes";
+"stat.red"            = "Cartons rouges";
+
+/* — Statuts de match — */
+"status.finished"   = "Terminé";
+"status.firstHalf"  = "1re mi-temps";
+"status.halftime"   = "Mi-temps";
+"status.secondHalf" = "2e mi-temps";
+"status.extraTime"  = "Prolong.";
+"status.penalties"  = "Tirs au but";
+"status.upcoming"   = "À venir";
+"status.postponed"  = "Reporté";
+"status.cancelled"  = "Annulé";
+
+/* ============================================================
+   NOMS & DESCRIPTIONS DES COMPÉTITIONS
+   ============================================================ */
+
+/* France (nomenclature 2026-27) */
+"comp.ligue1"           = "Ligue 1";
+"comp.ligue1.sub"       = "1re division française";
+"comp.ligue2"           = "Ligue 2";
+"comp.ligue2.sub"       = "2e division française";
+"comp.ligue3"           = "Ligue 3";
+"comp.ligue3.sub"       = "3e division (ex-National), pro depuis 2026-27";
+"comp.national1"        = "National 1";
+"comp.national1.sub"    = "4e niveau · 3 groupes de 16";
+"comp.national2"        = "National 2";
+"comp.national2.sub"    = "5e niveau · 8 groupes de 14";
+"comp.tropheeChampions"     = "Trophée des Champions";
+"comp.tropheeChampions.sub" = "Champion de L1 vs vainqueur de la Coupe";
+"comp.coupeFrance"      = "Coupe de France";
+"comp.coupeFrance.sub"  = "Tous les clubs, amateurs et pros";
+"comp.feminine"         = "Arkema Première Ligue";
+"comp.feminine.sub"     = "1re division féminine française";
+
+/* Étranger */
+"comp.premierLeague"    = "Premier League";
+"comp.premierLeague.sub"= "Angleterre · 1re division";
+"comp.laLiga"           = "LaLiga";
+"comp.laLiga.sub"       = "Espagne · 1re division";
+"comp.serieA"           = "Serie A";
+"comp.serieA.sub"       = "Italie · 1re division";
+"comp.bundesliga"       = "Bundesliga";
+"comp.bundesliga.sub"   = "Allemagne · 1re division";
+"comp.primeiraLiga"     = "Primeira Liga";
+"comp.primeiraLiga.sub" = "Portugal · 1re division";
+"comp.eredivisie"       = "Eredivisie";
+"comp.eredivisie.sub"   = "Pays-Bas · 1re division";
+"comp.superLig"         = "Süper Lig";
+"comp.superLig.sub"     = "Turquie · 1re division";
+"comp.swissSuperLeague"     = "Super League";
+"comp.swissSuperLeague.sub" = "Suisse · 1re division";
+"comp.mls"                  = "MLS";
+"comp.mls.sub"              = "États-Unis / Canada · 1re division";
+"comp.brasileirao"          = "Brasileirão";
+"comp.brasileirao.sub"      = "Brésil · Serie A";
+"comp.ligaMX"               = "Liga MX";
+"comp.ligaMX.sub"           = "Mexique · 1re division";
+"comp.ligaArgentina"        = "Liga Profesional";
+"comp.ligaArgentina.sub"    = "Argentine · 1re division";
+"comp.j1League"             = "J1 League";
+"comp.j1League.sub"         = "Japon · 1re division";
+"comp.saudiProLeague"       = "Saudi Pro League";
+"comp.saudiProLeague.sub"   = "Arabie saoudite · 1re division";
+
+/* Europe */
+"comp.ucl"       = "Ligue des champions";
+"comp.ucl.sub"   = "UEFA Champions League";
+"comp.uel"       = "Ligue Europa";
+"comp.uel.sub"   = "UEFA Europa League";
+"comp.uecl"      = "Ligue Conférence";
+"comp.uecl.sub"  = "UEFA Europa Conference League";
+"comp.uefaSuperCup"     = "Supercoupe de l'UEFA";
+"comp.uefaSuperCup.sub" = "UEFA Super Cup";
+
+/* — Segment Coupes : familles + pays — */
+"cup.national" = "Nationales";
+"cup.europe"   = "Europe";
+"cup.world"    = "Monde";
+"country.england"     = "Angleterre";
+"country.spain"       = "Espagne";
+"country.italy"       = "Italie";
+"country.germany"     = "Allemagne";
+"country.portugal"    = "Portugal";
+"country.switzerland" = "Suisse";
+
+/* — Coupes nationales étrangères — */
+"comp.faCup"                = "Coupe d'Angleterre";
+"comp.faCup.sub"            = "FA Cup";
+"comp.carabaoCup"           = "Coupe de la Ligue anglaise";
+"comp.carabaoCup.sub"       = "EFL Cup (Carabao Cup)";
+"comp.communityShield"      = "Community Shield";
+"comp.communityShield.sub"  = "Supercoupe d'Angleterre";
+"comp.copaDelRey"           = "Coupe du Roi";
+"comp.copaDelRey.sub"       = "Copa del Rey";
+"comp.supercopaEspana"      = "Supercoupe d'Espagne";
+"comp.supercopaEspana.sub"  = "Supercopa de España";
+"comp.coppaItalia"          = "Coupe d'Italie";
+"comp.coppaItalia.sub"      = "Coppa Italia";
+"comp.supercoppaItaliana"     = "Supercoupe d'Italie";
+"comp.supercoppaItaliana.sub" = "Supercoppa Italiana";
+"comp.dfbPokal"             = "Coupe d'Allemagne";
+"comp.dfbPokal.sub"         = "DFB-Pokal";
+"comp.dflSupercup"          = "Supercoupe d'Allemagne";
+"comp.dflSupercup.sub"      = "DFL-Supercup";
+"comp.tacaPortugal"         = "Coupe du Portugal";
+"comp.tacaPortugal.sub"     = "Taça de Portugal";
+"comp.supertacaPortugal"    = "Supercoupe du Portugal";
+"comp.supertacaPortugal.sub" = "Supertaça Cândido de Oliveira";
+"comp.schweizerCup"         = "Coupe de Suisse";
+"comp.schweizerCup.sub"     = "Schweizer Cup";
+
+/* — Coupes mondiales / continentales (clubs) — */
+"comp.libertadores"           = "Copa Libertadores";
+"comp.libertadores.sub"       = "CONMEBOL Libertadores";
+"comp.sudamericana"           = "Copa Sudamericana";
+"comp.sudamericana.sub"       = "CONMEBOL Sudamericana";
+"comp.clubWorldCup"           = "Coupe du monde des clubs";
+"comp.clubWorldCup.sub"       = "FIFA Club World Cup";
+"comp.cafChampionsLeague"     = "Ligue des champions CAF";
+"comp.cafChampionsLeague.sub" = "CAF Champions League";
+"comp.afcChampionsLeague"     = "Ligue des champions AFC";
+"comp.afcChampionsLeague.sub" = "AFC Champions League Elite";
+
+/* Nations */
+"comp.nationsLeague"     = "Ligue des Nations";
+"comp.nationsLeague.sub" = "UEFA Nations League";
+"comp.euro"              = "Euro";
+"comp.euro.sub"          = "Championnat d'Europe des nations";
+"comp.worldCup"          = "Coupe du monde";
+"comp.worldCup.sub"      = "FIFA World Cup";
+
+/* — Noms d'équipes localisés (coupes d'Europe) — */
+"team.spartaPrague" = "Sparta Prague";
+"team.slaviaPrague" = "Slavia Prague";
+"team.viktoriaPlzen" = "Viktoria Plzeň";
+"team.bayernMunich" = "Bayern Munich";
+"team.fcKoln" = "FC Cologne";
+"team.rapidVienna" = "Rapid Vienne";
+"team.austriaVienna" = "Austria Vienne";
+"team.redStarBelgrade" = "Étoile Rouge de Belgrade";
+"team.sportingLisbon" = "Sporting Portugal";
+"team.clubBruges" = "Club Bruges";
+"team.olympiacos" = "Olympiakos";
+
+// ── Enjeux de classement (codes couleur) ──
+"phase.tab.phases"       = "Phases";
+"stake.legend"           = "Légende des couleurs";
+"stake.champion"         = "Champion";
+"stake.championsLeague"  = "Ligue des champions";
+"stake.championsLeagueQ" = "Barrage Ligue des champions";
+"stake.europaLeague"     = "Ligue Europa";
+"stake.conferenceLeague" = "Conference League";
+"stake.promotion"        = "Montée directe";
+"stake.promotionPlayoff" = "Barrage de montée";
+"stake.championshipRound"= "Poule pour le titre";
+"stake.relegationRound"  = "Poule de maintien";
+"stake.relegationPlayoff"= "Barrage de relégation";
+"stake.relegation"       = "Relégation";
+
+// ── Assistant IA ──────────────────────────────────────────────────────────
+"assistant.title"                = "Assistant";
+"assistant.close"                = "Fermer";
+"assistant.error"                = "Désolé, une erreur est survenue. Réessaie dans un instant.";
+"assistant.placeholder"          = "Pose ta question…";
+"assistant.greeting"             = "Salut ! Je suis ton assistant foot.";
+"assistant.greetingHint"         = "Pose ta question en langage naturel, par exemple : « Quand joue Marseille ? »";
+"assistant.loadingMatch"         = "Chargement du match…";
+"assistant.loadingTeam"          = "Chargement de l’équipe…";
+"assistant.seeFullTable"         = "Voir le classement complet";
+"assistant.standingUnavailable" = "Classement indisponible pour l'instant";
+"assistant.clubScorers.title" = "Buteurs du club";
+"assistant.clubScorers.empty" = "Pas encore de buteur pour ce club.";
+// Fiche équipe / joueur
+"team.founded" = "Fondé en";
+"team.coach" = "Entraîneur";
+"team.seats" = "places";
+"team.nextMatch" = "Prochain match";
+"team.nextMatchVenue" = "Lieu du prochain match :";
+"team.seasonSummary" = "Bilan de la saison";
+"team.played" = "Matchs joués";
+"team.record" = "Bilan";
+"team.winsShort" = "V";
+"team.drawsShort" = "N";
+"team.lossesShort" = "D";
+"team.goalsForAgainst" = "Buts (pour : contre)";
+"team.cleanSheets" = "Clean sheets";
+"team.winStreak" = "Plus longue série de victoires";
+"team.avgGoals" = "Buts marqués / match";
+"team.avgGoalsAgainst" = "Buts encaissés / match";
+"team.identity" = "Identité";
+"team.squad" = "Effectif";
+"team.matches" = "Matchs";
+"team.matches.played" = "Déjà joués";
+"team.matches.upcoming" = "À venir";
+"matchtype.friendly" = "Amical";
+"matchtype.league" = "Championnat";
+"matchtype.cup" = "Coupe";
+"matchtype.europe" = "Coupe d'Europe";
+"match.homeShort" = "dom.";
+"match.awayShort" = "ext.";
+"squad.goalkeepers" = "Gardiens";
+"squad.defenders" = "Défenseurs";
+"squad.midfielders" = "Milieux";
+"squad.attackers" = "Attaquants";
+"squad.others" = "Autres";
+"player.yearsShort" = "ans";
+"player.seasonStats" = "Statistiques de la saison";
+"player.appearances" = "Matchs";
+"player.goals" = "Buts";
+"player.assists" = "Passes déc.";
+"player.yellowCards" = "Jaunes";
+"player.redCards" = "Rouges";
+"player.starts" = "Titularisations";
+"player.minutes" = "Minutes";
+"player.rating" = "Note moy.";
+"player.currentSeasonStats" = "Statistiques de la saison en cours";
+"player.noSeasonMatch" = "Aucun match cette saison pour le moment.";
+"player.unavailable" = "Fiche joueur indisponible pour le moment.";
+"player.noStats" = "Aucune statistique disponible pour ce joueur.";
+"player.nationality" = "Nationalité";
+"player.position" = "Poste";
+"player.age" = "Âge";
+"player.nationalTeamSeason" = "En sélection (saison)";
+"player.selections" = "Sélections";
+"player.nationalGoals" = "Buts en sélection";
+"player.nationalTeam" = "Équipe nationale";
+"player.selection" = "Sélection";
+"player.byCompetition" = "Matchs par compétition";
+"player.tab.identity" = "Identité";
+"player.tab.seasonStats" = "Stats saison";
+"player.cat.all" = "Total";
+"player.cat.cups" = "Coupes";
+"player.noCupYet" = "Aucun match de coupe cette saison";
+"player.noSelectionYet" = "Aucun match en sélection cette saison";
+"player.comp.friendly" = "Amical";
+"player.comp.league" = "Championnat";
+"player.comp.nationalCup" = "Coupe nationale";
+"player.comp.europeanCup" = "Coupe d'Europe";
+"player.comp.nations" = "Sélections";
+"player.career" = "Parcours";
+"player.capsCareer" = "Sélections (carrière)";
+"player.currentClub" = "Club actuel";
+"player.since" = "depuis";
+"player.previousClubs" = "Clubs précédents";
+"player.awards" = "Distinctions";
+"player.majorCompetitions" = "Compétitions majeures";
+"player.physical" = "Profil physique";
+"player.height" = "Taille";
+"player.weight" = "Poids";
+"player.birth" = "Naissance";
+"player.birthPlace" = "Lieu de naissance";
+"player.viewTransfermarkt" = "Voir sur Transfermarkt";
+"assistant.suggestion.fixtures"  = "Prochains matchs de Marseille";
+"assistant.suggestion.standings" = "Classement de la Ligue 2";
+"assistant.suggestion.scorers"   = "Meilleur buteur de la Ligue 2";
+"assistant.suggestion.today"     = "Quels matchs aujourd’hui ?";
+
+// ── Assistant IA — erreurs & actions ──────────────────────────────────────
+"assistant.error.offline"     = "Pas de connexion internet. Vérifie ton réseau puis réessaie.";
+"assistant.error.timeout"     = "L’assistant met trop de temps à répondre. Réessaie dans un instant.";
+"assistant.error.unreachable" = "Impossible de joindre l’assistant pour le moment. Réessaie bientôt.";
+"assistant.error.server"      = "L’assistant a rencontré un problème. Réessaie dans un instant.";
+"assistant.retry"             = "Réessayer";
+"assistant.clear"             = "Effacer la conversation";
+
+/* — Postes (singulier) + groupes Live — */
+"pos.one.goalkeeper" = "Gardien";
+"pos.one.defender"   = "Défenseur";
+"pos.one.midfielder" = "Milieu";
+"pos.one.attacker"   = "Attaquant";
+"live.favorites"     = "Favoris";
+"live.group.france"  = "France";
+"live.group.europe"  = "Europe";
+"live.group.world"   = "Monde";
+"live.group.europeCup" = "Coupe d'Europe";
+"live.group.selections" = "Sélections";
+
+/* Nations zones + coupes internationales + nouvelles sélections (2026-08-17) */
+"cup.international" = "Internationale";
+"nation.europe" = "Europe";
+"nation.world" = "Monde";
+"nation.international" = "International";
+"comp.goldCup" = "Gold Cup";
+"comp.goldCup.sub" = "Championnat CONCACAF des sélections";
+"comp.copaAmerica" = "Copa América";
+"comp.copaAmerica.sub" = "Championnat sud-américain des sélections";
+"comp.afcon" = "CAN";
+"comp.afcon.sub" = "Coupe d'Afrique des Nations";
+"comp.asianCup" = "Coupe d'Asie";
+"comp.asianCup.sub" = "Championnat AFC des sélections";
+"comp.intercontinental" = "Coupe Intercontinentale";
+"comp.intercontinental.sub" = "Trophée mondial des clubs FIFA";
+
+/* --- Accueil + Bibliothèque + Notes (points 7/8/9) --- */
+"home.title" = "Accueil";
+"home.subtitle" = "Les prochains matchs de vos favoris";
+"home.hello" = "Bonjour 👋";
+"home.helloName" = "Bonjour %@ 👋";
+"home.upcoming" = "Prochains matchs";
+"home.noFavorites.title" = "Aucun favori";
+"home.noFavorites.text" = "Ajoutez des clubs ou des joueurs en favori pour voir leurs prochains matchs ici.";
+"home.noUpcoming.title" = "Aucun match à venir";
+"home.noUpcoming.text" = "Vos favoris n'ont pas de match programmé pour le moment.";
+"library.title" = "Mes Favoris";
+"library.empty" = "Recherchez des clubs et des joueurs, puis ajoutez-les en favori.";
+"settings.name" = "Votre prénom";
+"settings.name.placeholder" = "Prénom";
+"settings.name.note" = "Utilisé uniquement pour vous saluer. Rien n'est envoyé en ligne.";
+"stats.ratings" = "Notes moyennes";
+"col.ratingShort" = "Note";
+"empty.noRatings" = "Aucune note disponible pour cette compétition.";
+
+
+/* ---- Selections nationales (API anglais -> langue app) ---- */
+"team.nat.france" = "France";
+"team.nat.england" = "Angleterre";
+"team.nat.scotland" = "Écosse";
+"team.nat.wales" = "Pays de Galles";
+"team.nat.northernIreland" = "Irlande du Nord";
+"team.nat.republicOfIreland" = "Irlande";
+"team.nat.germany" = "Allemagne";
+"team.nat.italy" = "Italie";
+"team.nat.spain" = "Espagne";
+"team.nat.portugal" = "Portugal";
+"team.nat.netherlands" = "Pays-Bas";
+"team.nat.belgium" = "Belgique";
+"team.nat.croatia" = "Croatie";
+"team.nat.switzerland" = "Suisse";
+"team.nat.austria" = "Autriche";
+"team.nat.poland" = "Pologne";
+"team.nat.denmark" = "Danemark";
+"team.nat.sweden" = "Suède";
+"team.nat.norway" = "Norvège";
+"team.nat.finland" = "Finlande";
+"team.nat.iceland" = "Islande";
+"team.nat.czechRepublic" = "République tchèque";
+"team.nat.slovakia" = "Slovaquie";
+"team.nat.hungary" = "Hongrie";
+"team.nat.romania" = "Roumanie";
+"team.nat.serbia" = "Serbie";
+"team.nat.ukraine" = "Ukraine";
+"team.nat.russia" = "Russie";
+"team.nat.greece" = "Grèce";
+"team.nat.turkey" = "Turquie";
+"team.nat.bosniaHerzegovina" = "Bosnie-Herzégovine";
+"team.nat.slovenia" = "Slovénie";
+"team.nat.bulgaria" = "Bulgarie";
+"team.nat.albania" = "Albanie";
+"team.nat.northMacedonia" = "Macédoine du Nord";
+"team.nat.montenegro" = "Monténégro";
+"team.nat.kosovo" = "Kosovo";
+"team.nat.georgia" = "Géorgie";
+"team.nat.armenia" = "Arménie";
+"team.nat.azerbaijan" = "Azerbaïdjan";
+"team.nat.israel" = "Israël";
+"team.nat.belarus" = "Biélorussie";
+"team.nat.moldova" = "Moldavie";
+"team.nat.lithuania" = "Lituanie";
+"team.nat.latvia" = "Lettonie";
+"team.nat.estonia" = "Estonie";
+"team.nat.luxembourg" = "Luxembourg";
+"team.nat.cyprus" = "Chypre";
+"team.nat.malta" = "Malte";
+"team.nat.faroeIslands" = "Îles Féroé";
+"team.nat.kazakhstan" = "Kazakhstan";
+"team.nat.andorra" = "Andorre";
+"team.nat.sanMarino" = "Saint-Marin";
+"team.nat.liechtenstein" = "Liechtenstein";
+"team.nat.gibraltar" = "Gibraltar";
+"team.nat.brazil" = "Brésil";
+"team.nat.argentina" = "Argentine";
+"team.nat.uruguay" = "Uruguay";
+"team.nat.colombia" = "Colombie";
+"team.nat.chile" = "Chili";
+"team.nat.peru" = "Pérou";
+"team.nat.ecuador" = "Équateur";
+"team.nat.paraguay" = "Paraguay";
+"team.nat.bolivia" = "Bolivie";
+"team.nat.venezuela" = "Venezuela";
+"team.nat.usa" = "États-Unis";
+"team.nat.mexico" = "Mexique";
+"team.nat.canada" = "Canada";
+"team.nat.costaRica" = "Costa Rica";
+"team.nat.panama" = "Panama";
+"team.nat.honduras" = "Honduras";
+"team.nat.jamaica" = "Jamaïque";
+"team.nat.elSalvador" = "Salvador";
+"team.nat.guatemala" = "Guatemala";
+"team.nat.haiti" = "Haïti";
+"team.nat.trinidadAndTobago" = "Trinité-et-Tobago";
+"team.nat.curacao" = "Curaçao";
+"team.nat.morocco" = "Maroc";
+"team.nat.senegal" = "Sénégal";
+"team.nat.egypt" = "Égypte";
+"team.nat.tunisia" = "Tunisie";
+"team.nat.algeria" = "Algérie";
+"team.nat.nigeria" = "Nigéria";
+"team.nat.ghana" = "Ghana";
+"team.nat.ivoryCoast" = "Côte d'Ivoire";
+"team.nat.cameroon" = "Cameroun";
+"team.nat.mali" = "Mali";
+"team.nat.burkinaFaso" = "Burkina Faso";
+"team.nat.southAfrica" = "Afrique du Sud";
+"team.nat.guinea" = "Guinée";
+"team.nat.drCongo" = "RD Congo";
+"team.nat.congo" = "Congo";
+"team.nat.capeVerde" = "Cap-Vert";
+"team.nat.gabon" = "Gabon";
+"team.nat.zambia" = "Zambie";
+"team.nat.angola" = "Angola";
+"team.nat.equatorialGuinea" = "Guinée équatoriale";
+"team.nat.uganda" = "Ouganda";
+"team.nat.kenya" = "Kenya";
+"team.nat.benin" = "Bénin";
+"team.nat.mozambique" = "Mozambique";
+"team.nat.madagascar" = "Madagascar";
+"team.nat.zimbabwe" = "Zimbabwe";
+"team.nat.mauritania" = "Mauritanie";
+"team.nat.namibia" = "Namibie";
+"team.nat.togo" = "Togo";
+"team.nat.libya" = "Libye";
+"team.nat.sudan" = "Soudan";
+"team.nat.sierraLeone" = "Sierra Leone";
+"team.nat.guineaBissau" = "Guinée-Bissau";
+"team.nat.niger" = "Niger";
+"team.nat.malawi" = "Malawi";
+"team.nat.tanzania" = "Tanzanie";
+"team.nat.comoros" = "Comores";
+"team.nat.rwanda" = "Rwanda";
+"team.nat.ethiopia" = "Éthiopie";
+"team.nat.burundi" = "Burundi";
+"team.nat.japan" = "Japon";
+"team.nat.southKorea" = "Corée du Sud";
+"team.nat.northKorea" = "Corée du Nord";
+"team.nat.iran" = "Iran";
+"team.nat.saudiArabia" = "Arabie saoudite";
+"team.nat.australia" = "Australie";
+"team.nat.qatar" = "Qatar";
+"team.nat.iraq" = "Irak";
+"team.nat.uae" = "Émirats arabes unis";
+"team.nat.china" = "Chine";
+"team.nat.uzbekistan" = "Ouzbékistan";
+"team.nat.jordan" = "Jordanie";
+"team.nat.oman" = "Oman";
+"team.nat.bahrain" = "Bahreïn";
+"team.nat.kuwait" = "Koweït";
+"team.nat.syria" = "Syrie";
+"team.nat.lebanon" = "Liban";
+"team.nat.palestine" = "Palestine";
+"team.nat.india" = "Inde";
+"team.nat.vietnam" = "Viêt Nam";
+"team.nat.thailand" = "Thaïlande";
+"team.nat.indonesia" = "Indonésie";
+"team.nat.malaysia" = "Malaisie";
+"team.nat.philippines" = "Philippines";
+"team.nat.singapore" = "Singapour";
+"team.nat.tajikistan" = "Tadjikistan";
+"team.nat.turkmenistan" = "Turkménistan";
+"team.nat.kyrgyzstan" = "Kirghizistan";
+"team.nat.newZealand" = "Nouvelle-Zélande";
+"team.nat.fiji" = "Fidji";
+"team.nat.newCaledonia" = "Nouvelle-Calédonie";
+"team.nat.tahiti" = "Tahiti";
+"team.nat.solomonIslands" = "Îles Salomon";
+"team.nat.papuaNewGuinea" = "Papouasie-Nouvelle-Guinée";
+"team.nat.vanuatu" = "Vanuatu";
+
+/* ---- Noms de competitions (API anglais -> langue app) ---- */
+"comp.api.nationsLeague" = "Ligue des nations de l'UEFA";
+"comp.api.worldCupQualification" = "Coupe du monde - Qualifications";
+"comp.api.euroQualification" = "Championnat d'Europe - Qualifications";
+"comp.api.euroChampionship" = "Championnat d'Europe";
+"comp.api.worldCup" = "Coupe du monde";
+"comp.api.friendlies" = "Matchs amicaux";
+"comp.api.championsLeague" = "Ligue des champions de l'UEFA";
+"comp.api.europaLeague" = "Ligue Europa de l'UEFA";
+"comp.api.conferenceLeague" = "Ligue Europa Conférence de l'UEFA";
+"comp.api.superCup" = "Supercoupe de l'UEFA";
+"comp.api.copaAmerica" = "Copa América";
+"comp.api.africaCupOfNations" = "Coupe d'Afrique des nations";
+"comp.api.asianCup" = "Coupe d'Asie des nations";
+"comp.api.concacafNationsLeague" = "Ligue des nations de la CONCACAF";
+"comp.api.concacafGoldCup" = "Gold Cup de la CONCACAF";
+"comp.api.olympicsFootball" = "Football aux Jeux olympiques";
+"comp.api.finalissima" = "Finalissima";
+
+/* ── Quiz Ligue 1 (mini-jeu local) ─────────────────────────────────────────── */
+"quiz.title" = "Quiz Foot";
+"common.close" = "Fermer";
+"quiz.play" = "Jouer";
+"quiz.playAgain" = "Rejouer";
+"quiz.nextQuestion" = "Question suivante";
+"quiz.seeResult" = "Voir le résultat";
+"quiz.bestScore" = "Meilleur score";
+"quiz.intro.title" = "Prêt à jouer ?";
+"quiz.intro.subtitle" = "10 questions à choix multiples sur ce championnat.";
+"quiz.finished.title" = "Partie terminée";
+"quiz.result.great" = "Excellent ! Un vrai connaisseur.";
+"quiz.result.good" = "Pas mal ! Continue comme ça.";
+"quiz.result.tryAgain" = "Réessaie pour améliorer ton score.";
+"quiz.card.title" = "Jeu du jour";
+"quiz.card.subtitle" = "5 quiz par championnat — teste tes connaissances";
+"quiz.q1.text" = "Quel club français est le seul à avoir remporté la Ligue des champions ?";
+"quiz.q2.text" = "Dans quel stade le Paris Saint-Germain joue-t-il à domicile ?";
+"quiz.q3.text" = "Quel club détient le record de titres de champion de France ?";
+"quiz.q4.text" = "Quel est le stade de l'Olympique de Marseille ?";
+"quiz.q5.text" = "Quel club de Ligue 1 est basé dans une principauté ?";
+"quiz.q6.text" = "Qui est le meilleur buteur de l'histoire du Paris Saint-Germain ?";
+"quiz.q7.text" = "Dans quelle ville joue l'Olympique Lyonnais ?";
+"quiz.q8.text" = "Quel club a été champion de France en 2021 ?";
+"quiz.q9.text" = "Quel club est surnommé « les Sang et Or » ?";
+"quiz.q10.text" = "Quel club surnomme-t-on « les Canaris » ?";
+"quiz.q11.text" = "Quel est le stade de l'Olympique Lyonnais ?";
+"quiz.q12.text" = "Quel club joue au stade Vélodrome ?";
+"quiz.q13.text" = "Quel est le stade de l'AS Monaco ?";
+"quiz.q14.text" = "Quel club joue au Roazhon Park ?";
+"quiz.q15.text" = "Quel club a remporté 7 titres consécutifs de champion de France (2002-2008) ?";
+"quiz.q16.text" = "Quel est le stade de l'OGC Nice ?";
+"quiz.q17.text" = "Quel club évolue dans le nord, à Lens ?";
+"quiz.q18.text" = "Quel entraîneur a dirigé le PSG entre 2011 et 2013 ?";
+"quiz.q19.text" = "Dans quel stade évolue le RC Lens ?";
+"quiz.q20.text" = "Combien de titres de champion de France l'AS Saint-Étienne a-t-elle remportés ?";
+
+// Quiz — choix du championnat (5 championnats)
+"quiz.pick.title" = "Choisis ton championnat";
+"quiz.pick.subtitle" = "5 quiz, 10 questions tirées au hasard à chaque partie.";
+"quiz.notPlayed" = "Pas encore joué";
+"quiz.changeLeague" = "Changer de championnat";
+"quiz.league.ligue1" = "Ligue 1";
+"quiz.league.premierLeague" = "Premier League";
+"quiz.league.liga" = "Liga";
+"quiz.league.bundesliga" = "Bundesliga";
+"quiz.league.serieA" = "Serie A";

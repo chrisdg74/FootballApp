@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "fifa-world-cup-usa-canada-mexico-2026-white-logo-footylogos.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

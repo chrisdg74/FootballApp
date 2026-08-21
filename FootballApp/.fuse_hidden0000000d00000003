@@ -1,0 +1,102 @@
+import SwiftUI
+
+/// Ligne de match réutilisable dans toutes les vues
+struct FixtureRowView: View {
+    let fixture: AFFixture
+    var showLeague: Bool = true
+
+    var homeGoals: String {
+        if fixture.isFinished || fixture.isLive,
+           let h = fixture.goals.home { return "\(h)" }
+        return "–"
+    }
+    var awayGoals: String {
+        if fixture.isFinished || fixture.isLive,
+           let a = fixture.goals.away { return "\(a)" }
+        return "–"
+    }
+
+    var homeWon: Bool {
+        guard fixture.isFinished,
+              let h = fixture.goals.home, let a = fixture.goals.away else { return false }
+        return h > a
+    }
+    var awayWon: Bool {
+        guard fixture.isFinished,
+              let h = fixture.goals.home, let a = fixture.goals.away else { return false }
+        return a > h
+    }
+
+    var body: some View {
+        VStack(spacing: 4) {
+            // Badge ligue + round (si demandé)
+            if showLeague {
+                HStack {
+                    Text(fixture.league.name)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    if let round = fixture.league.round {
+                        Text(round
+                            .replacingOccurrences(of: "Regular Season - ", with: "J")
+                            .replacingOccurrences(of: "Group Stage - ", with: "Gr. J"))
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+
+            HStack(spacing: 8) {
+                // Équipe domicile
+                HStack(spacing: 6) {
+                    Spacer(minLength: 0)
+                    Text(fixture.teams.home.name)
+                        .font(.caption)
+                        .fontWeight(homeWon ? .bold : .regular)
+                        .lineLimit(1)
+                    TeamLogoView(urlString: fixture.teams.home.logo, name: fixture.teams.home.name, size: 20)
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                // Score / statut
+                VStack(spacing: 2) {
+                    if fixture.isFinished || fixture.isLive {
+                        HStack(spacing: 6) {
+                            Text(homeGoals)
+                                .font(.scoreRow)
+                                .foregroundColor(fixture.isLive ? Theme.live : (homeWon ? .primary : .secondary))
+                            Text("–")
+                                .font(.scoreRow)
+                                .foregroundColor(.secondary)
+                            Text(awayGoals)
+                                .font(.scoreRow)
+                                .foregroundColor(fixture.isLive ? Theme.live : (awayWon ? .primary : .secondary))
+                        }
+                        if fixture.isLive {
+                            LiveBadge(minute: fixture.fixture.status.elapsed.map { "\($0)'" })
+                        }
+                    } else {
+                        Text(fixture.statusLabel)
+                            .font(.caption)
+                            .foregroundColor(fixture.fixture.status.short == "PST" ? .orange : .secondary)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 70)
+                    }
+                }
+                .frame(width: 84)
+
+                // Équipe extérieur
+                HStack(spacing: 6) {
+                    TeamLogoView(urlString: fixture.teams.away.logo, name: fixture.teams.away.name, size: 20)
+                    Text(fixture.teams.away.name)
+                        .font(.caption)
+                        .fontWeight(awayWon ? .bold : .regular)
+                        .lineLimit(1)
+                    Spacer(minLength: 0)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(.vertical, 5)
+    }
+}

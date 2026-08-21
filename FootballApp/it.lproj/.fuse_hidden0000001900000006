@@ -1,0 +1,145 @@
+/* ============================================================
+   FILE DI TRADUZIONE — ITALIANO
+   Copia in: it.lproj/Localizable.strings
+   ============================================================ */
+
+/* — Sezioni (tab) — */
+"section.france"        = "Francia";
+"section.france.sub"    = "Ligue 1 → National 2";
+"section.foreign"       = "Estero";
+"section.foreign.sub"   = "I grandi campionati";
+"section.europe"        = "Europa";
+"section.europe.sub"    = "Coppe europee per club";
+"section.nations"       = "Nazionali";
+"section.nations.sub"   = "Squadre nazionali";
+
+/* — Tab & sotto-tab — */
+"tab.live"       = "Live";
+"tab.results"    = "Risultati";
+"tab.standings"  = "Classifica";
+"tab.scorers"    = "Marcatori";
+"tab.rounds"     = "Giornate";
+
+/* — Hub di sezione — */
+"hub.available"  = "Disponibile";
+"hub.comingSoon" = "In arrivo";
+"hub.empty"      = "Nessuna competizione in questa sezione per ora.";
+"badge.soon"     = "Presto";
+
+/* — Classifica (intestazioni colonne) — */
+"col.team"          = "Squadra";
+"col.player"        = "Giocatore";
+"col.matchesShort"  = "PG";
+"col.assistsShort"  = "A";
+"col.goalsShort"    = "Gol";
+
+/* — Stati — */
+"loading"            = "Caricamento…";
+"empty.noMatch"      = "Nessuna partita trovata";
+"empty.noStandings"  = "Classifica non disponibile";
+"empty.noScorers"    = "Classifica marcatori non disponibile";
+"filter.all"         = "Tutte";
+
+/* — Azioni — */
+"action.refresh" = "Aggiorna";
+"action.retry"   = "Riprova";
+
+/* — Ricerca squadra — */
+"search.title"        = "Cerca";
+"search.placeholder"  = "Cerca una squadra";
+"search.prompt"       = "Digita almeno 3 lettere per cercare una squadra.";
+"search.noResult"     = "Nessuna squadra trovata";
+"search.nationalTeam" = "Nazionale";
+"search.upcoming"     = "In programma";
+"search.recent"       = "Partite recenti";
+
+/* — Schermata Live — */
+"live.title"        = "🔴 Live";
+"live.searching"    = "Ricerca partite in diretta…";
+"live.emptyTitle"   = "Nessuna partita in diretta";
+"live.emptyBody"    = "Le partite in corso\nappariranno qui automaticamente.";
+"live.updatedSecs"  = "%ds fa";
+"live.updatedMins"  = "%dmin fa";
+
+/* — Pagina dettaglio partita — */
+"match.title"       = "Dettaglio partita";
+"match.summary"     = "Riepilogo";
+"match.lineups"     = "Formazioni";
+"match.stats"       = "Statistiche";
+"match.noEvents"    = "Nessun evento per questa partita";
+"match.noLineups"   = "Formazioni non disponibili";
+"match.noStats"     = "Statistiche non disponibili";
+"match.substitutes" = "Riserve";
+
+/* — Stati partita — */
+"status.finished"   = "Finale";
+"status.firstHalf"  = "1º tempo";
+"status.halftime"   = "Intervallo";
+"status.secondHalf" = "2º tempo";
+"status.extraTime"  = "Supplementari";
+"status.penalties"  = "Rigori";
+"status.upcoming"   = "In programma";
+"status.postponed"  = "Rinviata";
+"status.cancelled"  = "Annullata";
+
+/* ============================================================
+   NOMI & DESCRIZIONI DELLE COMPETIZIONI
+   ============================================================ */
+
+/* Francia (nomenclatura 2026-27) */
+"comp.ligue1"           = "Ligue 1";
+"comp.ligue1.sub"       = "1ª divisione francese";
+"comp.ligue2"           = "Ligue 2";
+"comp.ligue2.sub"       = "2ª divisione francese";
+"comp.ligue3"           = "Ligue 3";
+"comp.ligue3.sub"       = "3ª divisione (ex National), pro dal 2026-27";
+"comp.national1"        = "National 1";
+"comp.national1.sub"    = "4º livello · 3 gironi da 16";
+"comp.national2"        = "National 2";
+"comp.national2.sub"    = "5º livello · 8 gironi da 14";
+"comp.coupeFrance"      = "Coppa di Francia";
+"comp.coupeFrance.sub"  = "Tutti i club, dilettanti e pro";
+
+/* Estero */
+"comp.premierLeague"    = "Premier League";
+"comp.premierLeague.sub"= "Inghilterra · Massima serie";
+"comp.laLiga"           = "LaLiga";
+"comp.laLiga.sub"       = "Spagna · Massima serie";
+"comp.serieA"           = "Serie A";
+"comp.serieA.sub"       = "Italia · Massima serie";
+"comp.bundesliga"       = "Bundesliga";
+"comp.bundesliga.sub"   = "Germania · Massima serie";
+"comp.primeiraLiga"     = "Primeira Liga";
+"comp.primeiraLiga.sub" = "Portogallo · Massima serie";
+"comp.eredivisie"       = "Eredivisie";
+"comp.eredivisie.sub"   = "Paesi Bassi · Massima serie";
+"comp.swissSuperLeague"     = "Super League";
+"comp.swissSuperLeague.sub" = "Svizzera · Massima serie";
+"comp.mls"                  = "MLS";
+"comp.mls.sub"              = "USA / Canada · Massima serie";
+"comp.brasileirao"          = "Brasileirão";
+"comp.brasileirao.sub"      = "Brasile · Serie A";
+"comp.ligaMX"               = "Liga MX";
+"comp.ligaMX.sub"           = "Messico · Massima serie";
+"comp.ligaArgentina"        = "Liga Profesional";
+"comp.ligaArgentina.sub"    = "Argentina · Massima serie";
+"comp.j1League"             = "J1 League";
+"comp.j1League.sub"         = "Giappone · Massima serie";
+"comp.saudiProLeague"       = "Saudi Pro League";
+"comp.saudiProLeague.sub"   = "Arabia Saudita · Massima serie";
+
+/* Europa */
+"comp.ucl"       = "Champions League";
+"comp.ucl.sub"   = "UEFA Champions League";
+"comp.uel"       = "Europa League";
+"comp.uel.sub"   = "UEFA Europa League";
+"comp.uecl"      = "Conference League";
+"comp.uecl.sub"  = "UEFA Europa Conference League";
+
+/* Nazionali */
+"comp.nationsLeague"     = "Nations League";
+"comp.nationsLeague.sub" = "UEFA Nations League";
+"comp.euro"              = "Europeo";
+"comp.euro.sub"          = "Campionato europeo UEFA";
+"comp.worldCup"          = "Mondiale";
+"comp.worldCup.sub"      = "Coppa del Mondo FIFA";

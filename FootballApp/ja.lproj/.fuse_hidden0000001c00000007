@@ -1,0 +1,546 @@
+/* ============================================================
+   翻訳ファイル — 日本語
+   コピー先: ja.lproj/Localizable.strings
+   ============================================================ */
+
+/* — セクション（タブ）— */
+"competitions.title"    = "大会";
+"seg.championships"     = "リーグ";
+"seg.europeanCups"      = "欧州カップ";
+"seg.nations"           = "代表";
+"seg.nations.full"      = "各国代表";
+"seg.friendlies"        = "親善試合";
+"seg.cups"              = "カップ戦";
+"banner.nations.sub"    = "各国代表チーム";
+"zone.france.sub"       = "リーグ・アン → ナシオナル2";
+"zone.europe.sub"       = "主要リーグ";
+"zone.america.sub"      = "アメリカのリーグ";
+"zone.asia.sub"         = "アジアのリーグ";
+"zone.middleEast.sub"   = "中東のリーグ";
+"zone.world"            = "世界";
+"zone.world.sub"        = "アメリカ・アジア・中東";
+"section.france"        = "フランス";
+"section.france.sub"    = "リーグ・アン → ナシオナル2";
+"section.foreign"       = "インターナショナル";
+"section.foreign.sub"   = "主要リーグ";
+"continent.europe"      = "ヨーロッパ";
+"continent.america"     = "アメリカ";
+"continent.asia"        = "アジア";
+"continent.middleEast"  = "中東";
+"section.europe"        = "ヨーロッパ";
+"section.europe.sub"    = "欧州クラブ大会";
+"section.nations"       = "代表";
+"section.nations.sub"   = "各国代表";
+
+/* — タブ＆サブタブ — */
+"tab.live"       = "ライブ";
+"tab.results"    = "結果";
+"tab.standings"  = "順位表";
+"tab.scorers"    = "得点ランキング";
+"tab.stats"      = "スタッツ";
+"tab.rounds"     = "節";
+
+/* — スタッツタブのサブメニュー — */
+"stats.scorers"     = "得点ランキング";
+"stats.notStarted"  = "シーズンはまだ始まっていません";
+"stats.assists"     = "アシストランキング";
+"stats.combo"       = "得点＋アシスト";
+"stats.comboShort"  = "G+A";
+"stats.bestAttack"  = "得点力";
+"stats.bestDefense" = "守備力";
+"stats.streaks"     = "現在の調子";
+"stats.home"        = "ホーム順位表";
+"stats.away"        = "アウェイ順位表";
+"stats.fairPlay"    = "フェアプレー";
+"col.pointsShort"   = "点";
+"empty.noFairPlay"  = "カードのデータがありません";
+"fairPlay.note"     = "配点：イエロー=1点、レッド=3点。フェアプレーなチーム（少ない点）が上位です。";
+"fairPlay.euroPartial" = "欧州カップ：カードはリーグ／グループステージのみで集計されます。";
+
+/* — ホーム＆アウェイの対戦（欧州カップ）— */
+"tie.aggregate"     = "合計";
+
+/* — セクションハブ — */
+"hub.available"  = "利用可能";
+"hub.comingSoon" = "近日公開";
+"hub.empty"      = "このセクションにはまだ大会がありません。";
+"badge.soon"     = "近日";
+
+/* — 順位表（列見出し）— */
+"col.team"          = "チーム";
+"standings.group"   = "グループ";
+"phase.select"       = "フェーズを選択";
+"phase.groups"       = "グループステージ";
+"phase.qualifiers" = "予選";
+
+"phase.pastEdition" = "最新大会";
+"phase.pastEdition.dates" = "%1$@ から %2$@ まで開催された大会です。";
+"conf.europe" = "ヨーロッパ";
+"conf.southAmerica" = "南米";
+"conf.africa" = "アフリカ";
+"conf.asia" = "アジア";
+"conf.concacaf" = "北中米カリブ";
+"conf.oceania" = "オセアニア";
+"phase.playoff"      = "プレーオフ";
+"phase.accessPlayoff" = "アクセスプレーオフ";
+"phase.qualif3"      = "予選3回戦";
+"phase.qualif2"      = "予選2回戦";
+"phase.qualif1"      = "予選1回戦";
+"phase.leg1"         = "第1戦";
+"phase.leg2"         = "第2戦";
+"phase.leg1Short"    = "第1戦";
+"phase.leg2Short"    = "第2戦";
+"phase.explain.knockoutPlayoff" = "プレーオフ：リーグフェーズ9〜24位のチームがホーム＆アウェイの2試合で対戦し、ラウンド16進出を争います。";
+"phase.explain.accessPlayoff" = "アクセスプレーオフ：リーグフェーズ進出をかけた最後のホーム＆アウェイ2試合です。";
+"phase.explain.qualifying" = "ホーム＆アウェイの2試合で行われる予選ラウンド。勝者が次のラウンドへ進みます。";
+"phase.explain.twoLegged" = "ホーム＆アウェイ2試合の対戦。2試合合計で勝ったチームが勝ち上がります。";
+"phase.round32"      = "ラウンド32";
+"phase.round16"      = "ラウンド16";
+"phase.quarter"      = "準々決勝";
+"phase.semi"         = "準決勝";
+"phase.thirdPlace"   = "3位決定戦";
+"phase.final"        = "決勝";
+"col.player"        = "選手";
+"col.matchesShort"  = "試";
+"col.assistsShort"  = "A";
+"col.goalsShort"    = "得点";
+
+/* — 状態 — */
+"loading"            = "読み込み中…";
+"empty.noMatch"      = "試合が見つかりません";
+"matches.upcomingRound" = "次の節";
+"empty.noStandings"  = "順位表は利用できません";
+"empty.noScorers"    = "得点ランキングは利用できません";
+"filter.all"         = "すべて";
+
+/* — アクション — */
+"action.refresh" = "更新";
+"action.retry"   = "再試行";
+
+/* — チーム検索 — */
+"search.title"        = "検索";
+"search.placeholder"  = "クラブ・選手・代表チームを検索";
+"search.prompt"       = "クラブ・選手・代表チームを検索するには3文字以上入力してください。";
+"search.noResult"     = "結果がありません";
+"search.section.teams"   = "チーム";
+"search.section.players" = "選手";
+"search.nationalTeam" = "代表チーム";
+"search.upcoming"     = "今後の試合";
+"search.recent"       = "最近の試合";
+
+/* — お気に入り — */
+"favorites.title"  = "お気に入り";
+"favorites.empty"  = "お気に入りはまだありません。⭐をタップして追加できます。";
+"favorites.add"    = "お気に入りに追加";
+"favorites.remove" = "お気に入りから削除";
+"favorites.clubs"   = "お気に入りクラブ";
+"favorites.players" = "フォロー中の選手";
+"favorites.nations" = "代表チーム";
+"favorites.clubs.empty"   = "お気に入りクラブがありません。クラブの⭐をタップして追加してください。";
+"favorites.players.empty" = "フォロー中の選手がいません。選手の⭐をタップして追加してください。";
+"favorites.nations.empty" = "お気に入りの代表チームがありません。代表チームの⭐をタップして追加してください。";
+"player.follow"     = "この選手をフォロー";
+"player.unfollow"   = "フォロー解除";
+"settings.title"    = "設定";
+"settings.language" = "言語";
+"settings.language.system" = "システムの言語";
+"settings.language.note" = "言語はすぐに適用されます。完全に切り替えるにはアプリを再起動してください（システムの日付形式）。";
+"common.done"       = "完了";
+
+/* — ファンタジーゲーム — */
+"fantasy.title"         = "マイチーム";
+"fantasy.points"        = "ポイント";
+"fantasy.budgetLeft"    = "残り予算";
+"fantasy.squadCount"    = "選手";
+"fantasy.addPlayer"     = "選手を追加";
+"fantasy.editSquad"     = "チームを編集";
+"fantasy.emptyHint"     = "予算内で5人の選手を選んでチームを編成しましょう。選手は実際の成績でポイントを獲得します：ゴール×5、アシスト×3、出場×1。";
+"fantasy.choosePlayers" = "選手を選ぶ";
+"fantasy.searchPlayer"  = "選手またはクラブを検索";
+"fantasy.ptsShort"      = "点";
+"fantasy.creditsShort"  = "cr";
+"fantasy.done"          = "完了";
+"fantasy.noPlayers"    = "まだ選手データがありません。シーズンが始まるとリーグ・アンのデータが表示されます。";
+"pos.goalkeeper"        = "GK";
+"pos.defender"          = "DF";
+"pos.midfielder"        = "MF";
+"pos.attacker"          = "FW";
+"pos.unknown"           = "その他";
+
+/* — ライブ画面 — */
+"live.title"        = "🔴 ライブ";
+"live.searching"    = "ライブ中の試合を検索中…";
+"live.emptyTitle"   = "ライブ中の試合はありません";
+"live.emptyBody"    = "進行中の試合は\nここに自動的に表示されます。";
+"upcoming.title"      = "予定";
+"upcoming.emptyTitle" = "予定の試合はありません";
+"upcoming.emptyBody"  = "今後5日間の試合が\nここに表示されます。";
+"day.today"           = "今日";
+"day.tomorrow"        = "明日";
+"live.updatedSecs"  = "%d秒前";
+"live.updatedMins"  = "%d分前";
+
+/* ホーム画面（機能拡張されたライブタブ） */
+"home.greeting.morning"   = "おはようございます 👋";
+"home.greeting.afternoon" = "こんにちは 👋";
+"home.greeting.evening"   = "こんばんは 👋";
+"home.summary.total"      = "本日 %d 試合";
+"home.summary.live"       = "本日 %d 試合 · %d 試合がライブ";
+"home.ai.title"           = "サッカーについて何でも質問";
+"home.ai.subtitle"        = "スコア、順位表、選手… アシスタントに聞いてみよう";
+"home.ai.prefill"         = "今日の注目の試合は？";
+"home.next.title" = "お気に入りの次の試合";
+"home.next.clubs" = "クラブ";
+"home.next.players" = "選手";
+"home.next.clubs.empty" = "お気に入りクラブの今後の試合はありません。";
+"home.next.players.empty" = "フォロー中の選手の今後の試合はありません。";
+"home.next.nations"       = "代表チーム";
+"home.next.nations.empty" = "お気に入りの代表チームの今後の試合はありません。";
+"home.next.countdownDays" = "あと%d日 %d時間%d分";
+"home.next.kickoffNow" = "まもなくキックオフ";
+
+/* — 日付バー + ライブ状態 — */
+"day.todayShort"       = "今日";
+"day.yesterdayShort"   = "昨日";
+"day.tomorrowShort"    = "明日";
+"live.noFollowTitle"   = "フォロー中の大会がありません";
+"live.noFollowBody"    = "大会の星をタップすると\nここでフォローできます。";
+"live.noMatchDayTitle" = "この日は試合がありません";
+"live.noMatchDayBody"  = "上の日付バーで\n別の日を選んでください。";
+"status.liveShort"     = "ライブ";
+"status.halftimeShort" = "HT";
+"status.finishedShort" = "終了";
+"follow.add"           = "フォロー";
+"follow.remove"        = "フォロー解除";
+
+/* — 試合詳細ページ — */
+"match.title"       = "試合詳細";
+"match.summary"     = "概要";
+"match.lineups"     = "スターティングメンバー";
+"match.stats"       = "スタッツ";
+"match.noEvents"    = "この試合のイベントはありません";
+"match.noLineups"   = "メンバーは利用できません";
+"match.noStats"     = "スタッツは利用できません";
+"match.substitutes" = "控え選手";
+"match.startingXI"  = "先発";
+"match.info"        = "試合情報";
+"match.sec.goals" = "ゴール";
+"match.sec.cards" = "カード";
+"match.sec.subs"  = "交代";
+"goal.penalty"    = "(PK)";
+"goal.ownGoal"    = "(OG)";
+"match.referee"   = "主審:";
+
+/* — 試合スタッツの種類 — */
+"stat.possession"     = "ボール支配率";
+"stat.xg"             = "期待ゴール (xG)";
+"stat.shotsTotal"     = "シュート数";
+"stat.shotsOn"        = "枠内シュート";
+"stat.shotsOff"       = "枠外シュート";
+"stat.shotsBlocked"   = "ブロックされたシュート";
+"stat.shotsInside"    = "ペナルティエリア内シュート";
+"stat.shotsOutside"   = "エリア外シュート";
+"stat.saves"          = "GKセーブ";
+"stat.passesTotal"    = "パス総数";
+"stat.passesAccurate" = "成功パス";
+"stat.passesPct"      = "パス成功率";
+"stat.fouls"          = "ファウル";
+"stat.corners"        = "コーナーキック";
+"stat.offsides"       = "オフサイド";
+"stat.yellow"         = "イエローカード";
+"stat.red"            = "レッドカード";
+
+/* — 試合の状態 — */
+"status.finished"   = "試合終了";
+"status.firstHalf"  = "前半";
+"status.halftime"   = "ハーフタイム";
+"status.secondHalf" = "後半";
+"status.extraTime"  = "延長";
+"status.penalties"  = "PK戦";
+"status.upcoming"   = "開催予定";
+"status.postponed"  = "延期";
+"status.cancelled"  = "中止";
+
+/* ============================================================
+   大会名＆説明
+   ============================================================ */
+
+/* フランス（2026-27 の名称）*/
+"comp.ligue1"           = "リーグ・アン";
+"comp.ligue1.sub"       = "フランス1部";
+"comp.ligue2"           = "リーグ・ドゥ";
+"comp.ligue2.sub"       = "フランス2部";
+"comp.ligue3"           = "リーグ・トロワ";
+"comp.ligue3.sub"       = "3部（旧ナシオナル）、2026-27よりプロ化";
+"comp.national1"        = "ナシオナル1";
+"comp.national1.sub"    = "4部・16チーム3グループ";
+"comp.national2"        = "ナシオナル2";
+"comp.national2.sub"    = "5部・14チーム8グループ";
+"comp.tropheeChampions"     = "トロフェ・デ・シャンピオン";
+"comp.tropheeChampions.sub" = "リーグ・アン王者 対 カップ優勝者";
+"comp.coupeFrance"      = "クープ・ド・フランス";
+"comp.coupeFrance.sub"  = "アマチュア・プロ全クラブ";
+"comp.feminine"         = "アルケマ・プルミエ・リーグ";
+"comp.feminine.sub"     = "フランス女子1部リーグ";
+
+/* 海外 */
+"comp.premierLeague"    = "プレミアリーグ";
+"comp.premierLeague.sub"= "イングランド・1部";
+"comp.laLiga"           = "ラ・リーガ";
+"comp.laLiga.sub"       = "スペイン・1部";
+"comp.serieA"           = "セリエA";
+"comp.serieA.sub"       = "イタリア・1部";
+"comp.bundesliga"       = "ブンデスリーガ";
+"comp.bundesliga.sub"   = "ドイツ・1部";
+"comp.primeiraLiga"     = "プリメイラ・リーガ";
+"comp.primeiraLiga.sub" = "ポルトガル・1部";
+"comp.eredivisie"       = "エールディヴィジ";
+"comp.eredivisie.sub"   = "オランダ・1部";
+"comp.swissSuperLeague"     = "スーパーリーグ";
+"comp.swissSuperLeague.sub" = "スイス・1部";
+"comp.mls"                  = "MLS";
+"comp.mls.sub"              = "アメリカ／カナダ・1部";
+"comp.brasileirao"          = "ブラジル全国選手権";
+"comp.brasileirao.sub"      = "ブラジル・セリエA";
+"comp.ligaMX"               = "リーガMX";
+"comp.ligaMX.sub"           = "メキシコ・1部";
+"comp.ligaArgentina"        = "リーガ・プロフェシオナル";
+"comp.ligaArgentina.sub"    = "アルゼンチン・1部";
+"comp.j1League"             = "J1リーグ";
+"comp.j1League.sub"         = "日本・1部";
+"comp.saudiProLeague"       = "サウジ・プロリーグ";
+"comp.saudiProLeague.sub"   = "サウジアラビア・1部";
+
+/* ヨーロッパ */
+"comp.ucl"       = "チャンピオンズリーグ";
+"comp.ucl.sub"   = "UEFAチャンピオンズリーグ";
+"comp.uel"       = "ヨーロッパリーグ";
+"comp.uel.sub"   = "UEFAヨーロッパリーグ";
+"comp.uecl"      = "カンファレンスリーグ";
+"comp.uecl.sub"  = "UEFAヨーロッパカンファレンスリーグ";
+"comp.uefaSuperCup"     = "UEFAスーパーカップ";
+"comp.uefaSuperCup.sub" = "UEFA Super Cup";
+
+/* — カップ セグメント：ファミリー＋国 — */
+"cup.national" = "国内";
+"cup.europe"   = "ヨーロッパ";
+"cup.world"    = "世界";
+"country.england"     = "イングランド";
+"country.spain"       = "スペイン";
+"country.italy"       = "イタリア";
+"country.germany"     = "ドイツ";
+"country.portugal"    = "ポルトガル";
+"country.switzerland" = "スイス";
+
+/* — 各国国内カップ — */
+"comp.faCup"                = "FAカップ";
+"comp.faCup.sub"            = "イングランドFAカップ";
+"comp.carabaoCup"           = "EFLカップ";
+"comp.carabaoCup.sub"       = "カラバオカップ";
+"comp.communityShield"      = "コミュニティ・シールド";
+"comp.communityShield.sub"  = "イングランド・スーパーカップ";
+"comp.copaDelRey"           = "コパ・デル・レイ";
+"comp.copaDelRey.sub"       = "スペイン国王杯";
+"comp.supercopaEspana"      = "スペイン・スーパーカップ";
+"comp.supercopaEspana.sub"  = "Supercopa de España";
+"comp.coppaItalia"          = "コッパ・イタリア";
+"comp.coppaItalia.sub"      = "イタリアカップ";
+"comp.supercoppaItaliana"     = "イタリア・スーパーカップ";
+"comp.supercoppaItaliana.sub" = "Supercoppa Italiana";
+"comp.dfbPokal"             = "DFBポカール";
+"comp.dfbPokal.sub"         = "ドイツカップ";
+"comp.dflSupercup"          = "DFLスーパーカップ";
+"comp.dflSupercup.sub"      = "ドイツ・スーパーカップ";
+"comp.tacaPortugal"         = "タッサ・デ・ポルトガル";
+"comp.tacaPortugal.sub"     = "ポルトガルカップ";
+"comp.supertacaPortugal"    = "ポルトガル・スーパーカップ";
+"comp.supertacaPortugal.sub" = "Supertaça";
+"comp.schweizerCup"         = "スイスカップ";
+"comp.schweizerCup.sub"     = "Schweizer Cup";
+
+/* — 世界／大陸カップ（クラブ） — */
+"comp.libertadores"           = "コパ・リベルタドーレス";
+"comp.libertadores.sub"       = "CONMEBOL Libertadores";
+"comp.sudamericana"           = "コパ・スダメリカーナ";
+"comp.sudamericana.sub"       = "CONMEBOL Sudamericana";
+"comp.clubWorldCup"           = "クラブワールドカップ";
+"comp.clubWorldCup.sub"       = "FIFA Club World Cup";
+"comp.cafChampionsLeague"     = "CAFチャンピオンズリーグ";
+"comp.cafChampionsLeague.sub" = "CAF Champions League";
+"comp.afcChampionsLeague"     = "AFCチャンピオンズリーグ";
+"comp.afcChampionsLeague.sub" = "AFC Champions League Elite";
+
+/* 代表 */
+"comp.nationsLeague"     = "ネーションズリーグ";
+"comp.nationsLeague.sub" = "UEFAネーションズリーグ";
+"comp.euro"              = "ユーロ";
+"comp.euro.sub"          = "UEFA欧州選手権";
+"comp.worldCup"          = "ワールドカップ";
+"comp.worldCup.sub"      = "FIFAワールドカップ";
+
+/* — ローカライズされたチーム名（欧州カップ）— */
+"team.spartaPrague" = "スパルタ・プラハ";
+"team.slaviaPrague" = "スラヴィア・プラハ";
+"team.viktoriaPlzen" = "ヴィクトリア・プルゼニ";
+"team.bayernMunich" = "バイエルン・ミュンヘン";
+"team.fcKoln" = "ケルン";
+"team.rapidVienna" = "ラピード・ウィーン";
+"team.austriaVienna" = "アウストリア・ウィーン";
+"team.redStarBelgrade" = "レッドスター・ベオグラード";
+"team.sportingLisbon" = "スポルティングCP";
+"team.clubBruges" = "クラブ・ブルッヘ";
+"team.olympiacos" = "オリンピアコス";
+
+// ── Enjeux de classement (codes couleur) ──
+"phase.tab.phases"       = "ステージ";
+"stake.legend"           = "色の凡例";
+"stake.champion"         = "優勝";
+"stake.championsLeague"  = "チャンピオンズリーグ";
+"stake.championsLeagueQ" = "チャンピオンズリーグ予選";
+"stake.europaLeague"     = "ヨーロッパリーグ";
+"stake.conferenceLeague" = "カンファレンスリーグ";
+"stake.promotion"        = "自動昇格";
+"stake.promotionPlayoff" = "昇格プレーオフ";
+"stake.championshipRound"= "優勝決定ラウンド";
+"stake.relegationRound"  = "残留ラウンド";
+"stake.relegationPlayoff"= "降格プレーオフ";
+"stake.relegation"       = "降格";
+
+// ── AIアシスタント ─────────────────────────────────────────────────────────
+"assistant.title"                = "アシスタント";
+"assistant.close"                = "閉じる";
+"assistant.error"                = "申し訳ありません。エラーが発生しました。少し経ってからもう一度お試しください。";
+"assistant.placeholder"          = "質問を入力…";
+"assistant.greeting"             = "こんにちは！サッカーアシスタントです。";
+"assistant.greetingHint"         = "自然な言葉で質問してください。例：「マルセイユの試合はいつ？」";
+"assistant.loadingMatch"         = "試合を読み込み中…";
+"assistant.loadingTeam"          = "チームを読み込み中…";
+"assistant.seeFullTable"         = "順位表をすべて見る";
+"assistant.standingUnavailable" = "順位表は現在利用できません";
+"assistant.clubScorers.title" = "クラブの得点者";
+"assistant.clubScorers.empty" = "このクラブの得点者はまだいません。";
+// チーム / 選手プロフィール
+"team.founded" = "設立";
+"team.coach" = "監督";
+"team.seats" = "席";
+"team.nextMatch" = "次の試合";
+"team.nextMatchVenue" = "次の試合の会場：";
+"team.seasonSummary" = "シーズン成績";
+"team.played" = "試合数";
+"team.record" = "成績";
+"team.winsShort" = "勝";
+"team.drawsShort" = "分";
+"team.lossesShort" = "敗";
+"team.goalsForAgainst" = "得点 : 失点";
+"team.cleanSheets" = "無失点試合";
+"team.winStreak" = "最長連勝";
+"team.avgGoals" = "1試合平均得点";
+"team.avgGoalsAgainst" = "1試合平均失点";
+"team.identity" = "クラブ情報";
+"team.squad" = "スカッド";
+"team.matches" = "試合";
+"team.matches.played" = "終了";
+"team.matches.upcoming" = "今後";
+"matchtype.friendly" = "親善試合";
+"matchtype.league" = "リーグ";
+"matchtype.cup" = "カップ";
+"matchtype.europe" = "ヨーロッパカップ";
+"match.homeShort" = "ホーム";
+"match.awayShort" = "アウェイ";
+"squad.goalkeepers" = "ゴールキーパー";
+"squad.defenders" = "ディフェンダー";
+"squad.midfielders" = "ミッドフィルダー";
+"squad.attackers" = "フォワード";
+"squad.others" = "その他";
+"player.yearsShort" = "歳";
+"player.seasonStats" = "今季の成績";
+"player.appearances" = "出場";
+"player.goals" = "ゴール";
+"player.assists" = "アシスト";
+"player.yellowCards" = "イエローカード";
+"player.redCards" = "レッドカード";
+"player.starts" = "先発";
+"player.minutes" = "出場時間";
+"player.rating" = "平均評価";
+"player.currentSeasonStats" = "今季の成績";
+"player.noSeasonMatch" = "今季はまだ試合がありません。";
+"player.unavailable" = "選手プロフィールは現在利用できません。";
+"player.noStats" = "この選手の統計データはありません。";
+"player.nationality" = "国籍";
+"player.position" = "ポジション";
+"player.age" = "年齢";
+"player.nationalTeamSeason" = "代表（今季）";
+"player.selections" = "代表出場";
+"player.nationalGoals" = "代表得点";
+"player.career" = "経歴";
+"player.capsCareer" = "代表出場（通算）";
+"player.currentClub" = "現所属クラブ";
+"player.since" = "から";
+"player.previousClubs" = "過去の所属クラブ";
+"player.awards" = "受賞歴";
+"player.majorCompetitions" = "主要大会";
+"player.physical" = "身体プロフィール";
+"player.height" = "身長";
+"player.weight" = "体重";
+"player.birth" = "生年月日";
+"player.birthPlace" = "出身地";
+"player.viewTransfermarkt" = "Transfermarktで見る";
+"assistant.suggestion.fixtures"  = "マルセイユの次の試合";
+"assistant.suggestion.standings" = "リーグ2の順位表";
+"assistant.suggestion.scorers"   = "リーグ2の得点王";
+"assistant.suggestion.today"     = "今日の試合は？";
+
+// ── AIアシスタント — エラーと操作 ────────────────────────────────────────
+"assistant.error.offline"     = "インターネットに接続していません。ネットワークを確認して再試行してください。";
+"assistant.error.timeout"     = "アシスタントの応答に時間がかかりすぎています。少し経ってから再試行してください。";
+"assistant.error.unreachable" = "現在アシスタントに接続できません。しばらくしてから再試行してください。";
+"assistant.error.server"      = "アシスタントで問題が発生しました。少し経ってから再試行してください。";
+"assistant.retry"             = "再試行";
+"assistant.clear"             = "会話を消去";
+
+/* — Postes (singulier) + groupes Live — */
+"pos.one.goalkeeper" = "ゴールキーパー";
+"pos.one.defender"   = "ディフェンダー";
+"pos.one.midfielder" = "ミッドフィールダー";
+"pos.one.attacker"   = "フォワード";
+"live.favorites"     = "お気に入り";
+"live.group.france"  = "フランス";
+"live.group.europe"  = "ヨーロッパ";
+"live.group.world"   = "世界";
+"live.group.europeCup" = "ヨーロッパカップ";
+"live.group.selections" = "代表";
+
+/* Nations zones + coupes internationales + nouvelles sélections (2026-08-17) */
+"cup.international" = "国際";
+"nation.europe" = "ヨーロッパ";
+"nation.world" = "世界";
+"nation.international" = "国際";
+"comp.goldCup" = "ゴールドカップ";
+"comp.goldCup.sub" = "CONCACAF代表選手権";
+"comp.copaAmerica" = "コパ・アメリカ";
+"comp.copaAmerica.sub" = "南米代表選手権";
+"comp.afcon" = "アフリカ選手権";
+"comp.afcon.sub" = "アフリカネイションズカップ";
+"comp.asianCup" = "アジアカップ";
+"comp.asianCup.sub" = "AFC代表選手権";
+"comp.intercontinental" = "インターコンチネンタルカップ";
+"comp.intercontinental.sub" = "FIFAクラブ世界王者決定戦";
+
+/* --- Accueil + Bibliothèque + Notes (points 7/8/9) --- */
+"home.title" = "ホーム";
+"home.subtitle" = "お気に入りの次の試合";
+"home.hello" = "こんにちは 👋";
+"home.helloName" = "こんにちは、%@さん 👋";
+"home.upcoming" = "次の試合";
+"home.noFavorites.title" = "お気に入りがありません";
+"home.noFavorites.text" = "クラブや選手をお気に入りに追加すると、次の試合がここに表示されます。";
+"home.noUpcoming.title" = "予定された試合はありません";
+"home.noUpcoming.text" = "お気に入りには現在予定された試合がありません。";
+"library.title" = "マイライブラリ";
+"library.empty" = "クラブや選手を検索してお気に入りに追加しましょう。";
+"settings.name" = "お名前";
+"settings.name.placeholder" = "名前";
+"settings.name.note" = "あいさつにのみ使用されます。オンラインには送信されません。";
+"stats.ratings" = "平均評価";
+"col.ratingShort" = "評価";
+"empty.noRatings" = "この大会の評価はありません。";

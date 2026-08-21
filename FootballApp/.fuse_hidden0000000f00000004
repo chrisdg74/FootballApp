@@ -1,0 +1,451 @@
+import SwiftUI
+
+/// Écran « À venir » — les matchs des 5 prochains jours (J+5).
+/// Niveau 1 = le JOUR (Aujourd'hui / Demain / date) : toujours affiché, non pliable.
+/// Niveau 2 = la RUBRIQUE (Championnats / Coupes d'Europe / Sélections) : un clic la
+/// déplie DANS ce jour. Niveau 3 = la COMPÉTITION (drapeau + nombre de matchs) : un
+/// clic la déplie et montre enfin ses MATCHS (niveau 4). Rien n'est déroulé par
+/// défaut. L'état d'ouverture est propre à chaque jour (ouvrir « Championnats » le
+/// lundi n'ouvre pas la même rubrique le mardi) : les clés d'expansion incluent le jour.
+struct LiveView: View {
+    @EnvironmentObject private var favorites: FavoritesStore
+    @State private var upcoming: [AFFixture] = []
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    @State private var lastUpdate = Date()
+
+    /// Rubriques dépliées (niveau 2) et compétitions dépliées (niveau 3).
+    /// Les clés incluent le jour → l'état est propre à chaque jour.
+    /// Rubrique : "\(dayKey)#\(rubrique.rawValue)". Compétition : "\(dayKey)#\(comp.id)".
+    @State private var expandedRubriques: Set<String> = []
+    @State private var expandedComps: Set<String> = []
+
+    // ── Rubriques (niveau 1) ──────────────────────────────────────────────────
+    enum Rubrique: Int, CaseIterable, Identifiable {
+        case championnats     // sections .france + .foreign
+        case europeanCups     // section .europe
+        case nations          // section .nations
+        case cups             // coupes des clubs favoris (hors catalogue)
+        case friendlies       // amicaux des clubs favoris (hors catalogue)
+
+        var id: Int { rawValue }
+
+        var titleKey: String {
+            switch self {
+            case .championnats: return "seg.championships"
+            case .europeanCups: return "seg.europeanCups"
+            case .nations:      return "seg.nations.full"
+            case .cups:         return "seg.cups"
+            case .friendlies:   return "seg.friendlies"
+            }
+        }
+
+        var emoji: String {
+            switch self {
+            case .championnats: return "🏆"
+            case .europeanCups: return "⭐️"
+            case .nations:      return "🌍"
+            case .cups:         return "🏅"
+            case .friendlies:   return "🤝"
+            }
+        }
+
+        static func of(_ fixture: AFFixture) -> Rubrique? {
+            // Match d'une compétition du catalogue → rubrique selon sa section.
+            if let comp = Catalog.competition(forLeagueId: fixture.league.id) {
+                switch comp.section {
+                case .france, .foreign: return .championnats
+                case .europe:           return .europeanCups
+                case .nations:          return .nations
+                }
+            }
+            // Hors catalogue : matchs récupérés via les FAVORIS (toutes compétitions).
+            // On distingue les AMICAUX des COUPES (et on retombe sur Championnats
+            // pour un championnat hors catalogue, plutôt que de jeter le match).
+            let name = fixture.league.name.lowercased()
+            if name.contains("friendl") || name.contains("amic") {
+                return .friendlies
+            }
+            // Coupe = soit l'API la type explicitement « Cup », soit son NOM contient
+            // un mot-clé de coupe. Le fallback par nom est indispensable : certaines
+            // coupes nationales (ex. Coupe de Suisse / Schweizer Cup) sont renvoyées
+            // par API-Football avec type = « League », ce qui les classait à tort en
+            // Championnats. On rattrape ces cas via les libellés multilingues.
+            if fixture.league.type?.lowercased() == "cup" || Self.nameLooksLikeCup(name) {
+                return .cups
+            }
+            return .championnats
+        }
+
+        /// Heuristique multilingue : le nom de la compétition évoque-t-il une coupe ?
+        /// Sert de filet de sécurité quand l'API type mal la compétition (voir `of`).
+        private static func nameLooksLikeCup(_ lowercasedName: String) -> Bool {
+            let keywords = [
+                "cup", "coupe", "coppa", "copa", "pokal", "taça", "taca",
+                "beker", "cupen", "cupset", "puchar", "kup", "kupa", "kypello",
+                "cupa", "kubok", "كأس"
+            ]
+            return keywords.contains { lowercasedName.contains($0) }
+        }
+    }
+
+    /// Un groupe de compétition : la compétition + ses matchs (triés par date).
+    struct CompGroup: Identifiable {
+        let comp: Competition
+        let fixtures: [AFFixture]
+        var id: String { comp.id }
+    }
+
+    /// Un groupe de rubrique : la rubrique + ses compétitions (France d'abord).
+    struct RubriqueGroup: Identifiable {
+        let rubrique: Rubrique
+        let comps: [CompGroup]
+        var id: Int { rubrique.rawValue }
+        var matchCount: Int { comps.reduce(0) { $0 + $1.fixtures.count } }
+    }
+
+    /// Un groupe de jour : le jour + ses rubriques (chacune avec ses compétitions).
+    struct DayGroup: Identifiable {
+        let day: Date
+        let rubriques: [RubriqueGroup]
+        var id: TimeInterval { day.timeIntervalSince1970 }
+        var matchCount: Int { rubriques.reduce(0) { $0 + $1.matchCount } }
+    }
+
+    /// Clé stable d'un jour (utilisée pour les états d'expansion propres à chaque jour).
+    private func dayKey(_ day: Date) -> String {
+        String(Int(day.timeIntervalSince1970))
+    }
+
+    /// Fabrique une `Competition` d'affichage pour une ligue HORS catalogue (matchs
+    /// des clubs favoris : amicaux « Friendlies Clubs », coupes nationales non
+    /// cataloguées, etc.). Le nom réel de la ligue sert de `nameKey` : `L()` renvoie
+    /// la clé telle quelle si non traduite, donc le nom s'affiche correctement.
+    /// Le drapeau/emoji suit la rubrique (🏅 coupe, 🤝 amical).
+    private static func syntheticCompetition(for league: AFLeague, rubrique: Rubrique) -> Competition {
+        Competition(id: "synthetic_\(league.id)",
+                    apiId: league.id,
+                    section: .foreign,
+                    nameKey: league.name,
+                    shortName: "",
+                    kind: .cup,
+                    countryCode: rubrique == .cups ? "🏅" : "🤝",
+                    tint: RGB(r: 0.35, g: 0.45, b: 0.55),
+                    isAvailable: true,
+                    subtitleKey: "",
+                    hasScorers: false)
+    }
+
+    /// Construit l'arbre Jour → Rubrique → Compétition → matchs à partir de `upcoming`.
+    /// - Jours triés chronologiquement ; compétitions FR d'abord dans chaque rubrique.
+    var days: [DayGroup] {
+        let api = FootballAPIService.shared
+        let cal = Calendar.current
+        // 1) Répartition des matchs par (jour, rubrique, compétition)
+        var byDay: [Date: [Rubrique: [String: (Competition, [AFFixture])]]] = [:]
+        for f in upcoming {
+            guard let r = Rubrique.of(f) else { continue }
+            // Compétition du catalogue si connue ; sinon (amicaux des favoris,
+            // ligue hors catalogue) on synthétise une compétition à partir de la
+            // ligue du match pour ne pas jeter le match.
+            let comp = Catalog.competition(forLeagueId: f.league.id) ?? Self.syntheticCompetition(for: f.league, rubrique: r)
+            let day = cal.startOfDay(for: f.isoDate ?? Date())
+            byDay[day, default: [:]][r, default: [:]][comp.id, default: (comp, [])].1.append(f)
+        }
+        // 2) Mise en forme + tris
+        return byDay.keys.sorted().map { day in
+            let byRubrique = byDay[day] ?? [:]
+            let rubriques: [RubriqueGroup] = Rubrique.allCases.compactMap { rub in
+                guard let dict = byRubrique[rub], !dict.isEmpty else { return nil }
+                let comps: [CompGroup] = dict.values
+                    .map { (comp, fixtures) in
+                        CompGroup(comp: comp,
+                                  fixtures: fixtures.sorted { $0.fixture.date < $1.fixture.date })
+                    }
+                    .sorted { a, b in
+                        // France en tête, puis compétitions avec un club FR, puis par nom
+                        let fa = a.comp.section == .france
+                        let fb = b.comp.section == .france
+                        if fa != fb { return fa && !fb }
+                        let ha = a.fixtures.contains { api.isFrenchFixture($0) }
+                        let hb = b.fixtures.contains { api.isFrenchFixture($0) }
+                        if ha != hb { return ha && !hb }
+                        return L(a.comp.nameKey) < L(b.comp.nameKey)
+                    }
+                return RubriqueGroup(rubrique: rub, comps: comps)
+            }
+            return DayGroup(day: day, rubriques: rubriques)
+        }
+    }
+
+    /// Libellé d'un jour : « Aujourd'hui » / « Demain » / date longue.
+    func dayLabel(_ date: Date) -> String {
+        let cal = Calendar.current
+        if cal.isDateInToday(date)    { return L("day.today") }
+        if cal.isDateInTomorrow(date) { return L("day.tomorrow") }
+        let fmt = DateFormatter()
+        fmt.locale = Locale.current
+        fmt.dateFormat = "EEE d MMM"
+        return fmt.string(from: date).capitalized
+    }
+
+    var timeSinceUpdate: String {
+        let secs = Int(Date().timeIntervalSince(lastUpdate))
+        if secs < 60 { return String(format: L("live.updatedSecs"), secs) }
+        return String(format: L("live.updatedMins"), secs / 60)
+    }
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if isLoading && upcoming.isEmpty {
+                    ProgressView(L("live.searching"))
+                        .frame(maxHeight: .infinity)
+                } else if let err = errorMessage {
+                    ErrorView(message: err) { Task { await load() } }
+                } else if upcoming.isEmpty {
+                    VStack(spacing: 16) {
+                        Spacer()
+                        Image(systemName: "calendar.badge.clock")
+                            .font(.system(size: 56))
+                            .foregroundColor(.secondary)
+                        Text(L("upcoming.emptyTitle"))
+                            .font(.title3).fontWeight(.semibold)
+                        Text(L("upcoming.emptyBody"))
+                            .font(.subheadline)
+                            .foregroundColor(Theme.textSoft)
+                            .multilineTextAlignment(.center)
+                        Button(L("action.refresh")) { Task { await load() } }
+                            .buttonStyle(.borderedProminent).tint(Theme.live)
+                        Spacer()
+                    }
+                } else {
+                    List {
+                        ForEach(days) { day in
+                            daySection(day)
+                        }
+                    }
+                    .listStyle(.insetGrouped)
+                    .refreshable { await load() }
+                }
+            }
+            // Pas de grand titre en haut (l'utilisateur le juge superflu) :
+            // titre vide + mode inline → on récupère de la place à l'écran.
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack(spacing: 6) {
+                        if isLoading { ProgressView().scaleEffect(0.8) }
+                        Text(timeSinceUpdate)
+                            .font(.caption2).foregroundColor(.secondary)
+                    }
+                }
+            }
+        }
+        .task {
+            if upcoming.isEmpty { await load() }
+        }
+    }
+
+    // ── Niveau 1 : un jour (toujours affiché, non pliable) ────────────────────
+    @ViewBuilder
+    private func daySection(_ group: DayGroup) -> some View {
+        let key = dayKey(group.day)
+        SwiftUI.Section {
+            ForEach(group.rubriques) { rg in
+                rubriqueRows(rg, dayKey: key)
+            }
+        } header: {
+            HStack(spacing: 8) {
+                Text(dayLabel(group.day))
+                    .font(.system(size: 15, weight: .heavy))
+                    .foregroundColor(Theme.text)
+                    .textCase(nil)
+                Text("\(group.matchCount)")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(Theme.textSoft)
+            }
+        }
+    }
+
+    // ── Niveau 2 : une rubrique dépliable (dans un jour) ──────────────────────
+    @ViewBuilder
+    private func rubriqueRows(_ group: RubriqueGroup, dayKey key: String) -> some View {
+        let rubKey = "\(key)#\(group.rubrique.rawValue)"
+        let isOpen = expandedRubriques.contains(rubKey)
+        AccordionHeader(
+            emoji: group.rubrique.emoji,
+            title: L(group.rubrique.titleKey),
+            count: group.matchCount,
+            accent: Theme.text,
+            isOpen: isOpen,
+            level: 0
+        )
+        .contentShape(Rectangle())
+        .onTapGesture { toggle(rubrique: rubKey) }
+        .listRowInsets(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
+
+        if isOpen {
+            ForEach(group.comps) { cg in
+                compRows(cg, dayKey: key)
+            }
+        }
+    }
+
+    // ── Niveau 3 : une compétition dépliable + ses matchs (niveau 4) ──────────
+    @ViewBuilder
+    private func compRows(_ cg: CompGroup, dayKey key: String) -> some View {
+        let compKey = "\(key)#\(cg.comp.id)"
+        let isOpen = expandedComps.contains(compKey)
+        AccordionHeader(
+            emoji: cg.comp.countryCode ?? "🏳️",
+            title: L(cg.comp.nameKey),
+            count: cg.fixtures.count,
+            accent: cg.comp.color,
+            isOpen: isOpen,
+            level: 1
+        )
+        .contentShape(Rectangle())
+        .onTapGesture { toggle(comp: compKey) }
+        .listRowInsets(EdgeInsets(top: 8, leading: 26, bottom: 8, trailing: 14))
+
+        if isOpen {
+            ForEach(cg.fixtures, id: \.id) { fixture in
+                NavigationLink(destination: MatchDetailView(fixture: fixture)) {
+                    UpcomingFixtureRow(
+                        fixture: fixture,
+                        isFrench: FootballAPIService.shared.isFrenchFixture(fixture)
+                    )
+                }
+                .listRowInsets(EdgeInsets(top: 5, leading: 30, bottom: 5, trailing: 14))
+            }
+        }
+    }
+
+    // ── Actions d'accordéon (avec animation fluide) ───────────────────────────
+    private func toggle(rubrique key: String) {
+        withAnimation(.easeInOut(duration: 0.22)) {
+            if expandedRubriques.contains(key) { expandedRubriques.remove(key) }
+            else { expandedRubriques.insert(key) }
+        }
+    }
+
+    private func toggle(comp key: String) {
+        withAnimation(.easeInOut(duration: 0.22)) {
+            if expandedComps.contains(key) { expandedComps.remove(key) }
+            else { expandedComps.insert(key) }
+        }
+    }
+
+    func load() async {
+        isLoading = true; errorMessage = nil
+        do {
+            upcoming = try await FootballAPIService.shared.fetchUpcomingForAvailable(
+                days: 5,
+                favoriteTeamIds: favorites.teams.map { $0.id }
+            )
+            lastUpdate = Date()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        isLoading = false
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// En-tête d'accordéon générique (rubrique niveau 0, compétition niveau 1)
+// Drapeau/emoji + titre + compteur de matchs + chevron qui pivote.
+// ─────────────────────────────────────────────────────────────────────────────
+struct AccordionHeader: View {
+    let emoji: String
+    let title: String
+    let count: Int
+    let accent: Color
+    let isOpen: Bool
+    let level: Int      // 0 = rubrique, 1 = compétition
+
+    var body: some View {
+        HStack(spacing: 10) {
+            if level == 1 {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(accent)
+                    .frame(width: 3, height: 18)
+            }
+            Text(emoji)
+                .font(.system(size: level == 0 ? 18 : 15))
+            Text(title)
+                .font(.system(size: level == 0 ? 16 : 14,
+                              weight: level == 0 ? .regular : .semibold))
+                .foregroundColor(level == 0 ? Theme.text : accent)
+                .lineLimit(1)
+            Text("\(count)")
+                .font(.system(size: 11, weight: .bold).monospacedDigit())
+                .foregroundColor(Theme.textSoft)
+                .padding(.horizontal, 7).padding(.vertical, 2)
+                .background(Theme.surface2)
+                .clipShape(Capsule())
+            Spacer(minLength: 0)
+            Image(systemName: "chevron.right")
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(Theme.textSoft)
+                .rotationEffect(.degrees(isOpen ? 90 : 0))
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Ligne d'un match à venir (drapeau + compétition, logos, heure, badge « FR »)
+// ─────────────────────────────────────────────────────────────────────────────
+struct UpcomingFixtureRow: View {
+    let fixture: AFFixture
+    let isFrench: Bool
+
+    var timeText: String {
+        guard let date = fixture.isoDate else { return "" }
+        let fmt = DateFormatter()
+        fmt.locale = Locale.current
+        fmt.dateFormat = "HH:mm"
+        fmt.timeZone = TimeZone.current
+        return fmt.string(from: date)
+    }
+
+    var body: some View {
+        // La compétition est déjà affichée par l'en-tête d'accordéon au-dessus :
+        // ici on va à l'essentiel (équipes + heure), avec une pastille FR au besoin.
+        HStack(alignment: .center, spacing: 0) {
+            HStack(spacing: 6) {
+                Spacer(minLength: 0)
+                Text(fixture.teams.home.name)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Theme.text)
+                    .multilineTextAlignment(.trailing)
+                    .lineLimit(1)
+                TeamLogoView(urlString: fixture.teams.home.logo, name: fixture.teams.home.name, size: 22)
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+
+            VStack(spacing: 2) {
+                Text(timeText)
+                    .font(.system(size: 15, weight: .bold, design: .rounded).monospacedDigit())
+                    .foregroundColor(Theme.text)
+                if isFrench {
+                    Text("🇫🇷").font(.system(size: 10))
+                }
+            }
+            .frame(width: 58)
+
+            HStack(spacing: 6) {
+                TeamLogoView(urlString: fixture.teams.away.logo, name: fixture.teams.away.name, size: 22)
+                Text(fixture.teams.away.name)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Theme.text)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(1)
+                Spacer(minLength: 0)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.vertical, 3)
+    }
+}

@@ -1,0 +1,304 @@
+import SwiftUI
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RECHERCHE D'ÉQUIPE
+// ─────────────────────────────────────────────────────────────────────────────
+// Barre de recherche (avec anti-rebond) → liste de résultats → fiche équipe
+// avec ses matchs (à venir + récents). Fonctionne pour toutes les équipes,
+// tous championnats confondus (endpoint teams?search=).
+// ═════════════════════════════════════════════════════════════════════════════
+
+struct TeamSearchView: View {
+    @EnvironmentObject private var favorites: FavoritesStore
+    @State private var query = ""
+    @State private var results: [AFTeamResult] = []
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    @State private var searchTask: Task<Void, Never>?
+
+    private var isSearching: Bool {
+        query.trimmingCharacters(in: .whitespaces).count >= 3
+    }
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if isLoading {
+                    ProgressView(L("loading")).frame(maxHeight: .infinity)
+                } else if let err = errorMessage {
+                    ErrorView(message: err) { runSearch(query) }
+                } else if !isSearching {
+                    // Barre de recherche vide → on montre les favoris (ou une
+                    // invitation si aucun favori n'est encore enregistré).
+                    if favorites.isEmpty {
+                        searchPrompt
+                    } else {
+                        FavoritesListView(header: L("favorites.title"))
+                    }
+                } else if results.isEmpty {
+                    EmptyStateView(icon: "sportscourt", text: L("search.noResult"))
+                } else {
+                    List(results) { result in
+                        TeamRowLink(team: result.team)
+                    }
+                    .listStyle(.plain)
+                }
+            }
+            .navigationTitle(L("search.title"))
+            .navigationBarTitleDisplayMode(.large)
+        }
+        .searchable(text: $query, prompt: L("search.placeholder"))
+        .onChange(of: query) { _, newValue in
+            // Anti-rebond : on attend 400 ms après la dernière frappe.
+            searchTask?.cancel()
+            let q = newValue.trimmingCharacters(in: .whitespaces)
+            guard q.count >= 3 else { results = []; errorMessage = nil; return }
+            searchTask = Task {
+                try? await Task.sleep(nanoseconds: 400_000_000)
+                if Task.isCancelled { return }
+                await search(q)
+            }
+        }
+    }
+
+    /// Invitation initiale (aucun favori, aucune recherche en cours).
+    private var searchPrompt: some View {
+        VStack(spacing: 14) {
+            Spacer()
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 52))
+                .foregroundColor(Theme.textFaint)
+            Text(L("search.prompt"))
+                .font(.subheadline)
+                .foregroundColor(Theme.textSoft)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+            Spacer()
+        }
+    }
+
+    private func runSearch(_ q: String) { Task { await search(q) } }
+
+    @MainActor
+    private func search(_ q: String) async {
+        isLoading = true; errorMessage = nil
+        do { results = try await FootballAPIService.shared.searchTeams(query: q) }
+        catch { errorMessage = error.localizedDescription }
+        isLoading = false
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Ligne d'équipe (NavigationLink + étoile favori). Réutilisée par la recherche
+// ET par la liste de favoris.
+// ─────────────────────────────────────────────────────────────────────────────
+struct TeamRowLink: View {
+    let team: AFTeamInfo
+
+    var body: some View {
+        // L'étoile est un bouton indépendant, placée EN DEHORS du NavigationLink
+        // pour qu'un tap sur l'étoile n'ouvre PAS la fiche (et inversement).
+        HStack(spacing: 0) {
+            NavigationLink(destination: TeamProfileView(team: team)) {
+                TeamResultRow(team: team)
+            }
+            FavoriteStar(team: team)
+                .padding(.leading, 4)
+        }
+        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Contenu d'une ligne d'équipe (logo + nom + pays + chevron)
+// ─────────────────────────────────────────────────────────────────────────────
+struct TeamResultRow: View {
+    let team: AFTeamInfo
+
+    var body: some View {
+        HStack(spacing: 12) {
+            TeamLogoView(urlString: team.logo, name: team.name, size: 34)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(team.name)
+                    .font(.subheadline).fontWeight(.semibold)
+                    .foregroundColor(Theme.text)
+                if let country = team.country {
+                    Text((team.national ?? false) ? "\(country) · \(L("search.nationalTeam"))" : country)
+                        .font(.caption2).foregroundColor(Theme.textSoft)
+                }
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption2).foregroundColor(Theme.textFaint)
+        }
+        .padding(.vertical, 4)
+        .contentShape(Rectangle())
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Étoile de favori — bouton qui bascule l'état favori d'une équipe.
+// ─────────────────────────────────────────────────────────────────────────────
+struct FavoriteStar: View {
+    @EnvironmentObject private var favorites: FavoritesStore
+    let team: AFTeamInfo
+
+    private var isOn: Bool { favorites.isFavorite(team.id) }
+
+    var body: some View {
+        Button {
+            favorites.toggle(team)
+        } label: {
+            Image(systemName: isOn ? "star.fill" : "star")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundColor(isOn ? Theme.gold : Theme.textFaint)
+                .padding(8)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(L(isOn ? "favorites.remove" : "favorites.add"))
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Liste des équipes favorites (réutilisée dans la recherche vide + onglet Favoris)
+// ─────────────────────────────────────────────────────────────────────────────
+struct FavoritesListView: View {
+    @EnvironmentObject private var favorites: FavoritesStore
+    var header: String? = nil
+
+    var body: some View {
+        List {
+            if let header = header {
+                SwiftUI.Section {
+                    rows
+                } header: {
+                    Text(header).font(.subheadline).fontWeight(.semibold).textCase(nil)
+                }
+            } else {
+                rows
+            }
+        }
+        .listStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var rows: some View {
+        ForEach(favorites.teams) { fav in
+            TeamRowLink(team: fav.teamInfo)
+        }
+        .onDelete { offsets in
+            for i in offsets { favorites.remove(favorites.teams[i].id) }
+        }
+    }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// ONGLET FAVORIS (barre du bas)
+// ═════════════════════════════════════════════════════════════════════════════
+struct FavoritesTabView: View {
+    @EnvironmentObject private var favorites: FavoritesStore
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if favorites.isEmpty {
+                    VStack(spacing: 14) {
+                        Spacer()
+                        Image(systemName: "star")
+                            .font(.system(size: 52))
+                            .foregroundColor(Theme.textFaint)
+                        Text(L("favorites.empty"))
+                            .font(.subheadline)
+                            .foregroundColor(Theme.textSoft)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        Spacer()
+                    }
+                } else {
+                    FavoritesListView()
+                }
+            }
+            .navigationTitle(L("favorites.title"))
+            .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// FICHE ÉQUIPE — ses matchs (à venir + récents)
+// ═════════════════════════════════════════════════════════════════════════════
+struct TeamProfileView: View {
+    let team: AFTeamInfo
+
+    @State private var fixtures: [AFFixture] = []
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+
+    /// Matchs à venir (statut non terminé, non live), triés du plus proche au plus loin.
+    var upcoming: [AFFixture] {
+        fixtures.filter { !$0.isFinished && !$0.isLive }
+    }
+    /// Matchs en direct.
+    var live: [AFFixture] { fixtures.filter { $0.isLive } }
+    /// Matchs récents (terminés), du plus récent au plus ancien.
+    var recent: [AFFixture] {
+        fixtures.filter { $0.isFinished }.reversed()
+    }
+
+    var body: some View {
+        Group {
+            if isLoading {
+                ProgressView(L("loading")).frame(maxHeight: .infinity)
+            } else if let err = errorMessage {
+                ErrorView(message: err) { Task { await load() } }
+            } else if fixtures.isEmpty {
+                EmptyStateView(icon: "calendar.badge.exclamationmark", text: L("empty.noMatch"))
+            } else {
+                List {
+                    if !live.isEmpty {
+                        fixtureSection(title: L("tab.live"), items: live)
+                    }
+                    if !upcoming.isEmpty {
+                        fixtureSection(title: L("search.upcoming"), items: upcoming)
+                    }
+                    if !recent.isEmpty {
+                        fixtureSection(title: L("search.recent"), items: recent)
+                    }
+                }
+                .listStyle(.insetGrouped)
+                .refreshable { await load() }
+            }
+        }
+        .navigationTitle(team.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                FavoriteStar(team: team)
+            }
+        }
+        .task { await load() }
+    }
+
+    @ViewBuilder
+    private func fixtureSection(title: String, items: [AFFixture]) -> some View {
+        SwiftUI.Section {
+            ForEach(items) { f in
+                NavigationLink(destination: MatchDetailView(fixture: f)) {
+                    FixtureRowView(fixture: f, showLeague: true)
+                }
+                .listRowInsets(EdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16))
+            }
+        } header: {
+            Text(title).font(.subheadline).fontWeight(.semibold).textCase(nil)
+        }
+    }
+
+    @MainActor
+    private func load() async {
+        isLoading = true; errorMessage = nil
+        do { fixtures = try await FootballAPIService.shared.fetchTeamFixtures(teamId: team.id) }
+        catch { errorMessage = error.localizedDescription }
+        isLoading = false
+    }
+}

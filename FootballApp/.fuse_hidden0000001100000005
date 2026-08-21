@@ -1,0 +1,745 @@
+import SwiftUI
+
+// ═════════════════════════════════════════════════════════════════════════════
+// VUE À PHASES — pour les compétitions « mixed » (CDM, EURO, UCL, UEL, UECL, UNL)
+// ─────────────────────────────────────────────────────────────────────────────
+// Menu latéral GAUCHE listant les phases en ordre DÉCROISSANT :
+//   Finale (haut) → 3e place → Demi-finales → Quarts → 8es → … → Phase de groupes.
+// Panneau DROIT :
+//   • phase de groupes → classements des groupes (A, B, C…)
+//   • phase à élimination → liste des matchs du tour.
+// Les phases sont déduites des `round` renvoyés par l'API-Football.
+// ═════════════════════════════════════════════════════════════════════════════
+
+struct PhaseDetailView: View {
+    let competition: Competition
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var fixtures: [AFFixture] = []
+    @State private var groups: [[AFStandingEntry]] = []
+    @State private var phases: [Phase] = []
+    @State private var selected: Phase? = nil
+    @State private var selectedGroupIndex = 0   // groupe choisi en phase de groupes
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+
+    // ── Qualifications ────────────────────────────────────────────────────────
+    @State private var qualifiersExpanded = false           // sous-menu déplié ?
+    @State private var selectedQualifier: Qualifier? = nil   // confédération choisie
+    @State private var qualifierGroups: [[AFStandingEntry]] = []
+    @State private var qualifierGroupIndex = 0
+    @State private var isLoadingQualifier = false
+
+    private var hasQualifiers: Bool { !(competition.qualifiers ?? []).isEmpty }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            CompetitionHeaderView(competition: competition) { dismiss() }
+
+            if isLoading {
+                ProgressView(L("loading")).frame(maxHeight: .infinity)
+            } else if let err = errorMessage {
+                ErrorView(message: err) { Task { await load() } }
+            } else if phases.isEmpty {
+                EmptyStateView(icon: "trophy", text: L("empty.noMatch"))
+            } else {
+                HStack(spacing: 0) {
+                    phaseMenu
+                    Divider()
+                    phaseContent
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+        }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .task { await load() }
+    }
+
+    // ── Menu latéral gauche : phases en ordre décroissant ────────────────────
+    // Étroit + petite police pour tenir sur un écran d'iPhone sans troncature.
+    private var phaseMenu: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 2) {
+                ForEach(phases) { phase in
+                    let isSel = selected == phase && selectedQualifier == nil
+                    Button {
+                        selected = phase
+                        selectedQualifier = nil     // sortir du mode qualifs
+                    } label: {
+                        menuLabel(phase.displayName, selected: isSel)
+                    }
+                }
+
+                // ── Sous-menu Qualifications (en bas, sous les phases) ──
+                if hasQualifiers {
+                    Divider().padding(.vertical, 4)
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.15)) { qualifiersExpanded.toggle() }
+                    } label: {
+                        HStack(spacing: 3) {
+                            Text(L("phase.qualifiers"))
+                                .font(.caption2)
+                                .fontWeight(selectedQualifier != nil ? .semibold : .regular)
+                                .foregroundColor(selectedQualifier != nil ? competition.color : .primary)
+                                .lineLimit(2).minimumScaleFactor(0.7)
+                                .multilineTextAlignment(.leading)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 0)
+                            Image(systemName: qualifiersExpanded ? "chevron.down" : "chevron.right")
+                                .font(.system(size: 8, weight: .semibold))
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 7).padding(.vertical, 7)
+                    }
+
+                    if qualifiersExpanded {
+                        ForEach(competition.qualifiers ?? []) { q in
+                            let isSel = selectedQualifier == q
+                            Button { selectQualifier(q) } label: {
+                                HStack(spacing: 4) {
+                                    Text(q.flag).font(.system(size: 11))
+                                    Text(L(q.nameKey))
+                                        .font(.system(size: 10))
+                                        .fontWeight(isSel ? .semibold : .regular)
+                                        .foregroundColor(isSel ? .white : .primary)
+                                        .lineLimit(2).minimumScaleFactor(0.7)
+                                        .multilineTextAlignment(.leading)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 6).padding(.vertical, 6)
+                                .padding(.leading, 4)   // léger retrait = sous-niveau
+                                .background(
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .fill(isSel ? competition.color : Color.clear)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 8).padding(.horizontal, 5)
+        }
+        .frame(width: 92)
+        .background(Color(.secondarySystemBackground))
+    }
+
+    // Libellé standard d'une entrée de phase (factorisé).
+    private func menuLabel(_ text: String, selected isSel: Bool) -> some View {
+        Text(text)
+            .font(.caption2)
+            .fontWeight(isSel ? .semibold : .regular)
+            .foregroundColor(isSel ? .white : .primary)
+            .lineLimit(2)
+            .minimumScaleFactor(0.7)
+            .multilineTextAlignment(.leading)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 7).padding(.vertical, 7)
+            .background(
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(isSel ? competition.color : Color.clear)
+            )
+    }
+
+    // ── Panneau droit ────────────────────────────────────────────────────────
+    @ViewBuilder
+    private var phaseContent: some View {
+        if selectedQualifier != nil {
+            qualifierContent
+        } else if let phase = selected {
+            if phase.isGroupStage {
+                groupStandingsList
+            } else {
+                matchList(for: phase)
+            }
+        } else {
+            EmptyStateView(icon: "sidebar.left", text: L("phase.select"))
+        }
+    }
+
+    // ── Panneau Qualifications : groupes + classement de la confédération ──────
+    @ViewBuilder
+    private var qualifierContent: some View {
+        if isLoadingQualifier {
+            ProgressView(L("loading")).frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if qualifierGroups.isEmpty {
+            EmptyStateView(icon: "list.number", text: L("empty.noStandings"))
+        } else {
+            VStack(spacing: 0) {
+                if qualifierGroups.count > 1 {
+                    qualifierGroupSelector
+                    Divider()
+                }
+                if qualifierGroups.indices.contains(safeQualifierGroupIndex) {
+                    let group = qualifierGroups[safeQualifierGroupIndex]
+                    List {
+                        SwiftUI.Section {
+                            StandingsHeaderView().listRowInsets(EdgeInsets())
+                            ForEach(group) { entry in
+                                StandingEntryRow(entry: entry, competition: competition)
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                                    .listRowSeparator(.hidden)
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
+                    .environment(\.defaultMinListRowHeight, 0)
+                }
+            }
+        }
+    }
+
+    // Sélecteur de groupes de qualif (grille 3 colonnes, comme la phase de groupes).
+    private var qualifierGroupSelector: some View {
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: 3)
+        return LazyVGrid(columns: columns, spacing: 6) {
+            ForEach(Array(qualifierGroups.enumerated()), id: \.offset) { idx, group in
+                Button { qualifierGroupIndex = idx } label: {
+                    Text(groupLabel(group.first?.group, index: idx))
+                        .font(.caption).fontWeight(qualifierGroupIndex == idx ? .bold : .regular)
+                        .lineLimit(1).minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(qualifierGroupIndex == idx ? competition.color : Color(.secondarySystemBackground))
+                        .foregroundColor(qualifierGroupIndex == idx ? .white : .primary)
+                        .clipShape(Capsule())
+                }
+            }
+        }
+        .padding(.horizontal, 8).padding(.vertical, 7)
+    }
+
+    private var safeQualifierGroupIndex: Int {
+        min(max(qualifierGroupIndex, 0), max(qualifierGroups.count - 1, 0))
+    }
+
+    // Sélection d'une confédération → charge ses classements de qualif.
+    private func selectQualifier(_ q: Qualifier) {
+        selectedQualifier = q
+        selected = nil
+        qualifierGroupIndex = 0
+        qualifierGroups = []
+        isLoadingQualifier = true
+        Task {
+            let result = await FootballAPIService.shared
+                .fetchQualifierStandings(leagueId: q.leagueId, season: q.season)
+            // IMPORTANT : FootballAPIService n'est pas @MainActor, donc on repasse
+            // explicitement sur le main thread pour muter l'état SwiftUI et
+            // déclencher le rafraîchissement de la vue (sinon l'écran reste vide).
+            await MainActor.run {
+                qualifierGroups = result
+                isLoadingQualifier = false
+            }
+        }
+    }
+
+    // Phase de groupes : on choisit UN groupe (A, B, C…) et on affiche son
+    // classement PUIS ses matchs — plutôt que d'empiler tous les groupes.
+    private var groupStandingsList: some View {
+        Group {
+            if groups.isEmpty {
+                EmptyStateView(icon: "list.number", text: L("empty.noStandings"))
+            } else {
+                VStack(spacing: 0) {
+                    groupSelector
+                    Divider()
+                    if groups.indices.contains(safeGroupIndex) {
+                        let group = groups[safeGroupIndex]
+                        List {
+                            // ── Classement du groupe ──
+                            SwiftUI.Section {
+                                StandingsHeaderView().listRowInsets(EdgeInsets())
+                                ForEach(group) { entry in
+                                    StandingEntryRow(entry: entry, competition: competition)
+                                        .listRowInsets(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                                        .listRowSeparator(.hidden)
+                                }
+                            }
+                            // ── Matchs du groupe ──
+                            let ms = groupMatches(for: group)
+                            if !ms.isEmpty {
+                                SwiftUI.Section {
+                                    ForEach(ms) { f in
+                                        NavigationLink(destination: MatchDetailView(fixture: f)) {
+                                            FixtureRowView(fixture: f, showLeague: false)
+                                        }
+                                        .listRowInsets(EdgeInsets(top: 2, leading: 8, bottom: 2, trailing: 8))
+                                    }
+                                } header: {
+                                    Text(L("tab.results"))
+                                        .font(.caption).fontWeight(.semibold)
+                                        .foregroundColor(.secondary).textCase(nil)
+                                }
+                            }
+                        }
+                        .listStyle(.plain)
+                        .environment(\.defaultMinListRowHeight, 0)
+                    }
+                }
+            }
+        }
+    }
+
+    // Sélecteur des groupes (chips A / B / C…) sur PLUSIEURS lignes.
+    // Grille à 3 colonnes → 8 groupes tiennent sur 3 lignes, tous visibles
+    // sans scroll horizontal (avant, seuls 4 tenaient sur une ligne).
+    private var groupSelector: some View {
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: 3)
+        return LazyVGrid(columns: columns, spacing: 6) {
+            ForEach(Array(groups.enumerated()), id: \.offset) { idx, group in
+                Button { selectedGroupIndex = idx } label: {
+                    Text(groupLabel(group.first?.group, index: idx))
+                        .font(.caption).fontWeight(selectedGroupIndex == idx ? .bold : .regular)
+                        .lineLimit(1).minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(selectedGroupIndex == idx ? competition.color : Color(.secondarySystemBackground))
+                        .foregroundColor(selectedGroupIndex == idx ? .white : .primary)
+                        .clipShape(Capsule())
+                }
+            }
+        }
+        .padding(.horizontal, 8).padding(.vertical, 7)
+    }
+
+    private var safeGroupIndex: Int {
+        min(max(selectedGroupIndex, 0), max(groups.count - 1, 0))
+    }
+
+    /// Matchs appartenant à un groupe : ceux dont les DEUX équipes figurent au
+    /// classement de ce groupe (fiable même si le `round` ne nomme pas le groupe).
+    private func groupMatches(for group: [AFStandingEntry]) -> [AFFixture] {
+        let teamIds = Set(group.map { $0.team.id })
+        return fixtures
+            .filter { Phase.canonical(from: roundName($0)) == .groups }
+            .filter { teamIds.contains($0.teams.home.id) && teamIds.contains($0.teams.away.id) }
+            .sorted { $0.fixture.date < $1.fixture.date }
+    }
+
+    // Liste des matchs d'une phase à élimination.
+    // • Tours en aller-retour (barrages, tours de qualif, 8es→demies) →
+    //   bannière explicative + 2 sections « Match aller » / « Match retour ».
+    // • Tour à match unique (finale, 3e place) → simple liste.
+    @ViewBuilder
+    private func matchList(for phase: Phase) -> some View {
+        let ms = fixtures
+            .filter { Phase.canonical(from: roundName($0)) == phase.key }
+            .sorted { $0.fixture.date < $1.fixture.date }
+
+        if ms.isEmpty {
+            EmptyStateView(icon: "calendar", text: L("empty.noMatch"))
+        } else if phase.key.isTwoLegged {
+            twoLeggedList(ms, phase: phase)
+        } else {
+            List(ms) { f in
+                NavigationLink(destination: MatchDetailView(fixture: f)) {
+                    FixtureRowView(fixture: f, showLeague: false)
+                }
+                .listRowInsets(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+            }
+            .listStyle(.plain)
+        }
+    }
+
+    /// Affiche un tour aller-retour SOUS FORME DE CONFRONTATIONS : bannière
+    /// d'explication puis une carte par duel montrant les deux manches, le score
+    /// cumulé et l'équipe qualifiée (dès que les deux manches sont terminées).
+    @ViewBuilder
+    private func twoLeggedList(_ ms: [AFFixture], phase: Phase) -> some View {
+        let ties = EuroTie.build(from: ms)
+        List {
+            // Bannière explicative en tête.
+            SwiftUI.Section {
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "info.circle.fill")
+                        .foregroundColor(competition.color)
+                        .font(.system(size: 14))
+                    Text(playoffExplanation(for: phase.key))
+                        .font(.caption).foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.vertical, 4)
+                .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .listRowSeparator(.hidden)
+            }
+
+            ForEach(ties) { tie in
+                SwiftUI.Section {
+                    TieCardView(tie: tie, competition: competition)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
+                        .listRowSeparator(.hidden)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .environment(\.defaultMinListRowHeight, 0)
+    }
+
+    /// Texte d'explication affiché en haut d'un tour à élimination directe.
+    private func playoffExplanation(for key: Phase.Key) -> String {
+        switch key {
+        case .knockoutPlayoff: return L("phase.explain.knockoutPlayoff")
+        case .accessPlayoff:   return L("phase.explain.accessPlayoff")
+        case .qualifying1, .qualifying2, .qualifying3:
+            return L("phase.explain.qualifying")
+        default:               return L("phase.explain.twoLegged")
+        }
+    }
+
+    // ── Chargement ───────────────────────────────────────────────────────────
+    private func load() async {
+        isLoading = true; errorMessage = nil
+        do {
+            async let fx = FootballAPIService.shared.fetchAllFixtures(competition: competition)
+            async let gp = FootballAPIService.shared.fetchStandings(competition: competition)
+            let (loadedFixtures, loadedGroups) = try await (fx, gp)
+            fixtures = loadedFixtures
+            // Écarte les pseudo-groupes fantômes (« Stage », « Group Stage » sans
+            // lettre) que l'API renvoie parfois en plus des vraies poules A…L.
+            groups = loadedGroups.filter { isRealGroup($0.first?.group) }
+
+            // Construit la liste des phases présentes, en ordre décroissant.
+            var present = Set<Phase.Key>()
+            for f in loadedFixtures { present.insert(Phase.canonical(from: roundName(f))) }
+            // La phase de groupes existe si un classement OU un match de groupe est présent.
+            if !loadedGroups.isEmpty { present.insert(.groups) }
+
+            phases = Phase.Key.allCasesDescending
+                .filter { present.contains($0) }
+                .map { Phase(key: $0) }
+
+            // Sélection par défaut : la phase la plus avancée qui a des matchs joués,
+            // sinon la première (la plus haute) de la liste.
+            selected = defaultSelection() ?? phases.first
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        isLoading = false
+    }
+
+    /// Choisit la phase la plus « actuelle » : la plus avancée ayant au moins un
+    /// match joué ou en cours ; à défaut la plus avancée tout court.
+    private func defaultSelection() -> Phase? {
+        for phase in phases where !phase.isGroupStage {
+            let hasPlayed = fixtures.contains {
+                Phase.canonical(from: roundName($0)) == phase.key && ($0.isFinished || $0.isLive)
+            }
+            if hasPlayed { return phase }
+        }
+        // Aucun match à élimination joué → on montre la phase de groupes si dispo.
+        return phases.first(where: { $0.isGroupStage })
+    }
+
+    private func roundName(_ f: AFFixture) -> String {
+        f.league.round ?? f.fixture.round ?? ""
+    }
+
+    /// Vrai groupe = une fois « Group/Groupe/Stage » retirés, il reste un token
+    /// court (une lettre A…L ou un numéro) identifiant une poule. Sinon c'est un
+    /// pseudo-groupe (« Stage », « Group Stage ») qu'on ne veut pas afficher.
+    private func isRealGroup(_ raw: String?) -> Bool {
+        guard let raw = raw, !raw.isEmpty else { return false }
+        let cleaned = raw
+            .replacingOccurrences(of: "Group Stage", with: "")
+            .replacingOccurrences(of: "Stage", with: "")
+            .replacingOccurrences(of: "Group", with: "")
+            .replacingOccurrences(of: "Groupe", with: "")
+        let trimmed = cleaned.trimmingCharacters(in: CharacterSet(charactersIn: " -:•"))
+        return !trimmed.isEmpty
+    }
+
+    /// Réutilise la logique de nettoyage de nom de groupe (« Group A » → « Poule A »).
+    private func groupLabel(_ raw: String?, index: Int) -> String {
+        guard let raw = raw, !raw.isEmpty else { return "\(L("standings.group")) \(index + 1)" }
+        let cleaned = raw
+            .replacingOccurrences(of: "Group Stage", with: "")
+            .replacingOccurrences(of: "Stage", with: "")
+            .replacingOccurrences(of: "Group", with: "")
+            .replacingOccurrences(of: "Groupe", with: "")
+        if let token = cleaned.split(whereSeparator: { " -:•".contains($0) }).last,
+           token.count <= 2 {
+            return "\(L("standings.group")) \(token)"
+        }
+        let trimmed = cleaned.trimmingCharacters(in: CharacterSet(charactersIn: " -:•"))
+        return trimmed.isEmpty ? "\(L("standings.group")) \(index + 1)" : trimmed
+    }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// MODÈLE DE PHASE
+// ─────────────────────────────────────────────────────────────────────────────
+// On mappe les libellés bruts de l'API (« Round of 16 », « Quarter-finals »…)
+// vers un ensemble canonique ordonné, pour un menu propre et traduit.
+// ═════════════════════════════════════════════════════════════════════════════
+
+struct Phase: Identifiable, Hashable {
+    let key: Key
+    var id: Key { key }
+    var isGroupStage: Bool { key == .groups }
+    var displayName: String { L(key.titleKey) }
+
+    /// Ensemble canonique des phases, dans l'ordre d'affichage DÉCROISSANT
+    /// (Finale en haut → tours préliminaires en bas).
+    ///
+    /// La Ligue des Champions (format 2024+) enchaîne, dans l'ordre CHRONOLOGIQUE :
+    ///   1er tour qualif → 2e tour qualif → 3e tour qualif → Play-offs d'accès →
+    ///   Phase de ligue (8 j.) → Barrages (9e-24e, aller-retour) → 8es → quarts →
+    ///   demies → finale.
+    /// On expose chaque tour préliminaire séparément pour que ce soit lisible.
+    enum Key: String, CaseIterable {
+        case final           // Finale
+        case thirdPlace      // Match pour la 3e place
+        case semi            // Demi-finales
+        case quarter         // Quarts de finale
+        case round16         // 8es de finale
+        case round32         // 16es de finale
+        case knockoutPlayoff // Barrages d'accès aux 8es (9e-24e, aller-retour)
+        case groups          // Phase de groupes / phase de ligue
+        case accessPlayoff   // « Play-offs » d'accès à la phase de ligue
+        case qualifying3     // 3e tour de qualification
+        case qualifying2     // 2e tour de qualification
+        case qualifying1     // 1er tour de qualification
+
+        /// Ordre du haut vers le bas dans le menu (du plus avancé au plus ancien).
+        static var allCasesDescending: [Key] {
+            [.final, .thirdPlace, .semi, .quarter, .round16, .round32,
+             .knockoutPlayoff, .groups,
+             .accessPlayoff, .qualifying3, .qualifying2, .qualifying1]
+        }
+
+        var titleKey: String {
+            switch self {
+            case .final:           return "phase.final"
+            case .thirdPlace:      return "phase.thirdPlace"
+            case .semi:            return "phase.semi"
+            case .quarter:         return "phase.quarter"
+            case .round16:         return "phase.round16"
+            case .round32:         return "phase.round32"
+            case .knockoutPlayoff: return "phase.playoff"
+            case .groups:          return "phase.groups"
+            case .accessPlayoff:   return "phase.accessPlayoff"
+            case .qualifying3:     return "phase.qualif3"
+            case .qualifying2:     return "phase.qualif2"
+            case .qualifying1:     return "phase.qualif1"
+            }
+        }
+
+        /// Tour joué en ALLER-RETOUR (deux manches) → déclenche l'affichage
+        /// groupé « Match aller » / « Match retour » + bannière explicative.
+        var isTwoLegged: Bool {
+            switch self {
+            case .knockoutPlayoff, .accessPlayoff,
+                 .qualifying3, .qualifying2, .qualifying1,
+                 .round16, .quarter, .semi:
+                return true
+            default:
+                return false
+            }
+        }
+    }
+
+    /// Convertit un libellé de round brut de l'API en phase canonique.
+    /// Libellés UCL observés (saison 2024, via `fixtures/rounds`) :
+    ///   « 1st/2nd/3rd Qualifying Round », « Play-offs », « League Stage - 1…8 »,
+    ///   « Knockout Round Play-offs », « Round of 16 », « Quarter-finals »,
+    ///   « Semi-finals », « Final », « 3rd Place Final ».
+    /// ORDRE des tests important : les cas les plus spécifiques d'abord.
+    static func canonical(from raw: String) -> Key {
+        let s = raw.lowercased()
+        if s.contains("3rd place") || s.contains("third place") { return .thirdPlace }
+        if s.contains("final") && !s.contains("semi") && !s.contains("quarter") { return .final }
+        if s.contains("semi")    { return .semi }
+        if s.contains("quarter") { return .quarter }
+        if s.contains("round of 16") || s.contains("1/8") || s.contains("last 16") { return .round16 }
+        if s.contains("round of 32") || s.contains("1/16") { return .round32 }
+        // Tours PRÉLIMINAIRES d'été (avant la phase de ligue). À tester AVANT le
+        // « knockout play-offs » et AVANT « play-offs » seul.
+        if s.contains("qualifying") || s.contains("qualif") {
+            if s.contains("1st") || s.contains("1 ") || s.contains("first")  { return .qualifying1 }
+            if s.contains("2nd") || s.contains("second")                     { return .qualifying2 }
+            if s.contains("3rd") || s.contains("third")                      { return .qualifying3 }
+            return .qualifying1   // « Qualifying Round » sans numéro
+        }
+        // « Knockout Round Play-offs » = barrages APRÈS la phase de ligue (9e-24e).
+        if s.contains("knockout") {
+            return .knockoutPlayoff
+        }
+        // « Play-offs » seul = barrages d'accès À la phase de ligue (été).
+        if s.contains("play-off") || s.contains("playoff") {
+            return .accessPlayoff
+        }
+        // Tout le reste (« Group Stage », « League Stage », « Regular Season »,
+        // « Preliminary Round »…) est rangé en phase de groupes/ligue.
+        return .groups
+    }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// CONFRONTATION ALLER-RETOUR (coupes d'Europe)
+// ─────────────────────────────────────────────────────────────────────────────
+// Regroupe les deux manches d'un même duel, calcule le score cumulé et détermine
+// l'équipe qualifiée (uniquement quand les deux manches sont terminées).
+// ═════════════════════════════════════════════════════════════════════════════
+
+struct EuroTie: Identifiable {
+    let id: String            // clé stable de la paire d'équipes
+    let teamA: AFTeam         // référence = équipe « à domicile » de l'aller
+    let teamB: AFTeam
+    let leg1: AFFixture?      // aller (1re rencontre chronologique)
+    let leg2: AFFixture?      // retour
+
+    /// Buts cumulés de A et de B sur les manches JOUÉES.
+    var aggregate: (a: Int, b: Int) {
+        var ga = 0, gb = 0
+        for f in [leg1, leg2].compactMap({ $0 }) where f.isFinished || f.isLive {
+            let h = f.goals.home ?? 0, aw = f.goals.away ?? 0
+            if f.teams.home.id == teamA.id { ga += h; gb += aw }
+            else { ga += aw; gb += h }
+        }
+        return (ga, gb)
+    }
+
+    /// Confrontation terminée = les deux manches sont jouées (ou une seule manche
+    /// terminée pour les rares tours à match unique classés ici).
+    var isComplete: Bool {
+        let legs = [leg1, leg2].compactMap { $0 }
+        guard !legs.isEmpty else { return false }
+        return legs.allSatisfy { $0.isFinished }
+    }
+
+    /// ID de l'équipe qualifiée, ou nil si indéterminé (manche(s) restante(s) ou
+    /// égalité parfaite sans tirs au but exploitables).
+    var qualifiedTeamId: Int? {
+        guard isComplete else { return nil }
+        let agg = aggregate
+        if agg.a != agg.b { return agg.a > agg.b ? teamA.id : teamB.id }
+        // Égalité au cumulé → départage aux tirs au but de la 2e manche.
+        if let pen = leg2?.score?.penalty, let ph = pen.home, let pa = pen.away, ph != pa,
+           let secondLeg = leg2 {
+            let aIsHome = secondLeg.teams.home.id == teamA.id
+            let aPen = aIsHome ? ph : pa
+            let bPen = aIsHome ? pa : ph
+            return aPen > bPen ? teamA.id : teamB.id
+        }
+        return nil
+    }
+
+    /// Construit les confrontations à partir des matchs d'un tour. Clé = paire
+    /// d'IDs indépendante du sens ; tri des manches par date (aller puis retour).
+    static func build(from ms: [AFFixture]) -> [EuroTie] {
+        var byTie: [String: [AFFixture]] = [:]
+        for m in ms {
+            let a = m.teams.home.id, b = m.teams.away.id
+            let key = a < b ? "\(a)-\(b)" : "\(b)-\(a)"
+            byTie[key, default: []].append(m)
+        }
+        var ties: [EuroTie] = []
+        for (key, legs) in byTie {
+            let sorted = legs.sorted { $0.fixture.date < $1.fixture.date }
+            guard let first = sorted.first else { continue }
+            let second = sorted.count > 1 ? sorted[1] : nil
+            // Référence A/B = équipes de l'aller (home = A) pour un affichage stable.
+            ties.append(EuroTie(id: key,
+                                teamA: first.teams.home,
+                                teamB: first.teams.away,
+                                leg1: first,
+                                leg2: second))
+        }
+        // Tri des confrontations par date du 1er match (chronologique).
+        return ties.sorted {
+            ($0.leg1?.isoDate ?? .distantFuture) < ($1.leg1?.isoDate ?? .distantFuture)
+        }
+    }
+}
+
+// Carte visuelle d'une confrontation : deux équipes, score de chaque manche,
+// score cumulé et coche verte sur le qualifié.
+struct TieCardView: View {
+    let tie: EuroTie
+    let competition: Competition
+
+    private var qualifiedId: Int? { tie.qualifiedTeamId }
+
+    var body: some View {
+        VStack(spacing: 8) {
+            teamLine(team: tie.teamA)
+            teamLine(team: tie.teamB)
+
+            Divider()
+
+            HStack(spacing: 10) {
+                // Score cumulé bien mis en avant.
+                if !legsPlayed.isEmpty {
+                    Label {
+                        Text("\(tie.aggregate.a) - \(tie.aggregate.b)")
+                            .font(.subheadline).fontWeight(.bold)
+                            .foregroundColor(competition.color)
+                    } icon: {
+                        Image(systemName: "sum").font(.caption2)
+                    }
+                    .labelStyle(.titleAndIcon)
+                    Text(L("tie.aggregate")).font(.caption2).foregroundColor(.secondary)
+                }
+                Spacer()
+                // Détail des manches (dates ou scores) sous forme de puces.
+                VStack(alignment: .trailing, spacing: 2) {
+                    legDetail(L("phase.leg1"), tie.leg1)
+                    legDetail(L("phase.leg2"), tie.leg2)
+                }
+            }
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.secondarySystemBackground))
+        )
+    }
+
+    private var legsPlayed: [AFFixture] {
+        [tie.leg1, tie.leg2].compactMap { $0 }.filter { $0.isFinished || $0.isLive }
+    }
+
+    // Une ligne équipe : logo + nom, coche verte + fond si qualifiée.
+    private func teamLine(team: AFTeam) -> some View {
+        let isQualified = qualifiedId == team.id
+        return HStack(spacing: 8) {
+            TeamLogoView(urlString: team.logo, name: team.name, size: 22)
+            Text(team.name)
+                .font(.subheadline)
+                .fontWeight(isQualified ? .bold : .regular)
+                .lineLimit(1)
+            Spacer()
+            if isQualified {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green).font(.footnote)
+            }
+        }
+        .padding(.vertical, 4).padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(isQualified ? Color.green.opacity(0.12) : Color.clear)
+        )
+    }
+
+    // Détail d'une manche : « Aller · 2-1 » si jouée, sinon la date à venir.
+    @ViewBuilder
+    private func legDetail(_ title: String, _ f: AFFixture?) -> some View {
+        if let f = f {
+            HStack(spacing: 5) {
+                Text(title).font(.caption2).foregroundColor(.secondary)
+                if f.isFinished || f.isLive {
+                    // Score dans le sens réel du match (home-away).
+                    Text("\(f.goals.home ?? 0)-\(f.goals.away ?? 0)")
+                        .font(.caption).fontWeight(.semibold)
+                } else {
+                    Text(f.statusLabel).font(.caption2).foregroundColor(.secondary)
+                }
+            }
+        }
+    }
+}
